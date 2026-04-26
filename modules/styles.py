@@ -10,22 +10,21 @@ DEFAULT_CARD = """
     WeatherCard {{
         background-color: {bg};
         border-bottom: 1px solid {border};
-        border-radius: {radius};
+        border-radius: {radius}
     }}
     QLabel {{ color: white; background: transparent; border: none; }}
 """
 
-CITY_LABEL = "font-size: 28px; font-weight: bold;"
-TIME_LABEL = "font-size: 14px;"
-TEMP_LABEL = "font-size: 48px;"
-DESC_LABEL = "font-size: 14px;"
-MINMAX_LABEL = "font-size: 14px;"
+CITY_LABEL = "font-family: Roboto; font-size: 24px; font-weight: 500"
+TIME_LABEL = "font-family: Roboto; font-size: 12px; font-weight: 500"
+TEMP_LABEL = "font-family: Roboto; font-size: 44px; font-weight: 500"
+DESC_LABEL = "font-family: Roboto; font-size: 12px; font-weight: 500"
+MINMAX_LABEL = "font-family: Roboto; font-size: 12px; font-weight: 500"
 
 CENTRAL_WIDGET = "background-color: #2E2E2E;"
 LEFT_PANEL = """
     QFrame {
         background-color: #6C8281;
-        border-right: 1px solid #1A1A1A;
     }
 """
 SCROLL_AREA = "background: transparent; border: none;"
@@ -42,7 +41,7 @@ RIGHT_PANEL = """
 """
 THEME_BUTTON_SUN = """
     QPushButton {
-        background-color: white;
+        background-color: rgba(0, 0, 0, 0.2);
         border-radius: 12px;
         padding-left: 3px;
         padding-right: 31px;
@@ -50,7 +49,7 @@ THEME_BUTTON_SUN = """
 """
 THEME_BUTTON_MOON = """
     QPushButton {
-        background-color: white;
+        background-color: rgba(236, 236, 236, 1);
         border-radius: 12px;
         padding-left: 31px;
         padding-right: 3px;

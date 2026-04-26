@@ -1,4 +1,4 @@
-
+from .title_bar import *
 from .card import *
 from .app import *
 from .window import *
