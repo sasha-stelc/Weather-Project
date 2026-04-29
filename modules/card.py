@@ -22,7 +22,8 @@ class WeatherCard(widget.QFrame):
         self.IS_CURRENT = IS_CURRENT
         self.IS_SELECTED = False
         self.setMouseTracking(True)
-
+  
+        self.setMaximumSize(330, 104)
         self.CHOICE_ICON = widget.QToolButton()
         self.CHOICE_ICON.setIcon(gui.QIcon(gui.QPixmap(create_media_path("choice_vector.png"))))
         self.CHOICE_ICON.setFixedSize(20, 20)
@@ -31,6 +32,10 @@ class WeatherCard(widget.QFrame):
 
         self.CITY_LABEL = widget.QLabel(city)
         self.CITY_LABEL.setStyleSheet(styles.CITY_LABEL)
+        self.CITY_LABEL.setSizePolicy(widget.QSizePolicy.Policy.Expanding, 
+                                      widget.QSizePolicy.Policy.Preferred)
+        # self.CITY_LABEL.setMinimumWidth(140)
+        # self.CITY_LABEL.setFixedSize(330, 90)
 
         self.TIME_LABEL = widget.QLabel(time)
         self.TIME_LABEL.setStyleSheet(styles.TIME_LABEL)
@@ -47,7 +52,7 @@ class WeatherCard(widget.QFrame):
         self.MINMAX_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignRight)
 
         self.TOP_ROW = widget.QHBoxLayout()
-        self.TOP_ROW.setContentsMargins(0, 0, 0, 0)
+        self.TOP_ROW.setContentsMargins(0, 0, 0,0)
         self.TOP_ROW.setSpacing(6)
         self.TOP_ROW.addWidget(self.CHOICE_ICON)
         self.TOP_ROW.addWidget(self.CITY_LABEL)
@@ -55,19 +60,19 @@ class WeatherCard(widget.QFrame):
         self.TOP_ROW.addWidget(self.TEMP_LABEL)
 
         self.MID_ROW = widget.QHBoxLayout()
-        self.MID_ROW.setContentsMargins(0, 0, 0, 0)
+        self.MID_ROW.setContentsMargins(0, 0, 0, 8)
         self.MID_ROW.addWidget(self.TIME_LABEL)
         self.MID_ROW.addStretch()
 
         self.BOT_ROW = widget.QHBoxLayout()
-        self.BOT_ROW.setContentsMargins(0, 0, 0, 0)
+        self.BOT_ROW.setContentsMargins(0, 0, 0, 8)
         self.BOT_ROW.addWidget(self.DESC_LABEL)
         self.BOT_ROW.addStretch()
         self.BOT_ROW.addWidget(self.MINMAX_LABEL)
 
         self.MAIN_LAYOUT = widget.QVBoxLayout(self)
-        self.MAIN_LAYOUT.setContentsMargins(15, 15, 15, 15)
-        self.MAIN_LAYOUT.setSpacing(4)
+        self.MAIN_LAYOUT.setContentsMargins(8, 8, 8, 8)
+        self.MAIN_LAYOUT.setSpacing(0)
         self.MAIN_LAYOUT.addLayout(self.TOP_ROW)
         self.MAIN_LAYOUT.addLayout(self.MID_ROW)
         self.MAIN_LAYOUT.addStretch()
@@ -75,6 +80,14 @@ class WeatherCard(widget.QFrame):
         
 
         self.apply_style(dimmed=False)
+
+    def update_data(self, data: dict):
+        self.weather_data = data
+        self.CITY_LABEL.setText(data["city"])
+        self.TIME_LABEL.setText(data["time"])
+        self.TEMP_LABEL.setText(f"{data['temp']}°")
+        self.DESC_LABEL.setText(data["desc"])
+        self.MINMAX_LABEL.setText(data["minmax"])
 
     def apply_style(self, dimmed: bool):
         if self.IS_CURRENT:

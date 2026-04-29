@@ -6,7 +6,7 @@ from .card import WeatherCard
 from . import styles
 from .api_request import get_weather, CITY_MAP
 from .create_path import create_media_path
-
+from .title_bar import TitleBar
 
 class ImageThemeSwitch(widget.QPushButton):
     def __init__(self, parent=None):
@@ -15,15 +15,18 @@ class ImageThemeSwitch(widget.QPushButton):
         self.setCursor(core.Qt.CursorShape.PointingHandCursor)
         self.setFixedSize(52, 24)
         self.setIconSize(core.QSize(18, 18))
+
         self.SUN_ICON = gui.QIcon(create_media_path("Frame_51.png"))
         self.MOON_ICON = gui.QIcon(create_media_path("Frame_52.png"))
-        self.toggled.connect(self.update_image)
-        self.setChecked(False)
-        self.update_image(False)
 
-    def update_image(self, checked: bool):
+        self.toggled.connect(self.UPDATE_IMAGE)
+        self.setChecked(False)
+        self.UPDATE_IMAGE(False)
+
+    def UPDATE_IMAGE(self, checked: bool):
         self.setStyleSheet(styles.THEME_BUTTON_SUN if checked else styles.THEME_BUTTON_MOON)
         self.setIcon(self.SUN_ICON if checked else self.MOON_ICON)
+
 
 class WeatherApp(widget.QMainWindow):
     def __init__(self, *args, **kwargs):
@@ -32,39 +35,50 @@ class WeatherApp(widget.QMainWindow):
         self.setWindowTitle("Погода")
         self.resize(1200, 800)
 
-        central_widget = widget.QWidget()
-        central_widget.setStyleSheet(styles.CENTRAL_WIDGET)
-        self.setCentralWidget(central_widget)
+        self.CENTRAL_WIDGET = widget.QWidget()
+        self.CENTRAL_WIDGET.setStyleSheet(styles.CENTRAL_WIDGET)
+        self.setCentralWidget(self.CENTRAL_WIDGET)
 
-        main_layout = widget.QHBoxLayout(central_widget)
-        main_layout.setContentsMargins(0, 0, 0, 0)
-        main_layout.setSpacing(0)
+        # ===== ГЛАВНЫЙ ЛЕЙАУТ (вертикальный) =====
+        self.MAIN_LAYOUT = widget.QVBoxLayout(self.CENTRAL_WIDGET)
+        self.MAIN_LAYOUT.setContentsMargins(0, 0, 0, 0)
+        self.MAIN_LAYOUT.setSpacing(0)
+        self.setWindowFlags(core.Qt.WindowType.FramelessWindowHint)
 
-        left_panel = widget.QFrame()
-        left_panel.setFixedWidth(370)
-        left_panel.setStyleSheet(styles.LEFT_PANEL)
+        # ===== TITLE BAR =====
+        self.TITLE_BAR = TitleBar(self)
+        self.TITLE_BAR.setStyleSheet("background: white;")
+        self.MAIN_LAYOUT.addWidget(self.TITLE_BAR)
 
-        left_layout = widget.QVBoxLayout(left_panel)
-        left_layout.setContentsMargins(20, 20, 20, 0)
-        left_layout.setSpacing(10)
+        self.THEME_SWITCH = ImageThemeSwitch()
 
-        top_bar = widget.QFrame(left_panel)
-        top_bar.setFixedSize(core.QSize(330, 44))
-        top_bar_layout = widget.QHBoxLayout(top_bar)
-        top_bar_layout.setContentsMargins(0, 0, 0, 0)
-        top_bar_layout.addWidget(ImageThemeSwitch(), alignment=core.Qt.AlignmentFlag.AlignRight)
-        left_layout.addWidget(top_bar)
 
-        scroll_area = widget.QScrollArea()
-        scroll_area.setVerticalScrollBarPolicy(core.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        scroll_area.setWidgetResizable(True)
-        scroll_area.setFrameShape(widget.QFrame.Shape.NoFrame)
-        scroll_area.setStyleSheet(styles.SCROLL_AREA)
+        
+        self.PANELS_LAYOUT = widget.QHBoxLayout()
+        self.PANELS_LAYOUT.setContentsMargins(0, 0, 0, 0)
+        self.PANELS_LAYOUT.setSpacing(0)
 
-        cards_container = widget.QWidget()
-        cards_container.setStyleSheet(styles.CARDS_CONTAINER)
+        self.MAIN_LAYOUT.addLayout(self.PANELS_LAYOUT)
 
-        self.CARDS_LAYOUT = widget.QVBoxLayout(cards_container)
+        # ===== LEFT PANEL =====
+        self.LEFT_PANEL = widget.QFrame()
+        self.LEFT_PANEL.setFixedWidth(370)
+        self.LEFT_PANEL.setStyleSheet(styles.LEFT_PANEL)
+
+        self.LEFT_LAYOUT = widget.QVBoxLayout(self.LEFT_PANEL)
+        self.LEFT_LAYOUT.setContentsMargins(20, 20, 20, 0)
+        self.LEFT_LAYOUT.setSpacing(10)
+        self.LEFT_LAYOUT.addWidget(self.THEME_SWITCH, alignment=core.Qt.AlignmentFlag.AlignRight)
+        self.SCROLL_AREA = widget.QScrollArea()
+        self.SCROLL_AREA.setVerticalScrollBarPolicy(core.Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.SCROLL_AREA.setWidgetResizable(True)
+        self.SCROLL_AREA.setFrameShape(widget.QFrame.Shape.NoFrame)
+        self.SCROLL_AREA.setStyleSheet(styles.SCROLL_AREA)
+
+        self.CARDS_CONTAINER = widget.QWidget()
+        self.CARDS_CONTAINER.setStyleSheet(styles.CARDS_CONTAINER)
+
+        self.CARDS_LAYOUT = widget.QVBoxLayout(self.CARDS_CONTAINER)
         self.CARDS_LAYOUT.setContentsMargins(10, 10, 10, 20)
         self.CARDS_LAYOUT.setSpacing(10)
 
@@ -72,28 +86,52 @@ class WeatherApp(widget.QMainWindow):
         self.SELECTED_CARD = None
 
         for city_ua in CITY_MAP:
-            data = get_weather(city_ua) 
-            card = WeatherCard(data["city"], data["time"], data["temp"], data["desc"], data["minmax"], data["is_current"])
+            data = get_weather(city_ua)
+            card = WeatherCard(
+                data["city"],
+                data["time"],
+                data["temp"],
+                data["desc"],
+                data["minmax"],
+                data["is_current"]
+            )
             card.weather_data = data
-            card.selected.connect(self.on_card_selected)
+            card.selected.connect(self.ON_CARD_SELECTED)
+
             self.WEATHER_CARDS.append(card)
             self.CARDS_LAYOUT.addWidget(card)
 
         self.CARDS_LAYOUT.addStretch()
-        scroll_area.setWidget(cards_container)
-        left_layout.addWidget(scroll_area)
+        self.SCROLL_AREA.setWidget(self.CARDS_CONTAINER)
+        self.LEFT_LAYOUT.addWidget(self.SCROLL_AREA)
 
-        right_panel = widget.QFrame()
-        right_panel.setStyleSheet(styles.RIGHT_PANEL)
+        self.UPDATE_TIMER = core.QTimer(self)
+        self.UPDATE_TIMER.setInterval(5 * 60 * 1000)
+        self.UPDATE_TIMER.timeout.connect(self.REFRESH_WEATHER)
+        self.UPDATE_TIMER.start()
 
-        main_layout.addWidget(left_panel)
-        main_layout.addWidget(right_panel)
+   
+        self.RIGHT_PANEL = widget.QFrame()
+        self.RIGHT_PANEL.setStyleSheet(styles.RIGHT_PANEL)
 
-    def on_card_selected(self, card: WeatherCard):
-        if self.SELECTED_CARD and self.SELECTED_CARD != card: self.SELECTED_CARD.set_selected(False)
+       
+        self.PANELS_LAYOUT.addWidget(self.LEFT_PANEL)
+        self.PANELS_LAYOUT.addWidget(self.RIGHT_PANEL)
+
+    def REFRESH_WEATHER(self):
+        for card in self.WEATHER_CARDS:
+            city = card.weather_data.get("city")
+
+            data = get_weather(city)
+            if data:
+                card.update_data(data)
+
+    def ON_CARD_SELECTED(self, card: WeatherCard):
+        if self.SELECTED_CARD and self.SELECTED_CARD != card:
+            self.SELECTED_CARD.set_selected(False)
+
         card.set_selected(not card.IS_SELECTED)
         self.SELECTED_CARD = card if card.IS_SELECTED else None
-
 
 
 window = WeatherApp()

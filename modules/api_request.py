@@ -6,19 +6,17 @@ API_KEY = "7fb932921b9597af25d051ceecc43627"
 CITY_MAP = {
     "Дніпро":    "Dnipro",
     "Київ":      "Kyiv",
-    "Братіслава": "Bratislava",
-    "Варшава":   "Warsaw",
-    "Рим":       "Rome",
+
 }
 
 def get_weather(city_ua: str) -> dict | None:
     city_en = CITY_MAP.get(city_ua, city_ua)
     try:
         url = f"https://api.openweathermap.org/data/2.5/weather?q={city_en}&appid={API_KEY}&units=metric&lang=uk"
-        data = requests.get(url, timeout=5).json()
+        data = requests.get(url).json()
         tz   = timezone(timedelta(seconds=data["timezone"]))
         time = datetime.fromtimestamp(data["dt"], tz=tz).strftime("%H:%M")
-        
+
         return {
             "city":   city_ua,
             "time":   time,
