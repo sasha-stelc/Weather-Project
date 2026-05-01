@@ -31,11 +31,13 @@ class ImageThemeSwitch(widget.QPushButton):
 class WeatherApp(widget.QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
+        
         self.setWindowTitle("Погода")
         self.resize(1200, 800)
-
+        self.setWindowFlags(core.Qt.WindowType.FramelessWindowHint)
+        self.setAttribute(core.Qt.WidgetAttribute.WA_TranslucentBackground, True)
         self.CENTRAL_WIDGET = widget.QWidget()
+        self.CENTRAL_WIDGET.setObjectName("centralWidget")
         self.CENTRAL_WIDGET.setStyleSheet(styles.CENTRAL_WIDGET)
         self.setCentralWidget(self.CENTRAL_WIDGET)
 
@@ -47,7 +49,7 @@ class WeatherApp(widget.QMainWindow):
 
         # ===== TITLE BAR =====
         self.TITLE_BAR = TitleBar(self)
-        self.TITLE_BAR.setStyleSheet("background: white;")
+        self.TITLE_BAR.setStyleSheet("background: white; border-top-left-radius: 20px; border-top-right-radius: 20px;")
         self.MAIN_LAYOUT.addWidget(self.TITLE_BAR)
 
         self.THEME_SWITCH = ImageThemeSwitch()

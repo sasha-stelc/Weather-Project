@@ -9,44 +9,44 @@ class TitleBar(widget.QFrame):
         super().__init__()
         self.WINDOW = window
 
-        self.setFixedHeight(36)
-        
+        self.setFixedHeight(26)
+
         layout = widget.QHBoxLayout(self)
         layout.setContentsMargins(10, 0, 5, 0)
         layout.setSpacing(0)
 
-        
         layout.addStretch()
 
-        self.min_btn = widget.QToolButton()
-        self.max_btn = widget.QToolButton()
-        self.close_btn = widget.QToolButton()
+        # Кнопки
+        self.MIN_BTN = widget.QToolButton()
+        self.MAX_BTN = widget.QToolButton()
+        self.CLOSE_BTN = widget.QToolButton()
 
-        self.min_btn.clicked.connect(self.WINDOW.showMinimized)
-        self.max_btn.clicked.connect(self.toggle_maximize)
-        self.close_btn.clicked.connect(self.WINDOW.close)
+        self.MIN_BTN.clicked.connect(self.WINDOW.showMinimized)
+        self.MAX_BTN.clicked.connect(self.toggle_maximize)
+        self.CLOSE_BTN.clicked.connect(self.WINDOW.close)
 
-        layout.addWidget(self.min_btn)
-        layout.addWidget(self.max_btn)
-        layout.addWidget(self.close_btn)
+        layout.addWidget(self.MIN_BTN)
+        layout.addWidget(self.MAX_BTN)
+        layout.addWidget(self.CLOSE_BTN)
 
-       
-        self._drag_position = None
+        self.DRAG_POSITION = None
+
 
         path = create_media_path
+        # иконки до наведения
+        self.MIN_ICON = gui.QIcon(gui.QPixmap(path("Minimize_Button.svg")))
+        self.MAX_ICON = gui.QIcon(gui.QPixmap(path("Maximize_Button.svg")))
+        self.CLOSE_ICON = gui.QIcon(gui.QPixmap(path("Close_Button.svg")))
+        # иконки при наведении
+        self.MIN_HOVER = gui.QIcon(gui.QPixmap(path("Minimize_Button_Hover.svg")))
+        self.MAX_HOVER = gui.QIcon(gui.QPixmap(path("Maximize_Button_Hover.svg")))
+        self.CLOSE_HOVER = gui.QIcon(gui.QPixmap(path("Close_Button_Hover.svg")))
 
-        self.min_icon = gui.QIcon(gui.QPixmap(path("Minimize_Button.svg")))
-        self.max_icon = gui.QIcon(gui.QPixmap(path("Maximize_Button.svg")))
-        self.close_icon = gui.QIcon(gui.QPixmap(path("Close_Button.svg")))
-
-        self.min_hover = gui.QIcon(gui.QPixmap(path("Minimize_Button_Hover.svg")))
-        self.max_hover = gui.QIcon(gui.QPixmap(path("Maximize_Button_Hover.svg")))
-        self.close_hover = gui.QIcon(gui.QPixmap(path("Close_Button_Hover.svg")))
-
-        
-        self.min_btn.setIcon(self.min_icon)
-        self.max_btn.setIcon(self.max_icon)
-        self.close_btn.setIcon(self.close_icon)
+        # иконки по умолчанию
+        self.MIN_BTN.setIcon(self.MIN_ICON)
+        self.MAX_BTN.setIcon(self.MAX_ICON)
+        self.CLOSE_BTN.setIcon(self.CLOSE_ICON)
 
     def toggle_maximize(self):
         if self.WINDOW.isMaximized():
@@ -55,24 +55,23 @@ class TitleBar(widget.QFrame):
             self.WINDOW.showMaximized()
 
     def enterEvent(self, event):
-
-        self.min_btn.setIcon(self.min_hover)
-        self.max_btn.setIcon(self.max_hover)
-        self.close_btn.setIcon(self.close_hover)
+        self.MIN_BTN.setIcon(self.MIN_HOVER)
+        self.MAX_BTN.setIcon(self.MAX_HOVER)
+        self.CLOSE_BTN.setIcon(self.CLOSE_HOVER)
 
     def leaveEvent(self, event):
-        self.min_btn.setIcon(self.min_icon)
-        self.max_btn.setIcon(self.max_icon)
-        self.close_btn.setIcon(self.close_icon)
+        self.MIN_BTN.setIcon(self.MIN_ICON)
+        self.MAX_BTN.setIcon(self.MAX_ICON)
+        self.CLOSE_BTN.setIcon(self.CLOSE_ICON)
 
-    def mouseMoveEvent(self, event:gui.QMouseEvent):
-        mouse_pos = event.position().toPoint() - self.POSITION
-        print(mouse_pos, self.window().x(), self.window().y())
+    def mouseMoveEvent(self, event: gui.QMouseEvent):
+
+        mouse_pos = event.position().toPoint() - self.DRAG_POSITION
         self.window().move(
-            self.window().x() + mouse_pos.x() ,
+            self.window().x() + mouse_pos.x(),
             self.window().y() + mouse_pos.y()
         )
-        
-    def mousePressEvent(self, event:gui.QMouseEvent):
+
+    def mousePressEvent(self, event: gui.QMouseEvent):
         if event.button() == core.Qt.MouseButton.LeftButton:
-            self.POSITION = event.position().toPoint()
+            self.DRAG_POSITION = event.position().toPoint()

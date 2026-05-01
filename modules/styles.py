@@ -15,35 +15,50 @@ DEFAULT_CARD = """
     QLabel {{ color: white; background: transparent; border: none; }}
 """
 
+# ==================== ТЕКСТ ====================
+
 CITY_LABEL = "font-family: Medium; font-size: 24px; font-weight: 700"
 TIME_LABEL = "font-family: Medium; font-size: 12px; font-weight: 500"
-TEMP_LABEL = "font-family: Medium; font-size: 44px; font-weight: 500"
+TEMP_LABEL = "font-family: Medium; font-size: 42px; font-weight: 500"
 DESC_LABEL = "font-family: Medium; font-size: 12px; font-weight: 500"
 MINMAX_LABEL = "font-family: Medium; font-size: 12px; font-weight: 500"
 
-CENTRAL_WIDGET =  """
-    QFrame {
+
+# ==================== ФОНЫ ====================
+
+CENTRAL_WIDGET = """
+    
+    QWidget#centralWidget {
+        border-radius: 15px;
         background: qlineargradient(
-            x1: 0, y1: 0, x2: 1, y2: 1,
+            x1: 0, y1: 1,
+            x2: 1, y2: 1,
             stop: 0 rgba(135, 206, 250, 1),
             stop: 1 rgba(255, 223, 86, 1)
         );
-       
     }
 """
+
 LEFT_PANEL = """
     QFrame {
-        background-color: #6C8281;
+        background: rgba(0, 0, 0, 0.2);
+
+        border: none;
     }
+
 """
-SCROLL_AREA = "background: transparent; border: none;"
-CARDS_CONTAINER = "background: transparent;"
+
 RIGHT_PANEL = """
     QFrame {
-        ;
-        
+        background: transparent;
+        border: none;
     }
 """
+
+SCROLL_AREA = "background: transparent; border: none;"
+CARDS_CONTAINER = "background: transparent;"
+
+# ==================== КНОПКА ТЕМЫ ====================
 THEME_BUTTON_SUN = """
     QPushButton {
         background-color: rgba(0, 0, 0, 0.2);

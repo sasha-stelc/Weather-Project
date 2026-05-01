@@ -4,9 +4,8 @@ from datetime import datetime, timezone, timedelta
 API_KEY = "7fb932921b9597af25d051ceecc43627"
 
 CITY_MAP = {
-    "Дніпро":    "Dnipro",
-    "Київ":      "Kyiv",
-
+    "Дніпро": "Dnipro",
+    "Київ":   "Kyiv",
 }
 
 def get_weather(city_ua: str) -> dict | None:
@@ -14,8 +13,10 @@ def get_weather(city_ua: str) -> dict | None:
     try:
         url = f"https://api.openweathermap.org/data/2.5/weather?q={city_en}&appid={API_KEY}&units=metric&lang=uk"
         data = requests.get(url).json()
+
+        # UTC-зміщення в секундах — працює для будь-якого міста світу
         tz   = timezone(timedelta(seconds=data["timezone"]))
-        time = datetime.fromtimestamp(data["dt"], tz=tz).strftime("%H:%M")
+        time = datetime.now(tz).strftime("%H:%M")  # ← поточний час у часовому поясі міста
 
         return {
             "city":   city_ua,
