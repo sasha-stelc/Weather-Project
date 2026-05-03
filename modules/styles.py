@@ -25,7 +25,12 @@ MINMAX_LABEL = "font-family: Medium; font-size: 12px; font-weight: 500"
 
 
 # ==================== ФОНЫ ====================
-
+SEARCH_FRAME = """
+    QFrame { 
+        background: white;
+       ;
+    }   
+"""
 CENTRAL_WIDGET = """
     
     QWidget#centralWidget {
@@ -50,7 +55,7 @@ LEFT_PANEL = """
 
 RIGHT_PANEL = """
     QFrame {
-        background: transparent;
+       
         border: none;
     }
 """

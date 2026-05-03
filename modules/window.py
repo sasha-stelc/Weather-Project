@@ -2,11 +2,12 @@ import os
 import PyQt6.QtWidgets as widget
 import PyQt6.QtCore as core
 import PyQt6.QtGui as gui
-from .card import WeatherCard
+from .card import WeatherCard, CityInfoFrame
 from . import styles
 from .api_request import get_weather, CITY_MAP
 from .create_path import create_media_path
 from .title_bar import TitleBar
+
 
 class ImageThemeSwitch(widget.QPushButton):
     def __init__(self, parent=None):
@@ -40,7 +41,7 @@ class WeatherApp(widget.QMainWindow):
         self.CENTRAL_WIDGET.setObjectName("centralWidget")
         self.CENTRAL_WIDGET.setStyleSheet(styles.CENTRAL_WIDGET)
         self.setCentralWidget(self.CENTRAL_WIDGET)
-
+        self.CITY_INFO_FRAME = None
         # ===== ГЛАВНЫЙ ЛЕЙАУТ (вертикальный) =====
         self.MAIN_LAYOUT = widget.QVBoxLayout(self.CENTRAL_WIDGET)
         self.MAIN_LAYOUT.setContentsMargins(0, 0, 0, 0)
@@ -115,10 +116,16 @@ class WeatherApp(widget.QMainWindow):
    
         self.RIGHT_PANEL = widget.QFrame()
         self.RIGHT_PANEL.setStyleSheet(styles.RIGHT_PANEL)
+        self.RIGHT_LAYOUT = widget.QVBoxLayout(self.RIGHT_PANEL)
+        self.SEARCH_FRAME = widget.QFrame()
+        self.SEARCH_FRAME.setFixedHeight(26)
 
-       
+        self.SEARCH_FRAME.setStyleSheet(styles.SEARCH_FRAME)
+        self.SEARCH_LAYOUT = widget.QHBoxLayout(self.SEARCH_FRAME)
+        self.SEARCH_LAYOUT.setContentsMargins(20, 20, 20, 0)
         self.PANELS_LAYOUT.addWidget(self.LEFT_PANEL)
         self.PANELS_LAYOUT.addWidget(self.RIGHT_PANEL)
+        self.RIGHT_LAYOUT.addWidget(self.SEARCH_FRAME, alignment=core.Qt.AlignmentFlag.AlignTop)
 
     def REFRESH_WEATHER(self):
         for card in self.WEATHER_CARDS:
@@ -128,12 +135,22 @@ class WeatherApp(widget.QMainWindow):
             if data:
                 card.update_data(data)
 
+# метод ON_CARD_SELECTED:
     def ON_CARD_SELECTED(self, card: WeatherCard):
-        if self.SELECTED_CARD and self.SELECTED_CARD != card:
-            self.SELECTED_CARD.set_selected(False)
-
+        if self.SELECTED_CARD and self.SELECTED_CARD != card: self.SELECTED_CARD.set_selected(False)
         card.set_selected(not card.IS_SELECTED)
         self.SELECTED_CARD = card if card.IS_SELECTED else None
+
+        # ✅ удаляем старый фрейм
+        if self.CITY_INFO_FRAME:
+            self.RIGHT_LAYOUT.removeWidget(self.CITY_INFO_FRAME)
+            self.CITY_INFO_FRAME.deleteLater()
+            self.CITY_INFO_FRAME = None
+
+        # ✅ создаём новый если карточка выбрана
+        if self.SELECTED_CARD:
+            self.CITY_INFO_FRAME = CityInfoFrame(self.SELECTED_CARD.weather_data)
+            self.RIGHT_LAYOUT.insertWidget(1, self.CITY_INFO_FRAME)
 
 
 window = WeatherApp()
