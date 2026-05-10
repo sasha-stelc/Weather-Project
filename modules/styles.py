@@ -37,7 +37,7 @@ CENTRAL_WIDGET = """
         border-radius: 15px;
         background: qlineargradient(
             x1: 0, y1: 1,
-            x2: 1, y2: 1,
+            x2: 1, y2: 0,
             stop: 0 rgba(135, 206, 250, 1),
             stop: 1 rgba(255, 223, 86, 1)
         );

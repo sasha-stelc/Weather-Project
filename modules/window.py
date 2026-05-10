@@ -135,19 +135,18 @@ class WeatherApp(widget.QMainWindow):
             if data:
                 card.update_data(data)
 
-# метод ON_CARD_SELECTED:
     def ON_CARD_SELECTED(self, card: WeatherCard):
         if self.SELECTED_CARD and self.SELECTED_CARD != card: self.SELECTED_CARD.set_selected(False)
         card.set_selected(not card.IS_SELECTED)
         self.SELECTED_CARD = card if card.IS_SELECTED else None
 
-        # ✅ удаляем старый фрейм
+        #  удаляем старый фрейм
         if self.CITY_INFO_FRAME:
             self.RIGHT_LAYOUT.removeWidget(self.CITY_INFO_FRAME)
             self.CITY_INFO_FRAME.deleteLater()
             self.CITY_INFO_FRAME = None
 
-        # ✅ создаём новый если карточка выбрана
+        #  создаём новый если карточка выбрана
         if self.SELECTED_CARD:
             self.CITY_INFO_FRAME = CityInfoFrame(self.SELECTED_CARD.weather_data)
             self.RIGHT_LAYOUT.insertWidget(1, self.CITY_INFO_FRAME)

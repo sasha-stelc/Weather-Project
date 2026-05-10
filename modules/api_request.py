@@ -17,7 +17,7 @@ def get_weather(city_ua: str) -> dict | None:
         # UTC-зміщення в секундах — працює для будь-якого міста світу
         tz   = timezone(timedelta(seconds=data["timezone"]))
         time = datetime.now(tz).strftime("%H:%M")  # ← поточний час у часовому поясі міста
-        print(data["weather"][0]["main"])
+        print(f"иконка:{data['weather'][0]['icon']} описание:{data['weather'][0]['description'].capitalize()}")        
         return {
             "city":   city_ua,
             "time":   time,
@@ -25,7 +25,7 @@ def get_weather(city_ua: str) -> dict | None:
             "desc":   data["weather"][0]["description"].capitalize(),
             "minmax": f"Макс.:{round(data['main']['temp_max'])}°, мін.:{round(data['main']['temp_min'])}°",
             "timezone": tz,
-            "icon": data["weather"][0]["main"],  # ← для картинки
+            "icon": data["weather"][0]["icon"],  # ← для картинки
             "is_current": False,
 
         }
