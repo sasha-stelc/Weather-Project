@@ -27,7 +27,7 @@ MINMAX_LABEL = "font-family: Medium; font-size: 12px; font-weight: 500"
 # ==================== ФОНЫ ====================
 SEARCH_FRAME = """
     QFrame { 
-        background: white;
+        background: transparent;
        ;
     }   
 """

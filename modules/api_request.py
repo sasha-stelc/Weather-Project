@@ -157,3 +157,55 @@ def get_weather(city_ua: str) -> dict | None:
     except Exception as e:
         print(f"Критична помилка [{city_ua}]: {e}")
         return None
+import requests
+import json
+
+
+def LOAD_CITIES_TO_JSON(path="cities.json"):
+    url = "https://countriesnow.space/api/v0.1/countries"
+    response = requests.get(url)
+    data = response.json()
+
+    cities = []
+
+    for country in data["data"]:
+        for city in country["cities"]:
+            cities.append(city)
+
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(cities, f, ensure_ascii=False, indent=2)
+
+    return cities
+def LOAD_CITIES_FROM_JSON(path="cities.json"):
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+import requests
+import json
+
+
+def SEARCH_CITIES(query: str, path="cities.json") -> list:
+    q = query.lower().strip()
+    if not q:
+        return []
+
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            cities = json.load(f)
+    except Exception:
+        return []
+
+    found = []
+    for city in cities:
+        if isinstance(city, str):
+            if city.lower().startswith(q):
+                found.append({"en": city})
+        elif isinstance(city, dict):
+            en = city.get("en") or city.get("name") or ""
+            if en.lower().startswith(q):
+                found.append({"en": en})
+
+    return found[:6]
+
+
+def FORMAT_CITY(city: dict) -> str:
+    return city.get("en", "")
