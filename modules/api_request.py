@@ -27,21 +27,19 @@ def get_weather(city_ua: str) -> dict | None:
             print(f"Помилка API [{city_ua}]: {data.get('message')}")
             return None
 
-        # === Правильна таймзона міста ===
         tz_offset = data["city"]["timezone"]
         tz = timezone(timedelta(seconds=tz_offset))
 
-        # === РЕАЛЬНИЙ ПОТОЧНИЙ ЧАС У МІСТІ ===
-        server_now = datetime.now(tz)                    # ← Головне виправлення
+        server_now = datetime.now(tz)
 
-        # Найближчий слот для погоди
         current_slot = min(data["list"], key=lambda x: abs(x["dt"] - server_now.timestamp()))
         
-        # Захід сонця
-        sunset_dt = datetime.fromtimestamp(data["city"]["sunset"], tz=tz)
-        sunset_time = sunset_dt.strftime("%H:%M")
+        # Захід та схід сонця
+        sunset_dt  = datetime.fromtimestamp(data["city"]["sunset"],  tz=tz)
+        sunrise_dt = datetime.fromtimestamp(data["city"]["sunrise"], tz=tz)
+        sunset_time  = sunset_dt.strftime("%H:%M")
+        sunrise_time = sunrise_dt.strftime("%H:%M")
 
-        # Min / Max
         today_slots = [
             item for item in data["list"]
             if datetime.fromtimestamp(item["dt"], tz).date() == server_now.date()
@@ -55,17 +53,18 @@ def get_weather(city_ua: str) -> dict | None:
             dt = datetime.fromtimestamp(slot["dt"], tz=tz)
             if dt >= server_now and len(today_hours) < 12:
                 today_hours.append({
-                    "time": dt.strftime("%H:%M"),        # з хвилинами
+                    "time": dt.strftime("%H:%M"),
                     "icon": slot["weather"][0]["icon"],
                     "temp": round(slot["main"]["temp"]),
                     "pop": round(slot.get("pop", 0) * 100),
                     "is_sunset": False,
+                    "is_sunrise": False,
                     "is_current": False,
                 })
 
         # Вставка заходу сонця
         inserted = False
-        for i in range(len(today_hours)-1):
+        for i in range(len(today_hours) - 1):
             curr = datetime.strptime(today_hours[i]["time"], "%H:%M").replace(
                 year=server_now.year, month=server_now.month, day=server_now.day, tzinfo=tz)
             nxt = datetime.strptime(today_hours[i+1]["time"], "%H:%M").replace(
@@ -78,6 +77,7 @@ def get_weather(city_ua: str) -> dict | None:
                     "temp": None,
                     "pop": 0,
                     "is_sunset": True,
+                    "is_sunrise": False,
                     "is_current": False,
                 })
                 inserted = True
@@ -90,6 +90,39 @@ def get_weather(city_ua: str) -> dict | None:
                 "temp": None,
                 "pop": 0,
                 "is_sunset": True,
+                "is_sunrise": False,
+                "is_current": False,
+            })
+
+        # Вставка сходу сонця
+        inserted_sunrise = False
+        for i in range(len(today_hours) - 1):
+            curr = datetime.strptime(today_hours[i]["time"], "%H:%M").replace(
+                year=server_now.year, month=server_now.month, day=server_now.day, tzinfo=tz)
+            nxt = datetime.strptime(today_hours[i+1]["time"], "%H:%M").replace(
+                year=server_now.year, month=server_now.month, day=server_now.day, tzinfo=tz)
+
+            if curr.hour <= sunrise_dt.hour < nxt.hour:
+                today_hours.insert(i + 1, {
+                    "time": sunrise_time,
+                    "icon": "sunrise",
+                    "temp": None,
+                    "pop": 0,
+                    "is_sunset": False,
+                    "is_sunrise": True,
+                    "is_current": False,
+                })
+                inserted_sunrise = True
+                break
+
+        if not inserted_sunrise and sunrise_dt.date() == server_now.date() and sunrise_dt >= server_now:
+            today_hours.append({
+                "time": sunrise_time,
+                "icon": "sunrise",
+                "temp": None,
+                "pop": 0,
+                "is_sunset": False,
+                "is_sunrise": True,
                 "is_current": False,
             })
 
@@ -109,13 +142,14 @@ def get_weather(city_ua: str) -> dict | None:
 
         return {
             "city": city_ua,
-            "time": server_now.strftime("%H:%M"),        # ← Тепер правильний час
+            "time": server_now.strftime("%H:%M"),
             "temp": str(round(current_slot["main"]["temp"])),
             "desc": current_slot["weather"][0]["description"].capitalize(),
             "minmax": f"Макс.:{temp_max}°, мін.:{temp_min}°",
             "icon": current_slot["weather"][0]["icon"],
             "is_current": False,
-            "sunset": sunset_time,
+            "sunset":  sunset_time,
+            "sunrise": sunrise_time,
             "today_hours": today_hours,
             "next_12h": next_12h,
         }
