@@ -1,17 +1,25 @@
-from datetime import datetime, timezone, timedelta
-import json
-import os
 import requests
+from datetime import datetime, timezone, timedelta
+import os
 
-# Загружаем ключ безопасно (разбиваем строку на части, чтобы обойти сканер GitHub)
 API_KEY = os.getenv("OPENWEATHER_API_KEY")
 if not API_KEY:
-    # Динамическая сборка ключа обманывает алгоритмы защиты Push Protection
-    part1 = "7fb932921b9597af"
-    part2 = "25d051ceecc43627"
-    API_KEY = part1 + part2
+    API_KEY = ""
+
+
+
+
+import json
+
+import requests
+from datetime import datetime, timezone, timedelta
+import os
+import json
+
+
 
 USER_CITIES_PATH = os.path.join(os.path.dirname(__file__), "user_cities.json")
+
 DEFAULT_CITIES = ["Dnipro"]
 
 
@@ -144,6 +152,8 @@ def get_weather(city_en: str) -> dict | None:
     except Exception as e:
         print(f"Критична помилка [{city_en}]: {e}")
         return None
+import requests
+import json
 
 
 def LOAD_CITIES_TO_JSON(path="cities.json"):
@@ -161,11 +171,11 @@ def LOAD_CITIES_TO_JSON(path="cities.json"):
         json.dump(cities, f, ensure_ascii=False, indent=2)
 
     return cities
-
-
 def LOAD_CITIES_FROM_JSON(path="cities.json"):
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
+import requests
+import json
 
 
 def SEARCH_CITIES(query: str, path="cities.json") -> list:
