@@ -11,7 +11,7 @@ from .utils import get_weather_icon_path
 
 
 class CityInfoFrame(widget.QFrame):
-    """Фрейм с информацией о погоде в городе (основная карточка)"""
+    "Фрейм с информацией о погоде в городе (основная карточка)"
     
     def __init__(self, data: dict, parent=None):
         super().__init__(parent)

@@ -7,7 +7,7 @@ from .utils import get_weather_icon_path
 
 
 class TwelveHourGraphFrame(widget.QFrame):
-    """Виджет для графика прогноза на 12 часов"""
+    "Виджет для графика прогноза на 12 часов"
     
     def __init__(self, data: dict, parent=None):
         super().__init__(parent)

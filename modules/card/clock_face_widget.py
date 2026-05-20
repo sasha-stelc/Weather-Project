@@ -4,7 +4,7 @@ import PyQt6.QtGui as gui
 
 
 class ClockFaceWidget(widget.QWidget):
-    """Виджет циферблата часов"""
+    "Виджет циферблата часов"
     
     def __init__(self, parent=None):
         super().__init__(parent)
