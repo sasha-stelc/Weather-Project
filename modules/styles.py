@@ -1,82 +1,305 @@
+"""Модуль конфигурации стилей (QSS) приложения погоды.
+
+Содержит шаблонизированные таблицы стилей (Qt Style Sheets), CSS-свойства для 
+текстовых меток, параметры градиентных заливок панелей и специфические отступы 
+для реализации аппаратного эффекта переключения дневной/ночной темы оформления.
+"""
+
+# =====================================================================
+# ==================== СТИЛИ КАРТОЧЕК ПОГОДЫ ==========================
+# =====================================================================
+
+# Шаблон QSS для активной карточки текущего местоположения (избранного города)
+# Двойные фигурные скобки {{ }} используются для экранирования, чтобы метод .format() 
+# не путал их с синтаксисом Python, а подставлял только значение {bg}
 CURRENT_CARD = """
     WeatherCard {{
-        background-color: {bg};
-        border-radius: 15px;
+        background-color: {bg};  /* Динамический цвет подложки с альфа-каналом прозрачности */
+        border-radius: 15px;      /* Скругление всех углов карточки */
     }}
-    QLabel {{ color: white; background: transparent; }}
+    /* Каскадный селектор: сбрасывает фон у всех текстовых меток внутри этой карточки,
+       чтобы они не перекрывали своими прямоугольными границами подложку карточки */
+    QLabel {{ 
+        color: white; 
+        background: transparent; 
+    }}
 """
 
+# Шаблон QSS для стандартных карточек городов в боковом списке
 DEFAULT_CARD = """
     WeatherCard {{
-        background-color: {bg};
-        border-bottom: 1px solid {border};
-        border-radius: {radius}
+        background-color: {bg};        /* Меняется transparent -> rgba при Hover-эффекте */
+        border-bottom: 1px solid {border}; /* Тонкая разделительная линия снизу карточки */
+        border-radius: {radius}         /* Становится 10px при наведении для красивого эффекта */
     }}
-    QLabel {{ color: white; background: transparent; border: none; }}
+    QLabel {{ 
+        color: white; 
+        background: transparent; 
+        border: none;                  /* Гарантирует отсутствие рамок у текста */
+    }}
 """
 
-# ==================== ТЕКСТ ====================
 
-CITY_LABEL = "font-family: Medium; font-size: 24px; font-weight: 700"
-TIME_LABEL = "font-family: Medium; font-size: 12px; font-weight: 500"
-TEMP_LABEL = "font-family: Medium; font-size: 42px; font-weight: 500"
-DESC_LABEL = "font-family: Medium; font-size: 12px; font-weight: 500"
-MINMAX_LABEL = "font-family: Medium; font-size: 12px; font-weight: 500"
+# =====================================================================
+# ==================== ТЕКСТОВЫЕ МЕТКИ (Типографика) ===================
+# =====================================================================
+# Строки CSS-свойств, передаваемые напрямую в метод setStyleSheet() текстовых лейблов.
+# Настройка шрифта: используется гарнитура 'Medium' с явным указанием веса (bold/semi-bold).
+
+CITY_LABEL = "font-family: Medium; font-size: 24px; font-weight: 700"    # Крупный жирный шрифт города
+TIME_LABEL = "font-family: Medium; font-size: 12px; font-weight: 500"    # Мелкое аккуратное время
+TEMP_LABEL = "font-family: Medium; font-size: 42px; font-weight: 500"    # Огромный индикатор градусов
+DESC_LABEL = "font-family: Medium; font-size: 12px; font-weight: 500"    # Текст состояния погоды
+MINMAX_LABEL = "font-family: Medium; font-size: 12px; font-weight: 500"  # Текст экстремумов суток
 
 
-# ==================== ФОНЫ ====================
+# =====================================================================
+# ==================== СТИЛИ ПАНЕЛЕЙ И ФОНОВ =========================
+# =====================================================================
+
+# Контейнер поисковой строки (сверху списка городов)
 SEARCH_FRAME = """
     QFrame { 
-        background: transparent;
-       ;
+        background: transparent; /* Полностью прозрачный фон для чистого наложения */
     }   
 """
+
+# Главная подложка всего окна приложения с использованием линейного градиента.
+# Идентификатор #centralWidget гарантирует, что стиль применится строго к самому 
+# окну, не ломая стили дочерних элементов (кнопок, меток), находящихся внутри.
 CENTRAL_WIDGET = """
-    
     QWidget#centralWidget {
-        border-radius: 15px;
+        border-radius: 15px; /* Скругление углов главного окна (актуально для Frameless-окон) */
+        
+        /* Двухточечный диагональный линейный градиент (из левого нижнего угла в правый верхний):
+           x1:0, y1:1 -> Левый нижний угол
+           x2:1, y2:0 -> Правый верхний угол */
         background: qlineargradient(
             x1: 0, y1: 1,
             x2: 1, y2: 0,
-            stop: 0 rgba(135, 206, 250, 1),
-            stop: 1 rgba(255, 223, 86, 1)
+            stop: 0 rgba(135, 206, 250, 1),  /* Нежно-голубой цвет (Light Sky Blue) в начале */
+            stop: 1 rgba(255, 223, 86, 1)    /* Солнечно-желтый цвет в конце градиента */
         );
     }
 """
 
+# Боковая левая панель (контейнер для списка городов)
 LEFT_PANEL = """
     QFrame {
-        background: rgba(0, 0, 0, 0.2);
-
-        border: none;
+        background: rgba(0, 0, 0, 0.2); /* Единая полупрозрачная затемненная шторка */
+        border: none;                   /* Убираем дефолтные рамки QFrame */
     }
-
 """
 
+# Правая панель (основная область детального прогноза и графиков)
 RIGHT_PANEL = """
     QFrame {
-       
+        border: none; /* Прозрачный холст, контент рисуется прямо поверх главного градиента */
+    }
+"""
+
+# Общие вспомогательные стили
+TRANSPARENT_BG = "background-color: transparent;"
+TRANSPARENT_NO_BORDER = "background: transparent; border: none;"
+LIGHT_THEME_CENTRAL = "background: rgba(255, 255, 200, 1);"
+LIGHT_THEME_RIGHT_PANEL = "QFrame { background: rgba(255, 223, 86, 0.3); border: none; }"
+
+TITLE_BAR = "background: transparent; border-top-left-radius: 20px; border-top-right-radius: 20px;"
+SETTINGS_FRAME = "background-color: rgba(0, 0, 0, 0);"
+SETTINGS_BOX = "background-color: rgba(0, 0, 0, 0.50); border-radius: 15px;"
+SETTINGS_BUTTON = "background: transparent; border: none;"
+SETTINGS_LABEL = "color: white; font-size: 14px; font-weight: 500;"
+TITLE_BAR_BUTTONS = "QToolButton { background: transparent; border: none; }"
+
+ADD_CITY_BUTTON = """
+    QPushButton {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 500;
+        border: none;
+        padding: 0 10px;
+    }
+    QPushButton:hover {
+        background: rgba(255, 255, 255, 0.25);
+    }
+"""
+
+SEARCH_CONTAINER = """
+    QFrame {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
         border: none;
     }
 """
 
-SCROLL_AREA = "background: transparent; border: none;"
-CARDS_CONTAINER = "background: transparent;"
-
-# ==================== КНОПКА ТЕМЫ ====================
-THEME_BUTTON_SUN = """
-    QPushButton {
-        background-color: rgba(0, 0, 0, 0.2);
-        border-radius: 12px;
-        padding-left: 3px;
-        padding-right: 31px;
+CITY_SEARCH = """
+    QLineEdit {
+        background: transparent;
+        color: white;
+        font-size: 14px;
+        border: none;
     }
 """
+
+SEARCH_DROPDOWN = """
+    QFrame {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+"""
+
+DROPDOWN_TITLE = "color: rgba(255,255,255,0.5); font-size: 12px; background: transparent; border: none;"
+DROPDOWN_LIST = """
+    QListWidget {
+        background: transparent;
+        color: white;
+        font-size: 15px;
+        border: none;
+        outline: none;
+    }
+    QListWidget::item {
+        padding: 10px 4px;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        border-radius: 0px;
+    }
+    QListWidget::item:last-child {
+        border-bottom: none;
+    }
+    QListWidget::item:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+    QListWidget::item:selected {
+        background: rgba(255, 255, 255, 0.12);
+    }
+    QScrollBar:vertical {
+        width: 3px;
+        background: transparent;
+    }
+    QScrollBar::handle:vertical {
+        background: rgba(255,255,255,0.2);
+        border-radius: 1px;
+        min-height: 20px;
+    }
+    QScrollBar::add-line:vertical,
+    QScrollBar::sub-line:vertical { height: 0px; }
+"""
+
+CITY_INFO_FRAME = "background: transparent;"
+CITY_INFO_CARD = "background: rgba(0, 0, 0, 0.2); border-radius: 20px; border: none;"
+CITY_INFO_LOCATION_NAME = "font-size: 16px; color: white; background: transparent;"
+CITY_INFO_SEPARATOR = "background: rgba(255, 255, 255, 0.25); border: none;"
+CITY_INFO_CITY = "font-size: 44px; color: white; font-weight: 500; background: transparent;"
+CITY_INFO_DESC = "color: white; font-size: 24px; font-weight: 500; background: transparent;"
+CITY_INFO_MINMAX = "color: rgba(255,255,255,180); font-size: 16px; border: none; background: transparent;"
+CITY_INFO_TEMP = "font-size: 52px; color: white; font-weight: 500; border: none; background: transparent;"
+CITY_INFO_DAY_TITLE = "font-size: 16px; color: white; font-weight: 500; background: transparent;"
+CITY_INFO_DAY = "color: white; font-size: 24px; font-weight: 500; background: transparent;"
+CITY_INFO_DATE = "color: rgba(255,255,255,0.85); font-size: 24px; font-weight: 500; background: transparent;"
+CLOCK_CONTAINER_STYLE = "background: transparent;"
+CLOCK_LABEL_STYLE = "background: transparent; font-size: 34px; color: white; font-weight: 500;"
+
+HOURLY_FORECAST_FRAME = "background: rgba(0, 0, 0, 0.2); border-radius: 20px;"
+HOURLY_TITLE = "font-size: 14px; color: white; font-weight: 500; background: transparent;"
+HOURLY_LINE = "background: rgba(255,255,255,0.2); margin-top: 8px; margin-bottom: 5px;"
+HOURLY_ARROW_BUTTON = "background: transparent; border: none;"
+HOURLY_ARROW_TEXT = "color: rgba(255,255,255,150); font-size: 14px; background: transparent; border: none;"
+HOURLY_ITEM_TIME = "color: white; font-size: 14px; font-weight: 600; background: transparent;"
+HOURLY_ITEM_TEMP = "color: white; font-size: 14px; font-weight: 500; background: transparent;"
+
+TWELVE_HOUR_FRAME = """
+    TwelveHourGraphFrame {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 20px;
+    }
+"""
+TWELVE_HOUR_TITLE = "font-size: 13px; color: white; font-weight: bold; background: transparent; opacity: 0.8;"
+
+# Настройки окна
+SETTINGS_MAIN = "background: #1a1a1a;"
+SETTINGS_TOP_BAR = "background: transparent; border: none;"
+SETTINGS_TITLE = "color: white; font-size: 18px; font-weight: 600; background: transparent;"
+SETTINGS_CLOSE_BUTTON = """
+    QPushButton {
+        background-color: transparent;
+        color: rgba(255, 255, 255, 0.6);
+        border: none;
+        font-size: 16px;
+    }
+    QPushButton:hover {
+        color: white;
+    }
+"""
+SETTINGS_LEFT_FRAME = """
+    QFrame {
+        background: transparent;
+        border-right: 1px solid rgba(255, 255, 255, 0.12);
+    }
+"""
+SETTINGS_RIGHT_FRAME = "background: transparent; border: none;"
+SETTINGS_PAGE_TITLE = "color: white; font-size: 20px; font-weight: 600; background: transparent;"
+
+NAV_BUTTON_CHECKED = """
+    QPushButton {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: left;
+        padding-left: 12px;
+    }
+"""
+NAV_BUTTON_UNCHECKED = """
+    QPushButton {
+        background-color: transparent;
+        color: rgba(255, 255, 255, 0.45);
+        border: none;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 400;
+        text-align: left;
+        padding-left: 12px;
+    }
+    QPushButton:hover {
+        background-color: rgba(255, 255, 255, 0.07);
+        color: rgba(255, 255, 255, 0.75);
+    }
+"""
+
+# Область прокрутки списка городов
+SCROLL_AREA = "background: transparent; border: none;"
+
+# Внутренний контейнер, в который физически укладываются экземпляры WeatherCard
+CARDS_CONTAINER = "background: transparent;"
+
+
+# =====================================================================
+# ==================== КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ =======================
+# =====================================================================
+# Интересное архитектурное решение: переключатель сделан в виде ОДНОЙ кнопки QPushButton.
+# Имитация движения тумблера (слайдера) влево-вправо достигается за счет резкого 
+# изменения внутреннего пространства (padding-left и padding-right).
+
+# Состояние "Дневная тема" (Иконка солнца слева, свободное место справа)
+THEME_BUTTON_SUN = """
+    QPushButton {
+        background-color: rgba(0, 0, 0, 0.2); /* Темная полупрозрачная подложка */
+        border-radius: 12px;                  /* Скругление под форму пилюли/капсулы */
+        padding-left: 3px;                    /* Прижимает иконку солнца к левому краю */
+        padding-right: 31px;                  /* Резервирует пустое место справа */
+    }
+"""
+
+# Состояние "Ночная тема" (Иконка луны сдвигается вправо, освобождая место слева)
 THEME_BUTTON_MOON = """
     QPushButton {
-        background-color: rgba(236, 236, 236, 1);
+        background-color: rgba(236, 236, 236, 1); /* Контрастный плотный светло-серый фон */
         border-radius: 12px;
-        padding-left: 31px;
-        padding-right: 3px;
+        padding-left: 31px;                   /* Выталкивает иконку луны к правому краю */
+        padding-right: 3px;                    /* Минимальный зазор от правого края */
     }
 """

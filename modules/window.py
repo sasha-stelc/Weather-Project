@@ -7,7 +7,7 @@ from . import styles
 from .api_request import get_weather, SEARCH_CITIES, FORMAT_CITY, LOAD_USER_CITIES, ADD_USER_CITY, REMOVE_USER_CITY
 from .create_path import create_media_path
 from .title_bar import TitleBar
-
+from .settings import Settings
 
 class ImageThemeSwitch(widget.QPushButton):
     def __init__(self, parent=None, app=None):
@@ -48,19 +48,23 @@ class WeatherApp(widget.QMainWindow):
         self.CITY_INFO_FRAME = None
         self.IS_LIGHT_THEME = False
         self._SELECTED_CITY = None
+        self.SETTINGS_WINDOW = Settings(self.CENTRAL_WIDGET)
+        self.SETTINGS_WINDOW.setGeometry(0, 26, 1200, 800)
+        self.SETTINGS_WINDOW.hide()
+        self.SETTINGS_WINDOW.raise_()
         self.MAIN_LAYOUT = widget.QVBoxLayout(self.CENTRAL_WIDGET)
         self.MAIN_LAYOUT.setContentsMargins(0, 0, 0, 0)
         self.MAIN_LAYOUT.setSpacing(0)
         self.setWindowFlags(core.Qt.WindowType.FramelessWindowHint)
         self.TITLE_BAR = TitleBar(self)
-        self.TITLE_BAR.setStyleSheet("background: white; border-top-left-radius: 20px; border-top-right-radius: 20px;")
-        self.MAIN_LAYOUT.addWidget(self.TITLE_BAR)
+        self.TITLE_BAR.setStyleSheet(styles.TITLE_BAR)
+        self.MAIN_LAYOUT.addWidget(self.TITLE_BAR, alignment=core.Qt.AlignmentFlag.AlignLeft)
         self.THEME_SWITCH = ImageThemeSwitch(app=self)
         self.PANELS_LAYOUT = widget.QHBoxLayout()
         self.PANELS_LAYOUT.setContentsMargins(0, 0, 0, 0)
         self.PANELS_LAYOUT.setSpacing(0)
         self.MAIN_LAYOUT.addLayout(self.PANELS_LAYOUT)
-
+        
         # ===== LEFT PANEL =====
         self.LEFT_PANEL = widget.QFrame()
         self.LEFT_PANEL.setFixedWidth(370)
@@ -115,14 +119,14 @@ class WeatherApp(widget.QMainWindow):
         self.RIGHT_LAYOUT.setContentsMargins(20, 10, 20, 10)
         self.WEATHER_PANEL = widget.QFrame()
         self.WEATHER_PANEL.setFixedSize(788, 157)
-        self.WEATHER_PANEL.setStyleSheet("background-color: transparent;")
+        self.WEATHER_PANEL.setStyleSheet(styles.TRANSPARENT_BG)
         self.WEATHER_LAYOUT = widget.QVBoxLayout(self.WEATHER_PANEL)
         self.WEATHER_LAYOUT.setContentsMargins(0, 0, 0, 0)
         self.WEATHER_LAYOUT.setSpacing(0)
         self.HOURLY_FRAME = None
         self.BOTTOM_PANEL = widget.QFrame()
         self.BOTTOM_PANEL.setFixedSize(788, 197)
-        self.BOTTOM_PANEL.setStyleSheet("background-color: transparent;")
+        self.BOTTOM_PANEL.setStyleSheet(styles.TRANSPARENT_BG)
         self.BOTTOM_LAYOUT = widget.QVBoxLayout(self.BOTTOM_PANEL)
         self.BOTTOM_LAYOUT.setContentsMargins(0, 0, 0, 0)
         self.BOTTOM_LAYOUT.setSpacing(0)
@@ -139,62 +143,51 @@ class WeatherApp(widget.QMainWindow):
         # ===== SETTINGS =====
         self.SETTINGS_FRAME = widget.QFrame()
         self.SETTINGS_FRAME.setFixedSize(150, 45)
-        self.SETTINGS_FRAME.setStyleSheet("background-color: rgba(0, 0, 0, 0);")
+        self.SETTINGS_FRAME.setStyleSheet(styles.SETTINGS_FRAME)
         self.SETTINGSL = widget.QHBoxLayout(self.SETTINGS_FRAME)
         self.SETTINGSL.setContentsMargins(0, 0, 0, 0)
         self.SETTINGSL.setSpacing(5)
+
         self.SETTINGS = widget.QFrame(parent=self.SETTINGS_FRAME)
         self.SETTINGS.setFixedSize(45, 45)
-        self.SETTINGS.setStyleSheet("background-color: rgba(0, 0, 0, 50); border-radius: 15px;")
-        self.SETT_LABEL = widget.QLabel(self.SETTINGS)
+        self.SETTINGS.setStyleSheet(styles.SETTINGS_BOX)
+
+        self.SETT_LABEL = widget.QPushButton(self.SETTINGS)
         self.SETT_LABEL.setFixedSize(45, 45)
-        self.SETT_LABEL.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
+
         self.PIXMAP = gui.QPixmap(create_media_path("Vector.png"))
-        self.SETT_LABEL.setPixmap(self.PIXMAP)
+        self.SETT_LABEL.setIcon(gui.QIcon(self.PIXMAP))
+        self.SETT_LABEL.setIconSize(core.QSize(20, 20))
+        self.SETT_LABEL.setStyleSheet(styles.SETTINGS_BUTTON)
+
         self.SETTINGS_NAME = widget.QLabel("Налаштування")
-        self.SETTINGS_NAME.setStyleSheet("color: white; font-size: 14px; font-weight: 500;")
+        self.SETTINGS_NAME.setStyleSheet(styles.SETTINGS_LABEL)
         self.SETTINGS_NAME.setAlignment(core.Qt.AlignmentFlag.AlignLeft | core.Qt.AlignmentFlag.AlignVCenter)
+
         self.SETTINGSL.addWidget(self.SETTINGS, alignment=core.Qt.AlignmentFlag.AlignLeft)
         self.SETTINGSL.addWidget(self.SETTINGS_NAME, alignment=core.Qt.AlignmentFlag.AlignLeft)
+
+        self.SETT_LABEL.clicked.connect(self.on_settings_clicked)
 
         # ===== КНОПКА ДОДАТИ =====
         self.ADD_CITY_BTN = widget.QPushButton("⊕ Додати")
         self.ADD_CITY_BTN.setFixedSize(100, 34)
         self.ADD_CITY_BTN.setCursor(core.Qt.CursorShape.PointingHandCursor)
-        self.ADD_CITY_BTN.setStyleSheet("""
-            QPushButton {
-                background: rgba(255, 255, 255, 0.15);
-                color: white;
-                border-radius: 10px;
-                font-size: 13px;
-                font-weight: 500;
-                border: none;
-                padding: 0 10px;
-            }
-            QPushButton:hover {
-                background: rgba(255, 255, 255, 0.25);
-            }
-        """)
+        self.ADD_CITY_BTN.setStyleSheet(styles.ADD_CITY_BUTTON)
         self.ADD_CITY_BTN.hide()
         self.ADD_CITY_BTN.clicked.connect(self.ON_ADD_CITY_CLICKED)
 
         # ===== КОНТЕЙНЕР ПОШУКУ =====
         self.SEARCH_CONTAINER = widget.QFrame()
         self.SEARCH_CONTAINER.setFixedSize(261, 36)
-        self.SEARCH_CONTAINER.setStyleSheet("""
-            QFrame {
-                background: rgba(0, 0, 0, 50);
-                border-radius: 10px;
-                border: none;
-            }
-        """)
+        self.SEARCH_CONTAINER.setStyleSheet(styles.SEARCH_CONTAINER)
         self.SEARCH_CONTAINER_LAYOUT = widget.QHBoxLayout(self.SEARCH_CONTAINER)
         self.SEARCH_CONTAINER_LAYOUT.setContentsMargins(10, 0, 8, 0)
         self.SEARCH_CONTAINER_LAYOUT.setSpacing(6)
 
         self.SEARCH_ICON_LBL = widget.QLabel()
         self.SEARCH_ICON_LBL.setFixedSize(18, 18)
-        self.SEARCH_ICON_LBL.setStyleSheet("background: transparent; border: none;")
+        self.SEARCH_ICON_LBL.setStyleSheet(styles.TRANSPARENT_NO_BORDER)
         search_icon_path = create_media_path("search.png")
         if os.path.exists(search_icon_path):
             self.SEARCH_ICON_LBL.setPixmap(
@@ -206,21 +199,14 @@ class WeatherApp(widget.QMainWindow):
             )
 
         self.CITY_SEARCH = widget.QLineEdit()
-        self.CITY_SEARCH.setStyleSheet("""
-            QLineEdit {
-                background: transparent;
-                color: white;
-                font-size: 14px;
-                border: none;
-            }
-        """)
+        self.CITY_SEARCH.setStyleSheet(styles.CITY_SEARCH)
         self.CITY_SEARCH.setPlaceholderText("Пошук")
         self.CITY_SEARCH.textChanged.connect(self.ON_SEARCH_TEXT_CHANGED)
 
         self.CLEAR_BTN = widget.QPushButton()
         self.CLEAR_BTN.setFixedSize(18, 18)
         self.CLEAR_BTN.setCursor(core.Qt.CursorShape.PointingHandCursor)
-        self.CLEAR_BTN.setStyleSheet("background: transparent; border: none;")
+        self.CLEAR_BTN.setStyleSheet(styles.TRANSPARENT_NO_BORDER)
         remove_icon_path = create_media_path("remove.png")
         if os.path.exists(remove_icon_path):
             self.CLEAR_BTN.setIcon(gui.QIcon(remove_icon_path))
@@ -246,58 +232,17 @@ class WeatherApp(widget.QMainWindow):
 
         # ===== DROPDOWN =====
         self.SEARCH_DROPDOWN = widget.QFrame(self.CENTRAL_WIDGET)
-        self.SEARCH_DROPDOWN.setStyleSheet("""
-            QFrame {
-                background: rgba(40, 40, 60, 0.97);
-                border-radius: 14px;
-                border: 1px solid rgba(255, 255, 255, 0.1);
-            }
-        """)
+        self.SEARCH_DROPDOWN.setStyleSheet(styles.SEARCH_DROPDOWN)
         self.DROPDOWN_LAYOUT = widget.QVBoxLayout(self.SEARCH_DROPDOWN)
         self.DROPDOWN_LAYOUT.setContentsMargins(12, 10, 12, 10)
         self.DROPDOWN_LAYOUT.setSpacing(2)
         self.DROPDOWN_TITLE = widget.QLabel("Результати пошуку")
-        self.DROPDOWN_TITLE.setStyleSheet(
-            "color: rgba(255,255,255,0.5); font-size: 12px; background: transparent; border: none;"
-        )
+        self.DROPDOWN_TITLE.setStyleSheet(styles.DROPDOWN_TITLE)
         self.DROPDOWN_LAYOUT.addWidget(self.DROPDOWN_TITLE)
         self.DROPDOWN_LIST = widget.QListWidget()
         self.DROPDOWN_LIST.setFrameShape(widget.QFrame.Shape.NoFrame)
         self.DROPDOWN_LIST.setVerticalScrollBarPolicy(core.Qt.ScrollBarPolicy.ScrollBarAsNeeded)
-        self.DROPDOWN_LIST.setStyleSheet("""
-            QListWidget {
-                background: transparent;
-                color: white;
-                font-size: 15px;
-                border: none;
-                outline: none;
-            }
-            QListWidget::item {
-                padding: 10px 4px;
-                border-bottom: 1px solid rgba(255,255,255,0.07);
-                border-radius: 0px;
-            }
-            QListWidget::item:last-child {
-                border-bottom: none;
-            }
-            QListWidget::item:hover {
-                background: rgba(255, 255, 255, 0.08);
-            }
-            QListWidget::item:selected {
-                background: rgba(255, 255, 255, 0.12);
-            }
-            QScrollBar:vertical {
-                width: 3px;
-                background: transparent;
-            }
-            QScrollBar::handle:vertical {
-                background: rgba(255,255,255,0.2);
-                border-radius: 1px;
-                min-height: 20px;
-            }
-            QScrollBar::add-line:vertical,
-            QScrollBar::sub-line:vertical { height: 0px; }
-        """)
+        self.DROPDOWN_LIST.setStyleSheet(styles.DROPDOWN_LIST)
         self.DROPDOWN_LIST.itemClicked.connect(self.ON_SEARCH_ITEM_SELECTED)
         self.DROPDOWN_LAYOUT.addWidget(self.DROPDOWN_LIST)
         self.SEARCH_DROPDOWN.hide()
@@ -306,6 +251,10 @@ class WeatherApp(widget.QMainWindow):
         # Выбрать первую карточку по умолчанию
         if self.WEATHER_CARDS:
             core.QTimer.singleShot(0, lambda: self.ON_CARD_SELECTED(self.WEATHER_CARDS[0]))
+
+    def on_settings_clicked(self):
+        self.SETTINGS_WINDOW.raise_()
+        self.SETTINGS_WINDOW.show()
 
     def ON_SEARCH_TEXT_CHANGED(self, text: str):
         text_stripped = text.strip()
@@ -380,14 +329,14 @@ class WeatherApp(widget.QMainWindow):
             self.CARDS_LAYOUT.insertWidget(self.CARDS_LAYOUT.count() - 1, card)
         self._CLEAR_SEARCH()
 
-    # def SET_THEME_LIGHT(self):
-    #     self.IS_LIGHT_THEME = True
-    #     self.CENTRAL_WIDGET.setStyleSheet("background: rgba(255, 255, 200, 1);")
-    #     self.RIGHT_PANEL.setStyleSheet("QFrame { background: rgba(255, 223, 86, 0.3); border: none; }")
+    def SET_THEME_LIGHT(self):
+        self.IS_LIGHT_THEME = True
+        self.CENTRAL_WIDGET.setStyleSheet(styles.LIGHT_THEME_CENTRAL)
+        self.RIGHT_PANEL.setStyleSheet(styles.LIGHT_THEME_RIGHT_PANEL)
 
-    # def SET_THEME_DARK(self):
-    #     self.IS_LIGHT_THEME = False
-    #     self.CENTRAL_WIDGET.setStyleSheet(styles.CENTRAL_WIDGET)
+    def SET_THEME_DARK(self):
+        self.IS_LIGHT_THEME = False
+        self.CENTRAL_WIDGET.setStyleSheet(styles.CENTRAL_WIDGET)
 
     def REFRESH_WEATHER(self):
         for card in self.WEATHER_CARDS:
