@@ -1,6 +1,8 @@
 import PyQt6.QtCore as core
 import PyQt6.QtWidgets as widget
-
+from .search_sity import SearchCity
+from .application_size import Application
+from .langueges import AppLanguage
 from .. import styles
 
 
@@ -112,14 +114,26 @@ class Settings(widget.QWidget):
         self._switch_page(0)
 
     def _switch_page(self, index: int):
-        titles = [
-            "Пошук міста",
-            "Розмір додатку",
-            "Мова додатку",
-            "Списки зображень",
-        ]
-        self.PAGE_TITLE.setText(titles[index])
+        # Очищаем RIGHT_LAYOUT (кроме stretch)
+        while self.RIGHT_LAYOUT.count() > 1:
+            item = self.RIGHT_LAYOUT.takeAt(0)
+            if item.widget():
+                item.widget().setParent(None)
+
+        if index == 0:
+            page = SearchCity()
+            self.RIGHT_LAYOUT.insertWidget(0, page.ROOT)
+        elif index == 1:
+            page = Application()
+            self.RIGHT_LAYOUT.insertWidget(0, page.ROOT)
+        elif index == 2:
+            page = AppLanguage()
+            self.RIGHT_LAYOUT.insertWidget(0, page.ROOT)
+        else:
+            titles = ["", "", "", "Списки зображень"]
+            lbl = widget.QLabel(titles[index])
+            lbl.setStyleSheet(styles.SETTINGS_PAGE_TITLE)
+            self.RIGHT_LAYOUT.insertWidget(0, lbl)
+
         for i, btn in enumerate(self._nav_buttons):
             btn.setChecked(i == index)
-
-

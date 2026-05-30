@@ -241,6 +241,218 @@ SETTINGS_LEFT_FRAME = """
 SETTINGS_RIGHT_FRAME = "background: transparent; border: none;"
 SETTINGS_PAGE_TITLE = "color: white; font-size: 20px; font-weight: 600; background: transparent;"
 
+# =====================================================================
+# ==================== СТИЛІ СТОРІНКИ НАЛАШТУВАНЬ ======================
+# =====================================================================
+
+LANGUAGE_TITLE_STYLE = """
+    QLabel {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 500;
+        padding-bottom: 4px;
+    }
+"""
+
+LANGUAGE_LABEL_STYLE = """
+    QLabel {
+        color: #aaaaaa;
+        font-size: 13px;
+        background: transparent;
+    }
+"""
+
+LANGUAGE_COMBOBOX_STYLE = """
+    QComboBox {
+        background-color: #2b2b2b;
+        color: #cccccc;
+        border: 1px solid #3a3a3a;
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-size: 13px;
+    }
+    QComboBox:hover {
+        border: 1px solid #555;
+    }
+    QComboBox::drop-down {
+        border: none;
+        width: 24px;
+    }
+    QComboBox::down-arrow {
+        image: none;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 6px solid #888;
+        width: 0;
+        height: 0;
+        margin-right: 8px;
+    }
+    QComboBox QAbstractItemView {
+        background-color: #2b2b2b;
+        color: #cccccc;
+        border: 1px solid #3a3a3a;
+        selection-background-color: #3a3a3a;
+        outline: none;
+    }
+"""
+
+LANGUAGE_BUTTON_STYLE = """
+    QPushButton {
+        background-color: #3a3a3a;
+        color: #aaaaaa;
+        border: none;
+        border-radius: 6px;
+        font-size: 13px;
+    }
+    QPushButton:hover {
+        background-color: #444;
+        color: #cccccc;
+    }
+    QPushButton:pressed {
+        background-color: #333;
+    }
+"""
+
+APPLICATION_TITLE_STYLE = """
+    QLabel {
+        color: #ffffff;
+        font-size: 18px;
+        font-weight: 500;
+        padding-bottom: 4px;
+        background: transparent;
+    }
+"""
+
+APPLICATION_RADIO_STYLE = """
+    QRadioButton {
+        color: #cccccc;
+        font-size: 14px;
+        spacing: 10px;
+        background: transparent;
+    }
+    QRadioButton::indicator {
+        width: 16px;
+        height: 16px;
+        border-radius: 9px;
+        border: 2px solid #666666;
+        background-color: transparent;
+    }
+    QRadioButton::indicator:hover {
+        border: 2px solid #aaaaaa;
+    }
+    QRadioButton::indicator:checked {
+        background-color: #ffffff;
+        border: 4px solid #1a1a1a;
+        outline: 2px solid #ffffff;
+    }
+"""
+
+APPLICATION_BUTTON_STYLE = LANGUAGE_BUTTON_STYLE
+
+SEARCH_TITLE_STYLE = APPLICATION_TITLE_STYLE
+
+SEARCH_LABEL_STYLE = LANGUAGE_LABEL_STYLE
+
+SEARCH_COMBOBOX_STYLE = """
+    QComboBox {
+        background-color: #ffffff;
+        color: #222222;
+        border: 1px solid #3a3a3a;
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-size: 13px;
+    }
+    QComboBox:hover {
+        border: 1px solid #555;
+    }
+    QComboBox::drop-down {
+        border: none;
+        width: 24px;
+    }
+    QComboBox::down-arrow {
+        image: none;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 6px solid #888;
+        width: 0;
+        height: 0;
+        margin-right: 8px;
+    }
+    QComboBox QAbstractItemView {
+        background-color: #ffffff;
+        color: #222222;
+        border: 1px solid #3a3a3a;
+        selection-background-color: #eeeeee;
+        outline: none;
+    }
+"""
+
+SEARCH_LINEEDIT_STYLE = """
+    QLineEdit {
+        background-color: #ffffff;
+        color: #222222;
+        border: 1px solid #3a3a3a;
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-size: 13px;
+    }
+    QLineEdit:hover {
+        border: 1px solid #555;
+    }
+    QLineEdit:focus {
+        border: 1px solid #666;
+    }
+"""
+
+SEARCH_BUTTON_STYLE = LANGUAGE_BUTTON_STYLE
+
+SEARCH_MAP_PLACEHOLDER_STYLE = """
+    QLabel {
+        background-color: #2a2a2a;
+        border-radius: 6px;
+        border: 1px solid #3a3a3a;
+    }
+"""
+
+SEARCH_ADDED_LABEL_STYLE = SEARCH_TITLE_STYLE
+
+SEARCH_CITIES_LIST_STYLE = """
+    QFrame {
+        background-color: #232323;
+        border-radius: 8px;
+        border: 1px solid #333;
+    }
+"""
+
+SEARCH_CITY_ROW_STYLE = """
+    QFrame {
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid #2e2e2e;
+    }
+"""
+
+SEARCH_CITY_LABEL_STYLE = """
+    QLabel {
+        color: #cccccc;
+        font-size: 14px;
+        background: transparent;
+        border: none;
+    }
+"""
+
+SEARCH_DELETE_BUTTON_STYLE = """
+    QPushButton {
+        color: #555;
+        background: transparent;
+        border: none;
+        font-size: 15px;
+    }
+    QPushButton:hover {
+        color: #ff5555;
+    }
+"""
+
 NAV_BUTTON_CHECKED = """
     QPushButton {
         background-color: rgba(255, 255, 255, 0.15);
