@@ -203,7 +203,7 @@ CLOCK_LABEL_STYLE = "background: transparent; font-size: 34px; color: white; fon
 
 HOURLY_FORECAST_FRAME = "background: rgba(0, 0, 0, 0.2); border-radius: 20px;"
 HOURLY_TITLE = "font-size: 14px; color: white; font-weight: 500; background: transparent;"
-HOURLY_LINE = "background: rgba(255,255,255,0.2); margin-top: 8px; margin-bottom: 5px;"
+HOURLY_LINE = "background: rgba(255,255,255,0.2);"
 HOURLY_ARROW_BUTTON = "background: transparent; border: none;"
 HOURLY_ARROW_TEXT = "color: rgba(255,255,255,150); font-size: 14px; background: transparent; border: none;"
 HOURLY_ITEM_TIME = "color: white; font-size: 14px; font-weight: 600; background: transparent;"
@@ -213,12 +213,13 @@ TWELVE_HOUR_FRAME = """
     TwelveHourGraphFrame {
         background: rgba(0, 0, 0, 0.2);
         border-radius: 20px;
+        
     }
 """
-TWELVE_HOUR_TITLE = "font-size: 13px; color: white; font-weight: bold; background: transparent; opacity: 0.8;"
+TWELVE_HOUR_TITLE = "font-size: 13px; color: white; font-weight: 500;; background: transparent; opacity: 0.8;"
 
 # Настройки окна
-SETTINGS_MAIN = "background: #1a1a1a;"
+SETTINGS_MAIN = "background: rgba(0, 0, 0, 85%);"
 SETTINGS_TOP_BAR = "background: transparent; border: none;"
 SETTINGS_TITLE = "color: white; font-size: 18px; font-weight: 600; background: transparent;"
 SETTINGS_CLOSE_BUTTON = """
@@ -302,7 +303,8 @@ LANGUAGE_BUTTON_STYLE = """
         color: #aaaaaa;
         border: none;
         border-radius: 6px;
-        font-size: 13px;
+        font-size: 14px;
+        font-weight: 500
     }
     QPushButton:hover {
         background-color: #444;
@@ -360,7 +362,8 @@ SEARCH_COMBOBOX_STYLE = """
         border: 1px solid #3a3a3a;
         border-radius: 6px;
         padding: 4px 10px;
-        font-size: 13px;
+        font-size: 14px;
+        font-weight: 500
     }
     QComboBox:hover {
         border: 1px solid #555;
@@ -394,7 +397,8 @@ SEARCH_LINEEDIT_STYLE = """
         border: 1px solid #3a3a3a;
         border-radius: 6px;
         padding: 4px 10px;
-        font-size: 13px;
+        font-size: 14px;
+        font-weight: 500
     }
     QLineEdit:hover {
         border: 1px solid #555;

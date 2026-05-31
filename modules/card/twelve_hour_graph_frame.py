@@ -25,7 +25,7 @@ class TwelveHourGraphFrame(widget.QFrame):
         """
         super().__init__(parent)
 
-        self.setFixedHeight(197)
+        self.minimumHeight()
         self.setStyleSheet(styles.TWELVE_HOUR_FRAME)
 
         # Извлекаем оригинальный массив из 12 элементов (точек прогноза)
@@ -43,15 +43,31 @@ class TwelveHourGraphFrame(widget.QFrame):
 
         # Настройка базовой разметки (включает только текстовый заголовок)
         layout = widget.QVBoxLayout(self)
-        layout.setContentsMargins(15, 12, 15, 0)
+        layout.setContentsMargins(15, 12, 15, 8)
+        layout.setSpacing(0)
+
+        header = widget.QWidget()
+        header_layout = widget.QVBoxLayout(header)
+        header_layout.setContentsMargins(0, 0, 0, 8)
+        header_layout.setSpacing(6)
 
         title = widget.QLabel("Прогноз на 12 годин")
         title.setStyleSheet(styles.TWELVE_HOUR_TITLE)
-        layout.addWidget(title)
 
-        # Сдвигает заголовок на самый верх, освобождая всю остальную площадь фрейма под paintEvent
-        layout.addStretch()
+        header_layout.addWidget(title)
 
+        line = widget.QFrame()
+        line.setFixedHeight(1)
+        line.setStyleSheet(styles.HOURLY_LINE)
+
+        header_layout.addWidget(line)
+
+        layout.addWidget(header)
+        self.GRAPH_CONTAINER = widget.QWidget()
+        self.GRAPH_LAYOUT = widget.QVBoxLayout(self.GRAPH_CONTAINER)
+        self.GRAPH_LAYOUT.setContentsMargins(0, 8, 0, 0)  
+        layout.addWidget(self.GRAPH_CONTAINER, 1)  
+  
     def paintEvent(self, event):
         """Выполняет низкоуровневую отрисовку координатной сетки и столбцов графика.
         
@@ -66,7 +82,7 @@ class TwelveHourGraphFrame(widget.QFrame):
         
         # --- ГЕОМЕТРИЧЕСКИЕ ОТСТУПЫ (Padding) ---
         pad_l, pad_r = 15, 35      # Отступы слева и справа (справа больше для текста шкалы градусов)
-        pad_top, pad_bot = 55, 30  # Отступы сверху (под иконки) и снизу (под границы столбцов)
+        pad_top, pad_bot = 70, 10  # Отступы сверху (под иконки) и снизу (под границы столбцов)
         
         # Чистые размеры рабочей области, где непосредственно рисуется график
         draw_w = W - pad_l - pad_r
@@ -140,7 +156,7 @@ class TwelveHourGraphFrame(widget.QFrame):
                 if os.path.exists(icon_path):
                     # Масштабируем иконку погоды до миниатюрного размера 21x21 пиксель
                     pix = gui.QPixmap(icon_path).scaled(
-                        21, 21,
+                        16, 16,
                         core.Qt.AspectRatioMode.KeepAspectRatio,
                         core.Qt.TransformationMode.SmoothTransformation
                     )

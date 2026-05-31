@@ -38,7 +38,7 @@ class CityInfoFrame(widget.QFrame):
         # ===== ЛЕВАЯ КАРТОЧКА (Погода) =======================================
         # =====================================================================
         self.LEFT = widget.QFrame()
-        self.LEFT.setFixedSize(390, 303)
+        self.LEFT.setMaximumSize(390,303)
         self.LEFT.setStyleSheet(styles.CITY_INFO_CARD)
 
         # Иконка текущей геопозиции сверху карточки
@@ -131,7 +131,7 @@ class CityInfoFrame(widget.QFrame):
         # ===== ПРАВАЯ КАРТОЧКА (Время и Дата) ================================
         # =====================================================================
         self.RIGHT = widget.QFrame()
-        self.RIGHT.setFixedSize(390, 303)
+        self.RIGHT.setMaximumSize(390, 303)
         self.RIGHT.setStyleSheet(styles.CITY_INFO_CARD)
 
         # Заголовок карточки "Сьогодні"

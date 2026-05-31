@@ -44,14 +44,13 @@ class WeatherApp(widget.QMainWindow):
         self.CENTRAL_WIDGET = widget.QWidget()
         self.CENTRAL_WIDGET.setObjectName("centralWidget")
         self.CENTRAL_WIDGET.setStyleSheet(styles.CENTRAL_WIDGET)
+        self.CENTRAL_WIDGET.setSizePolicy(widget.QSizePolicy.Policy.Expanding, widget.QSizePolicy.Policy.Expanding)
         self.setCentralWidget(self.CENTRAL_WIDGET)
         self.CITY_INFO_FRAME = None
         self.IS_LIGHT_THEME = False
         self._SELECTED_CITY = None
-        self.SETTINGS_WINDOW = Settings(self.CENTRAL_WIDGET)
-        self.SETTINGS_WINDOW.setGeometry(0, 26, 1200, 800)
-        self.SETTINGS_WINDOW.hide()
-        self.SETTINGS_WINDOW.raise_()
+        self.IS_SETTINGS_OPEN = False
+        self.SETTINGS_FRAME = None
         self.MAIN_LAYOUT = widget.QVBoxLayout(self.CENTRAL_WIDGET)
         self.MAIN_LAYOUT.setContentsMargins(0, 0, 0, 0)
         self.MAIN_LAYOUT.setSpacing(0)
@@ -251,11 +250,66 @@ class WeatherApp(widget.QMainWindow):
         # Выбрать первую карточку по умолчанию
         if self.WEATHER_CARDS:
             core.QTimer.singleShot(0, lambda: self.ON_CARD_SELECTED(self.WEATHER_CARDS[0]))
+    def APPLY_WINDOW_SIZE(self, width: int, height: int):
+        """Застосовуємо новий розмір вікна"""
+        self.setMinimumSize(width, height)
+        self.setMaximumSize(width, height)
+        self.resize(width, height)
 
+        # Коригуємо габарити внутрішніх панелей під обраний розмір
+        left_width = max(320, min(420, int(width * 0.28)))
+        right_width = max(620, width - left_width - 40)
+
+        self.LEFT_PANEL.setFixedWidth(left_width)
+        self.WEATHER_PANEL.setFixedSize(right_width, max(140, int(height * 0.195)))
+        self.BOTTOM_PANEL.setFixedSize(right_width, max(160, int(height * 0.23)))
+        self.SEARCH_CONTAINER.setFixedWidth(max(220, int(width * 0.22)))
+
+        # Оновлюємо геометрію вікна налаштувань
+        if hasattr(self, 'SETTINGS_WINDOW'):
+            self.SETTINGS_WINDOW.setGeometry(0, 26, width, height)
     def on_settings_clicked(self):
-        self.SETTINGS_WINDOW.raise_()
-        self.SETTINGS_WINDOW.show()
+        if self.IS_SETTINGS_OPEN:
+            self.close_settings()
+            return
 
+        # Видаляємо weather UI
+        if self.CITY_INFO_FRAME:
+            self.RIGHT_LAYOUT.removeWidget(self.CITY_INFO_FRAME)
+            self.CITY_INFO_FRAME.deleteLater()
+            self.CITY_INFO_FRAME = None
+        if self.HOURLY_FRAME:
+            self.WEATHER_LAYOUT.removeWidget(self.HOURLY_FRAME)
+            self.HOURLY_FRAME.deleteLater()
+            self.HOURLY_FRAME = None
+        if self.GRAPH_FRAME:
+            self.BOTTOM_LAYOUT.removeWidget(self.GRAPH_FRAME)
+            self.GRAPH_FRAME.deleteLater()
+            self.GRAPH_FRAME = None
+
+        # Створюємо Settings як overlay поверх RIGHT_PANEL
+        search_h = self.SEARCH_FRAME.height()
+        self.SETTINGS_FRAME = Settings(self.RIGHT_PANEL, main_app=self)
+        self.SETTINGS_FRAME.setGeometry(
+            0,
+            search_h,
+            self.RIGHT_PANEL.width(),
+            self.RIGHT_PANEL.height() - search_h
+        )
+        self.SETTINGS_FRAME.show()
+        self.SETTINGS_FRAME.raise_()
+        self.IS_SETTINGS_OPEN = True
+    def close_settings(self):
+
+        if self.SETTINGS_FRAME:
+            self.RIGHT_LAYOUT.removeWidget(self.SETTINGS_FRAME)
+            self.SETTINGS_FRAME.deleteLater()
+            self.SETTINGS_FRAME = None
+
+        self.IS_SETTINGS_OPEN = False
+
+        if self.SELECTED_CARD:
+            self.ON_CARD_SELECTED(self.SELECTED_CARD)
     def ON_SEARCH_TEXT_CHANGED(self, text: str):
         text_stripped = text.strip()
         self.CLEAR_BTN.setVisible(bool(text_stripped))

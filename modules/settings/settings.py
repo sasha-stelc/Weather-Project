@@ -9,7 +9,9 @@ from .. import styles
 class NavButton(widget.QPushButton):
     def __init__(self, text, parent=None):
         super().__init__(text, parent)
-        self.setFixedSize(158, 35)
+        self.setMinimumHeight(35)
+        self.setMinimumWidth(140)
+        self.setSizePolicy(widget.QSizePolicy.Policy.Expanding, widget.QSizePolicy.Policy.Fixed)
         self.setCheckable(True)
         self._update_style(False)
 
@@ -25,10 +27,11 @@ class NavButton(widget.QPushButton):
 
 
 class Settings(widget.QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, main_app=None):
         super().__init__(parent)
+        self.main_app = main_app
 
-        self.resize(1200, 800)
+        self.resize(790, 688)
         self.setAttribute(core.Qt.WidgetAttribute.WA_StyledBackground, True)
         self.setStyleSheet(styles.SETTINGS_MAIN)
 
@@ -39,7 +42,8 @@ class Settings(widget.QWidget):
 
         # ===== TOP BAR =====
         self.TOP_BAR = widget.QFrame(self)
-        self.TOP_BAR.setFixedHeight(60)
+        self.TOP_BAR.setMinimumHeight(60)
+        self.TOP_BAR.setSizePolicy(widget.QSizePolicy.Policy.Expanding, widget.QSizePolicy.Policy.Fixed)
         self.TOP_BAR.setStyleSheet(styles.SETTINGS_TOP_BAR)
 
         self.TOP_LAYOUT = widget.QHBoxLayout(self.TOP_BAR)
@@ -64,7 +68,8 @@ class Settings(widget.QWidget):
 
         # ===== LEFT FRAME =====
         self.LEFT_FRAME = widget.QFrame()
-        self.LEFT_FRAME.setFixedWidth(190)
+        self.LEFT_FRAME.setMinimumWidth(190)
+        self.LEFT_FRAME.setSizePolicy(widget.QSizePolicy.Policy.Fixed, widget.QSizePolicy.Policy.Expanding)
         self.LEFT_FRAME.setStyleSheet(styles.SETTINGS_LEFT_FRAME)
 
         self.LEFT_LAYOUT = widget.QVBoxLayout(self.LEFT_FRAME)
@@ -102,7 +107,7 @@ class Settings(widget.QWidget):
         self.PAGE_TITLE.setStyleSheet(styles.SETTINGS_PAGE_TITLE)
 
         self.RIGHT_LAYOUT.addWidget(self.PAGE_TITLE)
-        self.RIGHT_LAYOUT.addStretch()
+        # self.RIGHT_LAYOUT.addStretch()
 
         # ===== СБОРКА =====
         self.CONTENT_LAYOUT.addWidget(self.LEFT_FRAME)
@@ -125,7 +130,9 @@ class Settings(widget.QWidget):
             self.RIGHT_LAYOUT.insertWidget(0, page.ROOT)
         elif index == 1:
             page = Application()
-            self.RIGHT_LAYOUT.insertWidget(0, page.ROOT)
+            if self.main_app:
+                page.sizeSelected.connect(self.main_app.APPLY_WINDOW_SIZE)
+            self.RIGHT_LAYOUT.insertWidget(0, page)
         elif index == 2:
             page = AppLanguage()
             self.RIGHT_LAYOUT.insertWidget(0, page.ROOT)
