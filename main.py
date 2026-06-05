@@ -5,7 +5,8 @@ def main():
         window.show()
         app.exec()
     except Exception as error:
-        print(error)
+        print("Помилка запуску:", error)
+
 
 if __name__ == "__main__":
     main()

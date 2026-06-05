@@ -30,6 +30,8 @@ class Settings(widget.QWidget):
     def __init__(self, parent=None, main_app=None):
         super().__init__(parent)
         self.main_app = main_app
+        self.search_city_page = None  # Сохраняем ссылку на SearchCity
+        self._pending_map_update = None  # Для отложенного обновления карты
 
         self.resize(790, 688)
         self.setAttribute(core.Qt.WidgetAttribute.WA_StyledBackground, True)
@@ -127,7 +129,13 @@ class Settings(widget.QWidget):
 
         if index == 0:
             page = SearchCity()
+            self.search_city_page = page  # Сохраняем ссылку на SearchCity
             self.RIGHT_LAYOUT.insertWidget(0, page.ROOT)
+            # Запускаем отложенное обновление карты, если были переданы координаты
+            if hasattr(self, '_pending_map_update') and self._pending_map_update:
+                lat, lon, city_name = self._pending_map_update
+                core.QTimer.singleShot(300, lambda: self.update_map_for_city(lat, lon, city_name))
+                self._pending_map_update = None
         elif index == 1:
             page = Application()
             if self.main_app:
@@ -144,3 +152,11 @@ class Settings(widget.QWidget):
 
         for i, btn in enumerate(self._nav_buttons):
             btn.setChecked(i == index)
+    
+    def update_map_for_city(self, lat: float, lon: float, city_name: str = None):
+        """Обновляет карту на странице поиска города."""
+        if self.search_city_page:
+            self.search_city_page._update_map(lat, lon, city_name)
+        else:
+            # Если страница еще не создана, сохраняем данные для отложенного обновления
+            self._pending_map_update = (lat, lon, city_name)
