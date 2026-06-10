@@ -17,11 +17,12 @@ from ..api_request import (
     ADD_USER_CITY, REMOVE_USER_CITY,
 )
 from .. import styles
+from .langueges import LanguageManager
 
 
 class SearchCity:
     def __init__(self, parent=None):
-        self.DESC_PAGE = "Пошук міста"
+        self.DESC_PAGE = LanguageManager.get_text("DESC_PAGE_SEARCH")
         self.SELECTED_COUNTRY = None
         self.SELECTED_CITY = None
         self.COUNTRY_CITIES = []
@@ -34,7 +35,7 @@ class SearchCity:
         self.ROOT_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignTop)
 
         # ===== TITLE =====
-        self.PAGE_TITLE = widget.QLabel("Пошук міста")
+        self.PAGE_TITLE = widget.QLabel(LanguageManager.get_text("TITLE_SEARCH_CITY"))
         self.PAGE_TITLE.setStyleSheet(styles.SEARCH_TITLE_STYLE)
         self.ROOT_LAYOUT.addWidget(self.PAGE_TITLE)
 
@@ -55,46 +56,46 @@ class SearchCity:
         btn_style   = styles.SEARCH_BUTTON_STYLE
 
         # COUNTRY
-        lbl_country = widget.QLabel("Країна")
+        lbl_country = widget.QLabel(LanguageManager.get_text("LABEL_COUNTRY"))
         lbl_country.setStyleSheet(label_style)
         self.INPUTS_LAYOUT.addWidget(lbl_country,
             alignment=core.Qt.AlignmentFlag.AlignCenter | core.Qt.AlignmentFlag.AlignLeft)
 
         self.COUNTRY = widget.QLineEdit()
         self.COUNTRY.setStyleSheet(line_style)
-        self.COUNTRY.setPlaceholderText("Пошук країни")
+        self.COUNTRY.setPlaceholderText(LanguageManager.get_text("PLACEHOLDER_COUNTRY"))
         self.COUNTRY.textChanged.connect(self.ON_COUNTRY_TEXT_CHANGED)
         self.INPUTS_LAYOUT.addWidget(self.COUNTRY,
             alignment=core.Qt.AlignmentFlag.AlignTop | core.Qt.AlignmentFlag.AlignLeft)
 
         # CITY
-        lbl_city = widget.QLabel("Місто")
+        lbl_city = widget.QLabel(LanguageManager.get_text("LABEL_CITY"))
         lbl_city.setStyleSheet(label_style)
         self.INPUTS_LAYOUT.addWidget(lbl_city,
             alignment=core.Qt.AlignmentFlag.AlignCenter | core.Qt.AlignmentFlag.AlignLeft)
 
         self.CITY_SEARCH = widget.QLineEdit()
         self.CITY_SEARCH.setStyleSheet(line_style)
-        self.CITY_SEARCH.setPlaceholderText("Пошук міста")
+        self.CITY_SEARCH.setPlaceholderText(LanguageManager.get_text("PLACEHOLDER_CITY"))
         self.CITY_SEARCH.textChanged.connect(self.ON_CITY_SEARCH_TEXT_CHANGED)
         self.INPUTS_LAYOUT.addWidget(self.CITY_SEARCH,
             alignment=core.Qt.AlignmentFlag.AlignTop | core.Qt.AlignmentFlag.AlignLeft)
 
         # COORDS
-        lbl_coord = widget.QLabel("Координати")
+        lbl_coord = widget.QLabel(LanguageManager.get_text("LABEL_COORDINATES"))
         lbl_coord.setStyleSheet(label_style)
         self.INPUTS_LAYOUT.addWidget(lbl_coord,
             alignment=core.Qt.AlignmentFlag.AlignCenter | core.Qt.AlignmentFlag.AlignLeft)
 
         self.COORDINATES = widget.QLineEdit()
         self.COORDINATES.setStyleSheet(line_style)
-        self.COORDINATES.setPlaceholderText("lat, lon")
+        self.COORDINATES.setPlaceholderText(LanguageManager.get_text("PLACEHOLDER_COORDINATES"))
         self.COORDINATES.setReadOnly(True)   # заповнюється автоматично при виборі міста
         self.INPUTS_LAYOUT.addWidget(self.COORDINATES,
             alignment=core.Qt.AlignmentFlag.AlignCenter | core.Qt.AlignmentFlag.AlignLeft)
 
         # BUTTON
-        self.CONFIRM_BUTTON = widget.QPushButton("Зберегти")
+        self.CONFIRM_BUTTON = widget.QPushButton(LanguageManager.get_text("BTN_SAVE"))
         self.CONFIRM_BUTTON.setFixedSize(105, 38)
         self.CONFIRM_BUTTON.setStyleSheet(btn_style)
         self.CONFIRM_BUTTON.setEnabled(False)   # активується тільки після вибору міста
@@ -124,7 +125,7 @@ class SearchCity:
         self.COUNTRY_DROPDOWN_LAYOUT = widget.QVBoxLayout(self.COUNTRY_DROPDOWN)
         self.COUNTRY_DROPDOWN_LAYOUT.setContentsMargins(12, 10, 12, 10)
         self.COUNTRY_DROPDOWN_LAYOUT.setSpacing(2)
-        self.COUNTRY_DROPDOWN_TITLE = widget.QLabel("Результати пошуку країн")
+        self.COUNTRY_DROPDOWN_TITLE = widget.QLabel(LanguageManager.get_text("RESULT_COUNTRIES"))
         self.COUNTRY_DROPDOWN_TITLE.setStyleSheet(styles.DROPDOWN_TITLE)
         self.COUNTRY_DROPDOWN_LAYOUT.addWidget(self.COUNTRY_DROPDOWN_TITLE)
         self.COUNTRY_LIST = widget.QListWidget()
@@ -142,7 +143,7 @@ class SearchCity:
         self.DROPDOWN_LAYOUT = widget.QVBoxLayout(self.SEARCH_DROPDOWN)
         self.DROPDOWN_LAYOUT.setContentsMargins(12, 10, 12, 10)
         self.DROPDOWN_LAYOUT.setSpacing(2)
-        self.DROPDOWN_TITLE = widget.QLabel("Результати пошуку")
+        self.DROPDOWN_TITLE = widget.QLabel(LanguageManager.get_text("RESULT_CITIES"))
         self.DROPDOWN_TITLE.setStyleSheet(styles.DROPDOWN_TITLE)
         self.DROPDOWN_LAYOUT.addWidget(self.DROPDOWN_TITLE)
         self.DROPDOWN_LIST = widget.QListWidget()
@@ -155,7 +156,7 @@ class SearchCity:
         self.SEARCH_DROPDOWN.raise_()
 
         # ===== ADDED CITIES =====
-        self.ADDED_LABEL = widget.QLabel("Додані міста")
+        self.ADDED_LABEL = widget.QLabel(LanguageManager.get_text("LABEL_ADDED_CITIES"))
         self.ADDED_LABEL.setStyleSheet(styles.SEARCH_ADDED_LABEL_STYLE)
         self.ROOT_LAYOUT.addWidget(self.ADDED_LABEL)
 
@@ -186,7 +187,8 @@ class SearchCity:
             try:
                 _LOAD_COUNTRIES_CITIES_CACHE()
             except Exception as e:
-                print(f"Помилка завантаження кешу: {e}")
+                msg = LanguageManager.get_text("ERROR_CACHE_LOAD", e=e)
+                print(msg)
         Thread(target=load_cache, daemon=True).start()
 
     # ===== COUNTRY SEARCH =====

@@ -9,6 +9,7 @@ from ..api_request import (
 )
 from ..title_bar import TitleBar
 from ..settings import Settings
+from ..settings.langueges import LanguageManager
 from .left_panel import LeftPanel
 from .right_panel import RightPanel
 from .search_panel import SearchPanel
@@ -18,7 +19,7 @@ from .settings_panel import SettingsPanel
 class WeatherApp(widget.QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.setWindowTitle("Погода")
+        self.setWindowTitle(LanguageManager.get_text("WINDOW_TITLE"))
         self.resize(1200, 800)
         self.setWindowFlags(core.Qt.WindowType.FramelessWindowHint)
         self.setAttribute(core.Qt.WidgetAttribute.WA_TranslucentBackground, True)
@@ -199,7 +200,8 @@ class WeatherApp(widget.QMainWindow):
                     core.QTimer.singleShot(200, 
                         lambda: self.SETTINGS_FRAME.update_map_for_city(lat_f, lon_f, city_name))
                 except Exception as e:
-                    print(f"Помилка оновлення карти: {e}")
+                    msg = LanguageManager.get_text("ERROR_UPDATE_MAP", e=e)
+                    print(msg)
     def close_settings(self):
         """Закрывает панель настроек."""
         if self.SETTINGS_FRAME:
@@ -263,6 +265,12 @@ class WeatherApp(widget.QMainWindow):
     def _on_city_added(self, city_data):
         """Обработчик добавления города."""
         pass  # Синхронизация происходит через файловый наблюдатель
+
+    def on_language_changed(self):
+        """Обработчик изменения языка приложения"""
+        # Обновляем заголовок главного окна
+        self.setWindowTitle(LanguageManager.get_text("WINDOW_TITLE"))
+        # Можно добавить другие обновления интерфейса при необходимости
 
 
 window = WeatherApp()

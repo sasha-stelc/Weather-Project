@@ -1,6 +1,7 @@
 import PyQt6.QtCore as core
 import PyQt6.QtWidgets as widget
 from .. import styles
+from .langueges import LanguageManager
 
 
 class Application(widget.QWidget):
@@ -8,7 +9,7 @@ class Application(widget.QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.DESC_PAGE = "Розмір додатку"
+        self.DESC_PAGE = LanguageManager.get_text("DESC_PAGE_SIZE")
 
         # ===== ЛЕЙАУТ =====
         self.ROOT_LAYOUT = widget.QVBoxLayout(self)
@@ -17,7 +18,7 @@ class Application(widget.QWidget):
         self.ROOT_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignTop)
 
         # ===== ЗАГОЛОВОК =====
-        self.PAGE_TITLE = widget.QLabel("Оберіть розмір додатку")
+        self.PAGE_TITLE = widget.QLabel(LanguageManager.get_text("TITLE_CHOOSE_SIZE"))
         self.PAGE_TITLE.setStyleSheet(styles.APPLICATION_TITLE_STYLE)
         self.ROOT_LAYOUT.addWidget(self.PAGE_TITLE)
 
@@ -49,7 +50,7 @@ class Application(widget.QWidget):
         self.ROOT_LAYOUT.addSpacing(4)
 
         # ===== КНОПКА =====
-        self.SAVE_BUTTON = widget.QPushButton("Зберегти")
+        self.SAVE_BUTTON = widget.QPushButton(LanguageManager.get_text("BTN_SAVE"))
         self.SAVE_BUTTON.setFixedSize(105, 38)
         self.SAVE_BUTTON.setStyleSheet(styles.APPLICATION_BUTTON_STYLE)
         self.SAVE_BUTTON.clicked.connect(self._ON_SAVE)
@@ -64,11 +65,12 @@ class Application(widget.QWidget):
         
         if isinstance(size_data, tuple) and len(size_data) == 2:
             width, height = size_data
-            print(f"Обрано розмір: {checked_btn.text()} ({width}x{height})")
+            msg = LanguageManager.get_text("SIZE_SELECTED", text=checked_btn.text(), width=width, height=height)
+            print(msg)
             self.sizeSelected.emit(width, height)
             return (width, height)
         else:
-            print("❌ Помилка: не вдалося отримати розмір")
+            print(LanguageManager.get_text("SIZE_ERROR"))
             return None
 
     def get_widget(self):

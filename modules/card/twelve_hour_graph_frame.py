@@ -3,6 +3,7 @@ import PyQt6.QtCore as core
 import PyQt6.QtGui as gui
 import PyQt6.QtWidgets as widget
 
+from ..settings.langueges import LanguageManager
 from .. import styles
 from .utils import get_weather_icon_path
 
@@ -51,7 +52,7 @@ class TwelveHourGraphFrame(widget.QFrame):
         header_layout.setContentsMargins(0, 0, 0, 8)
         header_layout.setSpacing(6)
 
-        title = widget.QLabel("Прогноз на 12 годин")
+        title = widget.QLabel(LanguageManager.get_text("TITLE_12H_FORECAST"))
         title.setStyleSheet(styles.TWELVE_HOUR_TITLE)
 
         header_layout.addWidget(title)

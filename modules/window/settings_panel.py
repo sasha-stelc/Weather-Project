@@ -2,6 +2,7 @@ import PyQt6.QtWidgets as widget
 import PyQt6.QtCore as core
 import PyQt6.QtGui as gui
 from ..create_path import create_media_path
+from ..settings.langueges import LanguageManager
 from .. import styles
 
 
@@ -32,7 +33,7 @@ class SettingsPanel(widget.QFrame):
         self.SETTINGS_BTN.clicked.connect(self.settings_clicked.emit)
         
         # Название настроек
-        self.SETTINGS_LABEL = widget.QLabel("Налаштування")
+        self.SETTINGS_LABEL = widget.QLabel(LanguageManager.get_text("LABEL_SETTINGS"))
         self.SETTINGS_LABEL.setStyleSheet(styles.SETTINGS_LABEL)
         self.SETTINGS_LABEL.setAlignment(
             core.Qt.AlignmentFlag.AlignLeft | core.Qt.AlignmentFlag.AlignVCenter)

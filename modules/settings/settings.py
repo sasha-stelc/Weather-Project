@@ -2,7 +2,7 @@ import PyQt6.QtCore as core
 import PyQt6.QtWidgets as widget
 from .search_sity import SearchCity
 from .application_size import Application
-from .langueges import AppLanguage
+from .langueges import AppLanguage, LanguageManager
 from .. import styles
 
 
@@ -51,10 +51,10 @@ class Settings(widget.QWidget):
         self.TOP_LAYOUT = widget.QHBoxLayout(self.TOP_BAR)
         self.TOP_LAYOUT.setContentsMargins(24, 10, 24, 10)
 
-        self.TITLE_LABEL = widget.QLabel("Налаштування")
+        self.TITLE_LABEL = widget.QLabel(LanguageManager.get_text("TITLE_SETTINGS"))
         self.TITLE_LABEL.setStyleSheet(styles.SETTINGS_TITLE)
 
-        self.CLOSE_BUTTON = widget.QPushButton("✕")
+        self.CLOSE_BUTTON = widget.QPushButton(LanguageManager.get_text("BTN_CLOSE"))
         self.CLOSE_BUTTON.setFixedSize(32, 32)
         self.CLOSE_BUTTON.setStyleSheet(styles.SETTINGS_CLOSE_BUTTON)
         self.CLOSE_BUTTON.clicked.connect(self.close)
@@ -80,10 +80,10 @@ class Settings(widget.QWidget):
         self.LEFT_LAYOUT.setAlignment(core.Qt.AlignmentFlag.AlignTop)
 
         nav_items = [
-            "Пошук міста",
-            "Розмір додатку",
-            "Мова додатку",
-            "Списки зображень",
+            LanguageManager.get_text("NAV_SEARCH_CITY"),
+            LanguageManager.get_text("NAV_APP_SIZE"),
+            LanguageManager.get_text("NAV_LANGUAGE"),
+            LanguageManager.get_text("NAV_IMAGE_LISTS"),
         ]
 
         self._nav_buttons = []
@@ -143,15 +143,66 @@ class Settings(widget.QWidget):
             self.RIGHT_LAYOUT.insertWidget(0, page)
         elif index == 2:
             page = AppLanguage()
+            # Подключаем кнопку "Зберегти" для изменения языка
+            page.CONFIRM_BUTTON.clicked.connect(self._on_language_changed)
             self.RIGHT_LAYOUT.insertWidget(0, page.ROOT)
         else:
-            titles = ["", "", "", "Списки зображень"]
-            lbl = widget.QLabel(titles[index])
+            lbl = widget.QLabel(LanguageManager.get_text("PAGE_IMAGE_LISTS"))
             lbl.setStyleSheet(styles.SETTINGS_PAGE_TITLE)
             self.RIGHT_LAYOUT.insertWidget(0, lbl)
 
         for i, btn in enumerate(self._nav_buttons):
             btn.setChecked(i == index)
+    
+    def _on_language_changed(self):
+        """Обработчик изменения языка"""
+        # Получаем языковую страницу
+        from .langueges import AppLanguage as AppLanguageClass
+        for i in range(self.RIGHT_LAYOUT.count()):
+            widget_item = self.RIGHT_LAYOUT.itemAt(i).widget()
+            if isinstance(widget_item, widget.QWidget):
+                # Ищем комбобокс в иерархии виджетов
+                combo = self._find_combo_in_widget(widget_item)
+                if combo:
+                    lang_index = combo.currentIndex()
+                    lang_map = {0: "uk", 1: "ru", 2: "en"}
+                    new_lang = lang_map.get(lang_index, "uk")
+                    LanguageManager.set_language(new_lang)
+                    
+                    # Обновляем все текстовые элементы интерфейса настроек
+                    self._update_ui_language()
+                    
+                    # Сигнализируем главному окну об изменении языка
+                    if self.main_app and hasattr(self.main_app, 'on_language_changed'):
+                        self.main_app.on_language_changed()
+                    break
+    
+    def _find_combo_in_widget(self, parent_widget):
+        """Рекурсивно ищет QComboBox в иерархии виджетов"""
+        if isinstance(parent_widget, widget.QComboBox):
+            return parent_widget
+        
+        if hasattr(parent_widget, 'findChild'):
+            combo = parent_widget.findChild(widget.QComboBox)
+            if combo:
+                return combo
+        
+        return None
+    
+    def _update_ui_language(self):
+        """Обновляет текстовые элементы интерфейса настроек"""
+        # Обновляем заголовок
+        self.TITLE_LABEL.setText(LanguageManager.get_text("TITLE_SETTINGS"))
+        
+        # Обновляем кнопки навигации
+        nav_texts = [
+            LanguageManager.get_text("NAV_SEARCH_CITY"),
+            LanguageManager.get_text("NAV_APP_SIZE"),
+            LanguageManager.get_text("NAV_LANGUAGE"),
+            LanguageManager.get_text("NAV_IMAGE_LISTS"),
+        ]
+        for btn, text in zip(self._nav_buttons, nav_texts):
+            btn.setText(text)
     
     def update_map_for_city(self, lat: float, lon: float, city_name: str = None):
         """Обновляет карту на странице поиска города."""

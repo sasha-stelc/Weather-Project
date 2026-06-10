@@ -4,6 +4,7 @@ import PyQt6.QtCore as core
 import PyQt6.QtGui as gui
 from ..create_path import create_media_path
 from ..api_request import SEARCH_CITIES, FORMAT_CITY, ADD_USER_CITY
+from ..settings.langueges import LanguageManager
 from .. import styles
 
 
@@ -46,7 +47,7 @@ class SearchPanel(widget.QFrame):
         # Поле ввода
         self.CITY_SEARCH = widget.QLineEdit()
         self.CITY_SEARCH.setStyleSheet(styles.CITY_SEARCH)
-        self.CITY_SEARCH.setPlaceholderText("Пошук")
+        self.CITY_SEARCH.setPlaceholderText(LanguageManager.get_text("PLACEHOLDER_SEARCH"))
         self.CITY_SEARCH.textChanged.connect(self._on_search_text_changed)
         
         # Кнопка очистки
@@ -66,7 +67,7 @@ class SearchPanel(widget.QFrame):
         self.SEARCH_CONTAINER_LAYOUT.addWidget(self.CLEAR_BTN)
         
         # Кнопка добавления города
-        self.ADD_CITY_BTN = widget.QPushButton("⊕ Додати")
+        self.ADD_CITY_BTN = widget.QPushButton(LanguageManager.get_text("BTN_ADD_CITY"))
         self.ADD_CITY_BTN.setFixedSize(100, 34)
         self.ADD_CITY_BTN.setCursor(core.Qt.CursorShape.PointingHandCursor)
         self.ADD_CITY_BTN.setStyleSheet(styles.ADD_CITY_BUTTON)
@@ -86,7 +87,7 @@ class SearchPanel(widget.QFrame):
         self.DROPDOWN_LAYOUT.setContentsMargins(12, 10, 12, 10)
         self.DROPDOWN_LAYOUT.setSpacing(2)
         
-        self.DROPDOWN_TITLE = widget.QLabel("Результати пошуку")
+        self.DROPDOWN_TITLE = widget.QLabel(LanguageManager.get_text("RESULT_SEARCH"))
         self.DROPDOWN_TITLE.setStyleSheet(styles.DROPDOWN_TITLE)
         self.DROPDOWN_LAYOUT.addWidget(self.DROPDOWN_TITLE)
         

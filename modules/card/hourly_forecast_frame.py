@@ -4,6 +4,7 @@ import PyQt6.QtGui as gui
 import PyQt6.QtWidgets as widget
 
 from ..create_path import create_media_path
+from ..settings.langueges import LanguageManager
 from .. import styles
 from .utils import get_weather_icon_path
 
@@ -102,7 +103,7 @@ class HourlyForecastFrame(widget.QFrame):
             hour_layout.setSpacing(8)
 
             # Определение текста времени: заменяем точное время на слово "Зараз" для текущего часа
-            time_str = "Зараз" if item.get("is_current") else item["time"]
+            time_str = LanguageManager.get_text("TEXT_NOW") if item.get("is_current") else item["time"]
             t_lbl = widget.QLabel(time_str)
             t_lbl.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
             t_lbl.setStyleSheet(styles.HOURLY_ITEM_TIME)
@@ -125,7 +126,12 @@ class HourlyForecastFrame(widget.QFrame):
             i_lbl.setStyleSheet(styles.TRANSPARENT_BG)
 
             # Определение нижнего текстового поля ячейки: температура или текстовый флаг события солнца
-            temp_val = f"{item['temp']}°" if not item.get("is_sunset") and not item.get("is_sunrise") else "Захід сонця" if item.get("is_sunset") else "Схід сонця"
+            if item.get("is_sunset"):
+                temp_val = LanguageManager.get_text("TEXT_SUNSET")
+            elif item.get("is_sunrise"):
+                temp_val = LanguageManager.get_text("TEXT_SUNRISE")
+            else:
+                temp_val = f"{item['temp']}°"
             temp_lbl = widget.QLabel(temp_val)
             temp_lbl.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
             temp_lbl.setStyleSheet(styles.HOURLY_ITEM_TEMP)

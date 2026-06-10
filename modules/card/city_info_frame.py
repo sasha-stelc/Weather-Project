@@ -5,8 +5,8 @@ import PyQt6.QtGui as gui
 import PyQt6.QtWidgets as widget
 
 from .. import styles
-from .. import styles
 from ..create_path import create_media_path
+from ..settings.langueges import LanguageManager
 from .clock_face_widget import ClockFaceWidget
 from .utils import get_weather_icon_path
 
@@ -48,7 +48,7 @@ class CityInfoFrame(widget.QFrame):
         self.LOCATION_ICON.setFixedSize(20, 20)
 
         # Текстовая метка статуса позиции
-        self.LOCATION_NAME = widget.QLabel("Поточна позиція")
+        self.LOCATION_NAME = widget.QLabel(LanguageManager.get_text("LABEL_CURRENT_POSITION"))
         self.LOCATION_NAME.setStyleSheet(styles.CITY_INFO_LOCATION_NAME)
         
         # Сборка верхней строки локации
@@ -135,7 +135,7 @@ class CityInfoFrame(widget.QFrame):
         self.RIGHT.setStyleSheet(styles.CITY_INFO_CARD)
 
         # Заголовок карточки "Сьогодні"
-        self.TODAY = widget.QLabel("Сьогодні")
+        self.TODAY = widget.QLabel(LanguageManager.get_text("LABEL_TODAY"))
         self.TODAY.setStyleSheet(styles.CITY_INFO_DAY_TITLE)
 
         # Метка для дня недели
@@ -223,8 +223,16 @@ class CityInfoFrame(widget.QFrame):
         # Получаем текущее время с учетом таймзоны города или системное время
         now = datetime.now(self.TZ) if self.TZ else datetime.now()
         
-        # Массив украинских названий дней недели
-        days = ["Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця", "Субота", "Неділя"]
+        # Массив названий дней недели (с локализацией)
+        days = [
+            LanguageManager.get_text("DAY_MONDAY"),
+            LanguageManager.get_text("DAY_TUESDAY"),
+            LanguageManager.get_text("DAY_WEDNESDAY"),
+            LanguageManager.get_text("DAY_THURSDAY"),
+            LanguageManager.get_text("DAY_FRIDAY"),
+            LanguageManager.get_text("DAY_SATURDAY"),
+            LanguageManager.get_text("DAY_SUNDAY"),
+        ]
         
         # Обновление интерфейсных текстовых полей
         self.DAY_LBL.setText(days[now.weekday()])
