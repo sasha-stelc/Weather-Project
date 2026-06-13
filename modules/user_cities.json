@@ -1,3 +1,17 @@
 [
-  "Dnipro"
+  {
+    "en": "Dnipro",
+    "display": "Dnipro",
+    "country": "Ukraine"
+  },
+  {
+    "en": "Wākhān",
+    "display": "Вахан",
+    "country": "Afghanistan"
+  },
+  {
+    "en": "Tarinkot",
+    "display": "Таринкот",
+    "country": "Afghanistan"
+  }
 ]

@@ -3,6 +3,7 @@ import PyQt6.QtGui as gui
 import PyQt6.QtWidgets as widget
 from .create_path import create_media_path
 from . import styles
+from .settings.size_config import SizeManager
 
 
 class TitleBar(widget.QFrame):
@@ -25,7 +26,7 @@ class TitleBar(widget.QFrame):
         self.WINDOW = window
 
         # Фиксируем высоту панели управления в соответствии с габаритами системных кнопок
-        self.setFixedHeight(26)
+        self.setFixedHeight(SizeManager.get("title_bar_height"))
 
         # Главный горизонтальный контейнер для выравнивания кнопок по правому краю
         layout = widget.QHBoxLayout(self)

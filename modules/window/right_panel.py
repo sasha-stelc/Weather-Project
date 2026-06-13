@@ -1,7 +1,10 @@
 import PyQt6.QtWidgets as widget
 import PyQt6.QtCore as core
+
+from modules.settings.langueges import LanguageManager
 from ..card import CityInfoFrame, HourlyForecastFrame, TwelveHourGraphFrame
 from .. import styles
+from ..settings.size_config import SizeManager
 
 
 class RightPanel(widget.QFrame):
@@ -21,7 +24,8 @@ class RightPanel(widget.QFrame):
         
         # Почасовой прогноз
         self.WEATHER_PANEL = widget.QFrame()
-        self.WEATHER_PANEL.setFixedSize(788, 157)
+        wp = SizeManager.get("weather_panel")
+        self.WEATHER_PANEL.setFixedSize(wp["width"], wp["height"])
         self.WEATHER_PANEL.setStyleSheet(styles.TRANSPARENT_BG)
         self.WEATHER_LAYOUT = widget.QVBoxLayout(self.WEATHER_PANEL)
         self.WEATHER_LAYOUT.setContentsMargins(0, 0, 0, 0)
@@ -30,7 +34,8 @@ class RightPanel(widget.QFrame):
         
         # График на 12 часов
         self.BOTTOM_PANEL = widget.QFrame()
-        self.BOTTOM_PANEL.setFixedSize(788, 197)
+        bp = SizeManager.get("bottom_panel")
+        self.BOTTOM_PANEL.setFixedSize(bp["width"], bp["height"])
         self.BOTTOM_PANEL.setStyleSheet(styles.TRANSPARENT_BG)
         self.BOTTOM_LAYOUT = widget.QVBoxLayout(self.BOTTOM_PANEL)
         self.BOTTOM_LAYOUT.setContentsMargins(0, 0, 0, 0)

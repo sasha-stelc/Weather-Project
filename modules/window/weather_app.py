@@ -4,7 +4,7 @@ import PyQt6.QtCore as core
 from ..card import WeatherCard
 from .. import styles
 from ..api_request import (
-    get_weather, LOAD_USER_CITIES, ADD_USER_CITY, REMOVE_USER_CITY,
+    GET_CITY_EN, get_weather, LOAD_USER_CITIES,
     USER_CITIES_PATH
 )
 from ..title_bar import TitleBar
@@ -116,7 +116,7 @@ class WeatherApp(widget.QMainWindow):
     def _RELOAD_CARDS_FROM_JSON(self):
         """Синхронизирует карточки с содержимым user_cities.json."""
         cities_in_json = LOAD_USER_CITIES()
-        cities_lower   = [c.lower() for c in cities_in_json]
+        cities_lower   = [GET_CITY_EN(c).lower() for c in cities_in_json if GET_CITY_EN(c)]
 
         # Удаляем карточки, которых нет в JSON
         cards_to_remove = [
@@ -134,12 +134,17 @@ class WeatherApp(widget.QMainWindow):
             c.weather_data.get("city", "").lower()
             for c in self.LEFT_PANEL.WEATHER_CARDS
         ]
-        for city_en in cities_in_json:
+        for city in cities_in_json:
+            city_en = GET_CITY_EN(city)
+            if not city_en:
+                continue
             if city_en.lower() in existing_lower:
                 continue
             data = get_weather(city_en)
             if not data:
                 continue
+            data["city_display"] = city.get("display") or city_en
+            data["country"] = city.get("country", "")
             self.LEFT_PANEL.add_card(data)
 
     # ──────────────────────────────────────────────

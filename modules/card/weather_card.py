@@ -4,6 +4,7 @@ import PyQt6.QtWidgets as widget
 
 from .. import styles
 from ..create_path import create_media_path
+from ..settings.size_config import SizeManager
 
 
 class WeatherCard(widget.QFrame):
@@ -43,14 +44,16 @@ class WeatherCard(widget.QFrame):
         self.setMouseTracking(True)
   
         # Ограничиваем максимальные физические габариты элемента в списке
-        self.setMaximumSize(330, 104)
+        wc = SizeManager.get("weather_card_max")
+        self.setMaximumSize(wc["width"], wc["height"])
         
         # --- ИНИЦИАЛИЗАЦИЯ ЭЛЕМЕНТОВ ИНТЕРФЕЙСА ---
         # Индикатор выбора (маленькая иконка-галочка). По умолчанию скрыта.
         self.CHOICE_ICON = widget.QToolButton()
         self.CHOICE_ICON.setIcon(gui.QIcon(gui.QPixmap(create_media_path("choice_vector.png"))))
-        self.CHOICE_ICON.setFixedSize(20, 20)
-        self.CHOICE_ICON.setIconSize(core.QSize(20, 20))
+        ci = SizeManager.get("weather_card_choice_icon")
+        self.CHOICE_ICON.setFixedSize(ci["width"], ci["height"])
+        self.CHOICE_ICON.setIconSize(core.QSize(ci["width"], ci["height"]))
         self.CHOICE_ICON.setVisible(False)
 
         # Текстовая метка названия города
@@ -125,7 +128,7 @@ class WeatherCard(widget.QFrame):
             data (dict): Словарь с ключами "city", "time", "temp", "desc", "minmax".
         """
         self.weather_data = data  # Кэшируем полный объект данных внутри карточки
-        self.CITY_LABEL.setText(data["city"])
+        self.CITY_LABEL.setText(data.get("city_display", data["city"]))
         self.TIME_LABEL.setText(data["time"])
         self.TEMP_LABEL.setText(f"{data['temp']}°")
         self.DESC_LABEL.setText(data["desc"])

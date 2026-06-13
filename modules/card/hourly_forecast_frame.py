@@ -5,6 +5,7 @@ import PyQt6.QtWidgets as widget
 
 from ..create_path import create_media_path
 from ..settings.langueges import LanguageManager
+from ..settings.size_config import SizeManager
 from .. import styles
 from .utils import get_weather_icon_path
 
@@ -31,7 +32,7 @@ class HourlyForecastFrame(widget.QFrame):
         
         # Фиксируем высоту виджета, чтобы он гармонично вписывался в интерфейс,
         # и настраиваем полупрозрачный закругленный фон.
-        self.setFixedHeight(157)
+        self.setFixedHeight(SizeManager.get("hourly_forecast_height"))
         self.setStyleSheet(styles.HOURLY_FORECAST_FRAME)
 
         # Инициализируем главный вертикальный контейнер для виджета
@@ -46,7 +47,7 @@ class HourlyForecastFrame(widget.QFrame):
 
         # Декоративная тонкая разделительная линия между заголовком и областью прогноза
         self.LINE = widget.QFrame()
-        self.LINE.setFixedHeight(1)
+        self.LINE.setFixedHeight(SizeManager.get("hourly_line_height"))
         self.LINE.setStyleSheet(styles.HOURLY_LINE)
         self.MAIN_LAYOUT.addWidget(self.LINE)
 
@@ -56,14 +57,16 @@ class HourlyForecastFrame(widget.QFrame):
 
         # --- ЛЕВАЯ СТРЕЛКА НАВИГАЦИИ ---
         self.L_ARROW = widget.QPushButton()
-        self.L_ARROW.setFixedSize(20, 40)
+        ha = SizeManager.get("hourly_arrow")
+        self.L_ARROW.setFixedSize(ha["width"], ha["height"])
         self.L_ARROW.setCursor(core.Qt.CursorShape.PointingHandCursor)  # Курсор руки при наведении
         self.L_ARROW.setStyleSheet(styles.HOURLY_ARROW_BUTTON)
         l_icon_path = create_media_path("less_vector.png")
         
         if os.path.exists(l_icon_path):
             self.L_ARROW.setIcon(gui.QIcon(l_icon_path))
-            self.L_ARROW.setIconSize(core.QSize(16, 16))
+            hai = SizeManager.get("hourly_arrow_icon")
+            self.L_ARROW.setIconSize(core.QSize(hai["width"], hai["height"]))
         else:
             # Текстовый аналог, если файл векторного изображения отсутствует в медиа-папке
             self.L_ARROW.setText("<")
@@ -138,7 +141,7 @@ class HourlyForecastFrame(widget.QFrame):
 
             # Расширяем ячейку для рассвета/заката, так как надписи "Захід сонця" требуют больше пространства, чем "18°"
             if item.get("is_sunset") or item.get("is_sunrise"):
-                hour_widget.setMinimumWidth(90)
+                hour_widget.setMinimumWidth(SizeManager.get("hourly_item_min_width"))
 
             # Собираем ячейку по вертикали и добавляем ее в общий горизонтальный ряд
             hour_layout.addWidget(t_lbl)
@@ -152,14 +155,14 @@ class HourlyForecastFrame(widget.QFrame):
 
         # --- ПРАВАЯ СТРЕЛКА НАВИГАЦИИ ---
         self.R_ARROW = widget.QPushButton()
-        self.R_ARROW.setFixedSize(20, 40)
+        self.R_ARROW.setFixedSize(ha["width"], ha["height"])
         self.R_ARROW.setCursor(core.Qt.CursorShape.PointingHandCursor)
         self.R_ARROW.setStyleSheet(styles.HOURLY_ARROW_BUTTON)
         r_icon_path = create_media_path("more_vector.png")
         
         if os.path.exists(r_icon_path):
             self.R_ARROW.setIcon(gui.QIcon(r_icon_path))
-            self.R_ARROW.setIconSize(core.QSize(16, 16))
+            self.R_ARROW.setIconSize(core.QSize(hai["width"], hai["height"]))
         else:
             self.R_ARROW.setText(">")
             self.R_ARROW.setStyleSheet(styles.HOURLY_ARROW_TEXT)
@@ -220,3 +223,11 @@ class HourlyForecastFrame(widget.QFrame):
         # Управление правой стрелкой
         self.R_ARROW.setEnabled(not at_end)
         self._set_arrow_opacity(self.R_EFFECT, not at_end)
+    def retranslate(self, lang=None):
+        """Обновляет все переводимые строки при смене языка"""
+        self.TITLE_LBL.setText(LanguageManager.get_text("TEXT_TODAY_HOURS"))
+        self._on_scroll_changed(self.SCROLL.horizontalScrollBar().value())  # Обновляем состояние стрелок при смене языка
+        self._update_hourly_items_text()  # Обновляем текст внутри часовых ячеек (например, "Зараз", "Захід сонця", "Схід сонця")
+        
+        # Обновляем день недели сразу
+        self.UPDATE_TIME()

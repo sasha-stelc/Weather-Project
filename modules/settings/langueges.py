@@ -1,13 +1,20 @@
 import PyQt6.QtCore as core
 import PyQt6.QtWidgets as widget
 from .. import styles
+from .size_config import SizeManager
 import json
 import os
+class _LanguageSignalEmitter(core.QObject):
+    language_changed = core.pyqtSignal(str)
+
+
+# Глобальный экземпляр сигнала
+LANGUAGE_SIGNAL = _LanguageSignalEmitter()
 
 # ===== СИСТЕМА ЛОКАЛИЗАЦИИ =====
 class LanguageManager:
     """Глобальный менеджер языков для приложения"""
-    
+    language_changed = core.pyqtSignal(str)
     # Словари с переводами на все поддерживаемые языки
     TRANSLATIONS = {
         "uk": {  # Українська
@@ -18,6 +25,7 @@ class LanguageManager:
             "LANG_UKRAINIAN": "Українська",
             "LANG_RUSSIAN": "Русский",
             "LANG_ENGLISH": "English",
+            "LANG_NORWEGIAN": "Norsk",
             "BTN_SAVE": "Зберегти",
             
             # settings/application_size.py
@@ -79,6 +87,40 @@ class LanguageManager:
             
             # card/twelve_hour_graph_frame.py
             "TITLE_12H_FORECAST": "Прогноз на 12 годин",
+            # weather api
+            "WEATHER_CLEAR_SKY": "Ясно",
+            "WEATHER_FEW_CLOUDS": "Малохмарно",
+            "WEATHER_SCATTERED_CLOUDS": "Мінлива хмарність",
+            "WEATHER_BROKEN_CLOUDS": "Хмарно",
+            "WEATHER_OVERCAST_CLOUDS": "Похмуро",
+
+            "WEATHER_MIST": "Туман",
+            "WEATHER_FOG": "Густий туман",
+            "WEATHER_HAZE": "Імла",
+            "WEATHER_SMOKE": "Дим",
+
+            "WEATHER_LIGHT_RAIN": "Легкий дощ",
+            "WEATHER_MODERATE_RAIN": "Помірний дощ",
+            "WEATHER_HEAVY_INTENSITY_RAIN": "Сильний дощ",
+            "WEATHER_VERY_HEAVY_RAIN": "Дуже сильний дощ",
+            "WEATHER_EXTREME_RAIN": "Злива",
+            "WEATHER_FREEZING_RAIN": "Крижаний дощ",
+            "WEATHER_SHOWER_RAIN": "Короткочасний дощ",
+
+            "WEATHER_THUNDERSTORM": "Гроза",
+            "WEATHER_THUNDERSTORM_WITH_LIGHT_RAIN": "Гроза з легким дощем",
+            "WEATHER_THUNDERSTORM_WITH_RAIN": "Гроза з дощем",
+
+            "WEATHER_LIGHT_SNOW": "Легкий сніг",
+            "WEATHER_SNOW": "Сніг",
+            "WEATHER_HEAVY_SNOW": "Сильний сніг",
+            "WEATHER_SLEET": "Мокрий сніг",
+
+            "WEATHER_DUST": "Пил",
+            "WEATHER_SAND": "Пісок",
+            "WEATHER_ASH": "Попіл",
+            "WEATHER_SQUALL": "Шквал",
+            "WEATHER_TORNADO": "Торнадо",
         },
         
         "ru": {  # Русский
@@ -89,6 +131,7 @@ class LanguageManager:
             "LANG_UKRAINIAN": "Українська",
             "LANG_RUSSIAN": "Русский",
             "LANG_ENGLISH": "English",
+            "LANG_NORWEGIAN": "Norsk",
             "BTN_SAVE": "Сохранить",
             
             # settings/application_size.py
@@ -150,6 +193,40 @@ class LanguageManager:
             
             # card/twelve_hour_graph_frame.py
             "TITLE_12H_FORECAST": "Прогноз на 12 часов",
+            # weather api
+            "WEATHER_CLEAR_SKY": "Ясно",
+            "WEATHER_FEW_CLOUDS": "Малооблачно",
+            "WEATHER_SCATTERED_CLOUDS": "Переменная облачность",
+            "WEATHER_BROKEN_CLOUDS": "Облачно",
+            "WEATHER_OVERCAST_CLOUDS": "Пасмурно",
+
+            "WEATHER_MIST": "Туман",
+            "WEATHER_FOG": "Густой туман",
+            "WEATHER_HAZE": "Дымка",
+            "WEATHER_SMOKE": "Дым",
+
+            "WEATHER_LIGHT_RAIN": "Лёгкий дождь",
+            "WEATHER_MODERATE_RAIN": "Умеренный дождь",
+            "WEATHER_HEAVY_INTENSITY_RAIN": "Сильный дождь",
+            "WEATHER_VERY_HEAVY_RAIN": "Очень сильный дождь",
+            "WEATHER_EXTREME_RAIN": "Ливень",
+            "WEATHER_FREEZING_RAIN": "Ледяной дождь",
+            "WEATHER_SHOWER_RAIN": "Кратковременный дождь",
+
+            "WEATHER_THUNDERSTORM": "Гроза",
+            "WEATHER_THUNDERSTORM_WITH_LIGHT_RAIN": "Гроза с лёгким дождём",
+            "WEATHER_THUNDERSTORM_WITH_RAIN": "Гроза с дождём",
+
+            "WEATHER_LIGHT_SNOW": "Лёгкий снег",
+            "WEATHER_SNOW": "Снег",
+            "WEATHER_HEAVY_SNOW": "Сильный снег",
+            "WEATHER_SLEET": "Мокрый снег",
+
+            "WEATHER_DUST": "Пыль",
+            "WEATHER_SAND": "Песок",
+            "WEATHER_ASH": "Пепел",
+            "WEATHER_SQUALL": "Шквал",
+            "WEATHER_TORNADO": "Торнадо",
         },
         
         "en": {  # English
@@ -160,6 +237,7 @@ class LanguageManager:
             "LANG_UKRAINIAN": "Українська",
             "LANG_RUSSIAN": "Русский",
             "LANG_ENGLISH": "English",
+            "LANG_NORWEGIAN": "Norsk",
             "BTN_SAVE": "Save",
             
             # settings/application_size.py
@@ -221,36 +299,167 @@ class LanguageManager:
             
             # card/twelve_hour_graph_frame.py
             "TITLE_12H_FORECAST": "12 Hour Forecast",
+            # weather api
+            "WEATHER_CLEAR_SKY": "Clear sky",
+            "WEATHER_FEW_CLOUDS": "Few clouds",
+            "WEATHER_SCATTERED_CLOUDS": "Scattered clouds",
+            "WEATHER_BROKEN_CLOUDS": "Broken clouds",
+            "WEATHER_OVERCAST_CLOUDS": "Overcast clouds",
+
+            "WEATHER_MIST": "Mist",
+            "WEATHER_FOG": "Fog",
+            "WEATHER_HAZE": "Haze",
+            "WEATHER_SMOKE": "Smoke",
+
+            "WEATHER_LIGHT_RAIN": "Light rain",
+            "WEATHER_MODERATE_RAIN": "Moderate rain",
+            "WEATHER_HEAVY_INTENSITY_RAIN": "Heavy rain",
+            "WEATHER_VERY_HEAVY_RAIN": "Very heavy rain",
+            "WEATHER_EXTREME_RAIN": "Extreme rain",
+            "WEATHER_FREEZING_RAIN": "Freezing rain",
+            "WEATHER_SHOWER_RAIN": "Shower rain",
+
+            "WEATHER_THUNDERSTORM": "Thunderstorm",
+            "WEATHER_THUNDERSTORM_WITH_LIGHT_RAIN": "Thunderstorm with light rain",
+            "WEATHER_THUNDERSTORM_WITH_RAIN": "Thunderstorm with rain",
+
+            "WEATHER_LIGHT_SNOW": "Light snow",
+            "WEATHER_SNOW": "Snow",
+            "WEATHER_HEAVY_SNOW": "Heavy snow",
+            "WEATHER_SLEET": "Sleet",
+
+            "WEATHER_DUST": "Dust",
+            "WEATHER_SAND": "Sand",
+            "WEATHER_ASH": "Ash",
+            "WEATHER_SQUALL": "Squall",
+            "WEATHER_TORNADO": "Tornado",
+        },
+        "no": {  # Norsk (Bokmål)
+            # settings/langueges.py
+            "DESC_PAGE_LANGUAGE": "App-språk",
+            "TITLE_CHOOSE_LANGUAGE": "Velg app-språk",
+            "LABEL_LANGUAGE": "App-språk",
+            
+            "LANG_UKRAINIAN": "Ukrainsk",
+            "LANG_RUSSIAN": "Russisk",
+            "LANG_ENGLISH": "Engelsk",
+            "LANG_NORWEGIAN": "Norsk",
+            "BTN_SAVE": "Lagre",
+            
+            # settings/application_size.py
+            "DESC_PAGE_SIZE": "App-størrelse",
+            "TITLE_CHOOSE_SIZE": "Velg app-størrelse",
+            "SIZE_SELECTED": "Valgt størrelse: {text} ({width}x{height})",
+            "SIZE_ERROR": "❌ Feil: kunne ikke hente størrelse",
+            
+            # settings/search_sity.py
+            "DESC_PAGE_SEARCH": "Søk etter by",
+            "TITLE_SEARCH_CITY": "Søk etter by",
+            "LABEL_COUNTRY": "Land",
+            "PLACEHOLDER_COUNTRY": "Søk etter land",
+            "LABEL_CITY": "By",
+            "PLACEHOLDER_CITY": "Søk etter by",
+            "LABEL_COORDINATES": "Koordinater",
+            "PLACEHOLDER_COORDINATES": "lat, lon",
+            "RESULT_COUNTRIES": "Søkeresultater for land",
+            "RESULT_CITIES": "Søkeresultater",
+            "LABEL_ADDED_CITIES": "Lagt til byer",
+            "ERROR_CACHE_LOAD": "Feil ved lasting av buffer: {e}",
+            
+            # settings/settings.py
+            "TITLE_SETTINGS": "Innstillinger",
+            "BTN_CLOSE": "✕",
+            "NAV_SEARCH_CITY": "Søk etter by",
+            "NAV_APP_SIZE": "App-størrelse",
+            "NAV_LANGUAGE": "App-språk",
+            "NAV_IMAGE_LISTS": "Bildelister",
+            "PAGE_IMAGE_LISTS": "Bildelister",
+            
+            # window/weather_app.py
+            "WINDOW_TITLE": "Vær",
+            "ERROR_UPDATE_MAP": "Feil ved oppdatering av kart: {e}",
+            
+            # window/search_panel.py
+            "PLACEHOLDER_SEARCH": "Søk",
+            "BTN_ADD_CITY": "⊕ Legg til",
+            "RESULT_SEARCH": "Søkeresultater",
+            
+            # window/settings_panel.py
+            "LABEL_SETTINGS": "Innstillinger",
+            
+            # card/city_info_frame.py
+            "LABEL_CURRENT_POSITION": "Nåværende posisjon",
+            "LABEL_TODAY": "I dag",
+            "DAY_MONDAY": "Mandag",
+            "DAY_TUESDAY": "Tirsdag",
+            "DAY_WEDNESDAY": "Onsdag",
+            "DAY_THURSDAY": "Torsdag",
+            "DAY_FRIDAY": "Fredag",
+            "DAY_SATURDAY": "Lørdag",
+            "DAY_SUNDAY": "Søndag",
+            
+            # card/hourly_forecast_frame.py
+            "TEXT_NOW": "Nå",
+            "TEXT_SUNSET": "Solnedgang",
+            "TEXT_SUNRISE": "Soloppgang",
+            
+            # card/twelve_hour_graph_frame.py
+            "TITLE_12H_FORECAST": "12-timers varsel",
+            # weather api
+            "WEATHER_CLEAR_SKY": "Klart vær",
+            "WEATHER_FEW_CLOUDS": "Lettskyet",
+            "WEATHER_SCATTERED_CLOUDS": "Spredte skyer",
+            "WEATHER_BROKEN_CLOUDS": "Delvis skyet",
+            "WEATHER_OVERCAST_CLOUDS": "Overskyet",
+
+            "WEATHER_MIST": "Tåke",
+            "WEATHER_FOG": "Tett tåke",
+            "WEATHER_HAZE": "Dis",
+            "WEATHER_SMOKE": "Røyk",
+
+            "WEATHER_LIGHT_RAIN": "Lett regn",
+            "WEATHER_MODERATE_RAIN": "Moderat regn",
+            "WEATHER_HEAVY_INTENSITY_RAIN": "Kraftig regn",
+            "WEATHER_VERY_HEAVY_RAIN": "Svært kraftig regn",
+            "WEATHER_EXTREME_RAIN": "Skybrudd",
+            "WEATHER_FREEZING_RAIN": "Underkjølt regn",
+            "WEATHER_SHOWER_RAIN": "Regnbyger",
+
+            "WEATHER_THUNDERSTORM": "Tordenvær",
+            "WEATHER_THUNDERSTORM_WITH_LIGHT_RAIN": "Tordenvær med lett regn",
+            "WEATHER_THUNDERSTORM_WITH_RAIN": "Tordenvær med regn",
+
+            "WEATHER_LIGHT_SNOW": "Lett snø",
+            "WEATHER_SNOW": "Snø",
+            "WEATHER_HEAVY_SNOW": "Kraftig snø",
+            "WEATHER_SLEET": "Sludd",
+
+            "WEATHER_DUST": "Støv",
+            "WEATHER_SAND": "Sand",
+            "WEATHER_ASH": "Aske",
+            "WEATHER_SQUALL": "Vindbøy",
+            "WEATHER_TORNADO": "Tornado",
         }
     }
     
-    # Текущий активный язык (по умолчанию украинский)
     _current_language = "uk"
-    
+    _instance = None
+
     @classmethod
     def set_language(cls, lang_code: str):
-        """Устанавливает текущий язык"""
-        if lang_code in cls.TRANSLATIONS:
+        """Устанавливает язык и уведомляет всех подписчиков"""
+        if lang_code in cls.TRANSLATIONS and lang_code != cls._current_language:
             cls._current_language = lang_code
+            LANGUAGE_SIGNAL.language_changed.emit(lang_code)   # ← Используем глобальный сигнал
             return True
         return False
-    
+
     @classmethod
     def get_language(cls) -> str:
-        """Получает текущий язык"""
         return cls._current_language
-    
+
     @classmethod
     def get_text(cls, key: str, **kwargs) -> str:
-        """Получает переведённый текст по ключу
-        
-        Args:
-            key: Ключ текста в словаре переводов
-            **kwargs: Параметры для форматирования строки
-        
-        Returns:
-            Переведённый текст или ключ если не найден
-        """
         try:
             text = cls.TRANSLATIONS[cls._current_language].get(key, key)
             if kwargs:
@@ -284,7 +493,7 @@ class AppLanguage:
 
         # ===== ФОРМА =====
         self.FORM_FRAME = widget.QFrame()
-        self.FORM_FRAME.setFixedWidth(239)
+        self.FORM_FRAME.setFixedWidth(SizeManager.get("lang_form_frame_width"))
         self.FORM_LAYOUT = widget.QVBoxLayout(self.FORM_FRAME)
         self.FORM_LAYOUT.setContentsMargins(0, 0, 0, 0)
         self.FORM_LAYOUT.setSpacing(6)
@@ -295,15 +504,17 @@ class AppLanguage:
         self.FORM_LAYOUT.addWidget(lbl_lang)
 
         self.LANGUAGE = widget.QComboBox()
-        self.LANGUAGE.setFixedSize(239, 32)
+        lc = SizeManager.get("lang_combo")
+        self.LANGUAGE.setFixedSize(lc["width"], lc["height"])
         self.LANGUAGE.setStyleSheet(COMBOBOX_STYLE)
         self.LANGUAGE.addItems([
             LanguageManager.get_text("LANG_UKRAINIAN"),
             LanguageManager.get_text("LANG_RUSSIAN"),
             LanguageManager.get_text("LANG_ENGLISH"),
+            LanguageManager.get_text("LANG_NORWEGIAN"),
         ])
         # Устанавливаем текущий язык
-        lang_map = {"uk": 0, "ru": 1, "en": 2}
+        lang_map = {"uk": 0, "ru": 1, "en": 2, "no": 3}
         current_index = lang_map.get(LanguageManager.get_language(), 0)
         self.LANGUAGE.setCurrentIndex(current_index)
         self.FORM_LAYOUT.addWidget(self.LANGUAGE)
@@ -311,7 +522,8 @@ class AppLanguage:
         self.FORM_LAYOUT.addSpacing(12)
 
         self.CONFIRM_BUTTON = widget.QPushButton(LanguageManager.get_text("BTN_SAVE"))
-        self.CONFIRM_BUTTON.setFixedSize(105, 38)
+        lcb = SizeManager.get("lang_confirm_button")
+        self.CONFIRM_BUTTON.setFixedSize(lcb["width"], lcb["height"])
         self.CONFIRM_BUTTON.setStyleSheet(BUTTON_STYLE)
         self.FORM_LAYOUT.addWidget(self.CONFIRM_BUTTON)
 

@@ -4,6 +4,7 @@ import PyQt6.QtGui as gui
 import PyQt6.QtWidgets as widget
 
 from ..settings.langueges import LanguageManager
+from ..settings.size_config import SizeManager
 from .. import styles
 from .utils import get_weather_icon_path
 
@@ -58,7 +59,7 @@ class TwelveHourGraphFrame(widget.QFrame):
         header_layout.addWidget(title)
 
         line = widget.QFrame()
-        line.setFixedHeight(1)
+        line.setFixedHeight(SizeManager.get("graph_line_height"))
         line.setStyleSheet(styles.HOURLY_LINE)
 
         header_layout.addWidget(line)

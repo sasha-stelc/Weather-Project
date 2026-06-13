@@ -4,7 +4,8 @@ import PyQt6.QtCore as core
 import PyQt6.QtGui as gui
 from ..create_path import create_media_path
 from ..api_request import SEARCH_CITIES, FORMAT_CITY, ADD_USER_CITY
-from ..settings.langueges import LanguageManager
+from ..settings.langueges import LANGUAGE_SIGNAL, LanguageManager
+from ..settings.size_config import SizeManager
 from .. import styles
 
 
@@ -13,7 +14,7 @@ class SearchPanel(widget.QFrame):
     
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setFixedHeight(45)
+        self.setFixedHeight(SizeManager.get("search_panel_height"))
         self.setStyleSheet(styles.SEARCH_FRAME)
         
         self.LAYOUT = widget.QHBoxLayout(self)
@@ -24,7 +25,8 @@ class SearchPanel(widget.QFrame):
         
         # ===== КОНТЕЙНЕР ПОИСКА =====
         self.SEARCH_CONTAINER = widget.QFrame()
-        self.SEARCH_CONTAINER.setFixedSize(261, 36)
+        sc = SizeManager.get("search_container")
+        self.SEARCH_CONTAINER.setFixedSize(sc["width"], sc["height"])
         self.SEARCH_CONTAINER.setStyleSheet(styles.SEARCH_CONTAINER)
         self.SEARCH_CONTAINER_LAYOUT = widget.QHBoxLayout(self.SEARCH_CONTAINER)
         self.SEARCH_CONTAINER_LAYOUT.setContentsMargins(10, 0, 8, 0)
@@ -32,13 +34,14 @@ class SearchPanel(widget.QFrame):
         
         # Иконка поиска
         self.SEARCH_ICON_LBL = widget.QLabel()
-        self.SEARCH_ICON_LBL.setFixedSize(18, 18)
+        sil = SizeManager.get("search_icon_lbl")
+        self.SEARCH_ICON_LBL.setFixedSize(sil["width"], sil["height"])
         self.SEARCH_ICON_LBL.setStyleSheet(styles.TRANSPARENT_NO_BORDER)
         search_icon_path = create_media_path("search.png")
         if os.path.exists(search_icon_path):
             self.SEARCH_ICON_LBL.setPixmap(
                 gui.QPixmap(search_icon_path).scaled(
-                    18, 18,
+                    sil["width"], sil["height"],
                     core.Qt.AspectRatioMode.KeepAspectRatio,
                     core.Qt.TransformationMode.SmoothTransformation,
                 )
@@ -52,13 +55,15 @@ class SearchPanel(widget.QFrame):
         
         # Кнопка очистки
         self.CLEAR_BTN = widget.QPushButton()
-        self.CLEAR_BTN.setFixedSize(18, 18)
+        cb = SizeManager.get("clear_btn")
+        self.CLEAR_BTN.setFixedSize(cb["width"], cb["height"])
         self.CLEAR_BTN.setCursor(core.Qt.CursorShape.PointingHandCursor)
         self.CLEAR_BTN.setStyleSheet(styles.TRANSPARENT_NO_BORDER)
         remove_icon_path = create_media_path("remove.png")
         if os.path.exists(remove_icon_path):
             self.CLEAR_BTN.setIcon(gui.QIcon(remove_icon_path))
-            self.CLEAR_BTN.setIconSize(core.QSize(18, 18))
+            cbi = SizeManager.get("clear_btn_icon")
+            self.CLEAR_BTN.setIconSize(core.QSize(cbi["width"], cbi["height"]))
         self.CLEAR_BTN.hide()
         self.CLEAR_BTN.clicked.connect(self._clear_search)
         
@@ -68,7 +73,8 @@ class SearchPanel(widget.QFrame):
         
         # Кнопка добавления города
         self.ADD_CITY_BTN = widget.QPushButton(LanguageManager.get_text("BTN_ADD_CITY"))
-        self.ADD_CITY_BTN.setFixedSize(100, 34)
+        acb = SizeManager.get("add_city_btn")
+        self.ADD_CITY_BTN.setFixedSize(acb["width"], acb["height"])
         self.ADD_CITY_BTN.setCursor(core.Qt.CursorShape.PointingHandCursor)
         self.ADD_CITY_BTN.setStyleSheet(styles.ADD_CITY_BUTTON)
         self.ADD_CITY_BTN.hide()
@@ -100,6 +106,8 @@ class SearchPanel(widget.QFrame):
         self.DROPDOWN_LAYOUT.addWidget(self.DROPDOWN_LIST)
         self.SEARCH_DROPDOWN.hide()
         self.SEARCH_DROPDOWN.raise_()
+
+        LANGUAGE_SIGNAL.language_changed.connect(self.retranslate)
     
     def _on_search_text_changed(self, text: str):
         """Обработчик изменения текста в поиске."""
@@ -135,7 +143,7 @@ class SearchPanel(widget.QFrame):
         if not city:
             return
         self.CITY_SEARCH.blockSignals(True)
-        self.CITY_SEARCH.setText(city.get("en", ""))
+        self.CITY_SEARCH.setText(city.get("display", city.get("en", "")))
         self.CITY_SEARCH.blockSignals(False)
         self._SELECTED_CITY = city
         self.SEARCH_DROPDOWN.hide()
@@ -169,7 +177,7 @@ class SearchPanel(widget.QFrame):
         selected_city = self._SELECTED_CITY
         
         # Сохраняем город и очищаем поиск
-        ADD_USER_CITY(city_en)
+        ADD_USER_CITY(selected_city)
         self._clear_search()
         
         # Испускаем сигнал с сохраненным городом
@@ -182,3 +190,9 @@ class SearchPanel(widget.QFrame):
     def get_search_text(self):
         """Возвращает текст поиска."""
         return self.CITY_SEARCH.text()
+    def retranslate(self, lang=None):
+        """Обновляет все переводимые строки при смене языка"""
+        self.CITY_SEARCH.setPlaceholderText(LanguageManager.get_text("PLACEHOLDER_SEARCH"))
+        self.ADD_CITY_BTN.setText(LanguageManager.get_text("BTN_ADD_CITY"))
+        self.DROPDOWN_TITLE.setText(LanguageManager.get_text("RESULT_SEARCH"))
+       

@@ -3,14 +3,15 @@ import PyQt6.QtWidgets as widget
 from .search_sity import SearchCity
 from .application_size import Application
 from .langueges import AppLanguage, LanguageManager
+from .size_config import SizeManager
 from .. import styles
 
 
 class NavButton(widget.QPushButton):
     def __init__(self, text, parent=None):
         super().__init__(text, parent)
-        self.setMinimumHeight(35)
-        self.setMinimumWidth(140)
+        self.setMinimumHeight(SizeManager.get("settings_min_height"))
+        self.setMinimumWidth(SizeManager.get("settings_min_width"))
         self.setSizePolicy(widget.QSizePolicy.Policy.Expanding, widget.QSizePolicy.Policy.Fixed)
         self.setCheckable(True)
         self._update_style(False)
@@ -33,7 +34,8 @@ class Settings(widget.QWidget):
         self.search_city_page = None  # Сохраняем ссылку на SearchCity
         self._pending_map_update = None  # Для отложенного обновления карты
 
-        self.resize(790, 688)
+        sw = SizeManager.get("settings_window")
+        self.resize(sw["width"], sw["height"])
         self.setAttribute(core.Qt.WidgetAttribute.WA_StyledBackground, True)
         self.setStyleSheet(styles.SETTINGS_MAIN)
 
@@ -44,7 +46,7 @@ class Settings(widget.QWidget):
 
         # ===== TOP BAR =====
         self.TOP_BAR = widget.QFrame(self)
-        self.TOP_BAR.setMinimumHeight(60)
+        self.TOP_BAR.setMinimumHeight(SizeManager.get("settings_top_bar_min_h"))
         self.TOP_BAR.setSizePolicy(widget.QSizePolicy.Policy.Expanding, widget.QSizePolicy.Policy.Fixed)
         self.TOP_BAR.setStyleSheet(styles.SETTINGS_TOP_BAR)
 
@@ -55,7 +57,8 @@ class Settings(widget.QWidget):
         self.TITLE_LABEL.setStyleSheet(styles.SETTINGS_TITLE)
 
         self.CLOSE_BUTTON = widget.QPushButton(LanguageManager.get_text("BTN_CLOSE"))
-        self.CLOSE_BUTTON.setFixedSize(32, 32)
+        clb = SizeManager.get("settings_close_btn")
+        self.CLOSE_BUTTON.setFixedSize(clb["width"], clb["height"])
         self.CLOSE_BUTTON.setStyleSheet(styles.SETTINGS_CLOSE_BUTTON)
         self.CLOSE_BUTTON.clicked.connect(self.close)
 
@@ -70,7 +73,7 @@ class Settings(widget.QWidget):
 
         # ===== LEFT FRAME =====
         self.LEFT_FRAME = widget.QFrame()
-        self.LEFT_FRAME.setMinimumWidth(190)
+        self.LEFT_FRAME.setMinimumWidth(SizeManager.get("settings_left_frame_min_w"))
         self.LEFT_FRAME.setSizePolicy(widget.QSizePolicy.Policy.Fixed, widget.QSizePolicy.Policy.Expanding)
         self.LEFT_FRAME.setStyleSheet(styles.SETTINGS_LEFT_FRAME)
 
@@ -165,7 +168,7 @@ class Settings(widget.QWidget):
                 combo = self._find_combo_in_widget(widget_item)
                 if combo:
                     lang_index = combo.currentIndex()
-                    lang_map = {0: "uk", 1: "ru", 2: "en"}
+                    lang_map = {0: "uk", 1: "ru", 2: "en", 3: "no"}
                     new_lang = lang_map.get(lang_index, "uk")
                     LanguageManager.set_language(new_lang)
                     

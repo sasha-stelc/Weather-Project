@@ -14,10 +14,11 @@ from ..api_request import (
     LOAD_USER_CITIES, SEARCH_CITIES, FORMAT_CITY,
     SEARCH_COUNTRIES, GET_CITIES_BY_COUNTRY,
     _LOAD_COUNTRIES_CITIES_CACHE,
-    ADD_USER_CITY, REMOVE_USER_CITY,
+    ADD_USER_CITY, REMOVE_USER_CITY, GET_CITY_EN,
 )
 from .. import styles
 from .langueges import LanguageManager
+from .size_config import SizeManager
 
 
 class SearchCity:
@@ -96,7 +97,8 @@ class SearchCity:
 
         # BUTTON
         self.CONFIRM_BUTTON = widget.QPushButton(LanguageManager.get_text("BTN_SAVE"))
-        self.CONFIRM_BUTTON.setFixedSize(105, 38)
+        cbtn = SizeManager.get("confirm_button")
+        self.CONFIRM_BUTTON.setFixedSize(cbtn["width"], cbtn["height"])
         self.CONFIRM_BUTTON.setStyleSheet(btn_style)
         self.CONFIRM_BUTTON.setEnabled(False)   # активується тільки після вибору міста
         self.CONFIRM_BUTTON.clicked.connect(self.ON_CONFIRM_CLICKED)
@@ -164,7 +166,8 @@ class SearchCity:
         self.CITIES_LAYOUT = widget.QVBoxLayout(self.CITIES_LIST)
 
         self.CITY_FRAME = widget.QFrame()
-        self.CITY_FRAME.setFixedSize(544, 160)
+        cf = SizeManager.get("city_frame")
+        self.CITY_FRAME.setFixedSize(cf["width"], cf["height"])
         self.CITY_FRAME.setStyleSheet("background: rgba(0, 0, 0, 0.2)")
         self.CITY_LAYOUT = widget.QVBoxLayout(self.CITY_FRAME)
 
@@ -284,7 +287,7 @@ class SearchCity:
 
         # Заповнюємо поле пошуку
         self.CITY_SEARCH.blockSignals(True)
-        self.CITY_SEARCH.setText(city.get("en", ""))
+        self.CITY_SEARCH.setText(city.get("display", city.get("en", "")))
         self.CITY_SEARCH.blockSignals(False)
 
         self.SELECTED_CITY = city
@@ -328,13 +331,12 @@ class SearchCity:
             if self.CITIES_LAYOUT.itemAt(i) and self.CITIES_LAYOUT.itemAt(i).widget()
         ]
         for row_widget in existing:
-            lbl = row_widget.findChild(widget.QLabel)
-            if lbl and lbl.text().lower() == city_en.lower():
+            if str(row_widget.property("city_en") or "").lower() == city_en.lower():
                 return   # вже є — нічого не робимо
 
         # Зберігаємо в JSON та додаємо рядок у UI
-        ADD_USER_CITY(city_en)
-        self._add_city_row(city_en)
+        ADD_USER_CITY(self.SELECTED_CITY)
+        self._add_city_row(self.SELECTED_CITY)
 
         # Скидаємо форму
         self._reset_city_selection()
@@ -395,17 +397,22 @@ class SearchCity:
         m.save(data, close_file=False)
         self.MAP_VIEW.setHtml(data.getvalue().decode("utf-8"))
     # ===== CITY ROWS =====
-    def _add_city_row(self, name: str):
+    def _add_city_row(self, city):
         row = widget.QFrame()
         row_layout = widget.QHBoxLayout(row)
 
-        label = widget.QLabel(name)
+        city_en = GET_CITY_EN(city)
+        city_name = FORMAT_CITY(city) if isinstance(city, dict) else str(city)
+        row.setProperty("city_en", city_en)
+
+        label = widget.QLabel(city_name)
         label.setStyleSheet(styles.SEARCH_CITY_LABEL_STYLE)
 
         delete_btn = widget.QPushButton("🗑")
-        delete_btn.setFixedSize(24, 24)
+        db = SizeManager.get("delete_btn")
+        delete_btn.setFixedSize(db["width"], db["height"])
         delete_btn.clicked.connect(
-            lambda _, r=row, city_name=name: self._remove_row(r, city_name)
+            lambda _, r=row, city=city: self._remove_row(r, city)
         )
 
         row_layout.addWidget(label)
@@ -414,7 +421,7 @@ class SearchCity:
 
         self.CITIES_LAYOUT.addWidget(row)
 
-    def _remove_row(self, row: widget.QFrame, city_name: str):
-        REMOVE_USER_CITY(city_name)
+    def _remove_row(self, row: widget.QFrame, city):
+        REMOVE_USER_CITY(city)
         self.CITIES_LAYOUT.removeWidget(row)
         row.deleteLater()

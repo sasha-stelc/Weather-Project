@@ -3,6 +3,7 @@ import PyQt6.QtCore as core
 import PyQt6.QtGui as gui
 from ..create_path import create_media_path
 from .. import styles
+from ..settings.size_config import SizeManager
 
 
 class ImageThemeSwitch(widget.QPushButton):
@@ -11,8 +12,10 @@ class ImageThemeSwitch(widget.QPushButton):
         self.app = app
         self.setCheckable(True)
         self.setCursor(core.Qt.CursorShape.PointingHandCursor)
-        self.setFixedSize(52, 24)
-        self.setIconSize(core.QSize(18, 18))
+        sw = SizeManager.get("theme_switch")
+        self.setFixedSize(sw["width"], sw["height"])
+        icon = SizeManager.get("theme_switch_icon")
+        self.setIconSize(core.QSize(icon["width"], icon["height"]))
         self.SUN_ICON  = gui.QIcon(create_media_path("Frame_51.png"))
         self.MOON_ICON = gui.QIcon(create_media_path("Frame_52.png"))
         self.toggled.connect(self.UPDATE_IMAGE)

@@ -2,6 +2,7 @@ import PyQt6.QtCore as core
 import PyQt6.QtWidgets as widget
 from .. import styles
 from .langueges import LanguageManager
+from .size_config import SizeManager, SIZES
 
 
 class Application(widget.QWidget):
@@ -25,25 +26,26 @@ class Application(widget.QWidget):
         # ===== РАДІОГРУПА =====
         self.GROUP = widget.QButtonGroup(self)
 
+        # Список пресетів формується з ключів словника SIZES (size_config.py),
+        # тож додавання нового пресету достатньо зробити лише там.
         self.SIZES = [
-            ("1200x800", 1200, 800),
-            ("1440x1024", 1440, 1024),
-            ("1512x982", 1512, 982),
-            ("1728x1117", 1728, 1117),
-            ("1920x1080", 1920, 1080),
-            
+            (key, preset["window"]["width"], preset["window"]["height"])
+            for key, preset in SIZES.items()
         ]
+
+        current_key = SizeManager.get_size_key()
 
         for i, (label, width, height) in enumerate(self.SIZES):
             radio = widget.QRadioButton(label)
             radio.setStyleSheet(styles.APPLICATION_RADIO_STYLE)
-            
+
             # Правильний спосіб для QRadioButton
             radio.setProperty("window_size", (width, height))
-            
-            if i == 0:
+            radio.setProperty("size_key", label)
+
+            if label == current_key:
                 radio.setChecked(True)
-                
+
             self.GROUP.addButton(radio, i)
             self.ROOT_LAYOUT.addWidget(radio)
 
@@ -51,7 +53,8 @@ class Application(widget.QWidget):
 
         # ===== КНОПКА =====
         self.SAVE_BUTTON = widget.QPushButton(LanguageManager.get_text("BTN_SAVE"))
-        self.SAVE_BUTTON.setFixedSize(105, 38)
+        sb = SizeManager.get("size_save_button")
+        self.SAVE_BUTTON.setFixedSize(sb["width"], sb["height"])
         self.SAVE_BUTTON.setStyleSheet(styles.APPLICATION_BUTTON_STYLE)
         self.SAVE_BUTTON.clicked.connect(self._ON_SAVE)
         self.ROOT_LAYOUT.addWidget(self.SAVE_BUTTON)
@@ -62,9 +65,16 @@ class Application(widget.QWidget):
             return None
 
         size_data = checked_btn.property("window_size")
-        
+        size_key  = checked_btn.property("size_key")
+
         if isinstance(size_data, tuple) and len(size_data) == 2:
             width, height = size_data
+
+            # Оновлюємо глобальний менеджер розмірів — усі статичні розміри
+            # (кнопки, панелі, іконки тощо) перерахуються при наступному
+            # створенні/перестворенні віджетів.
+            SizeManager.set_size(size_key)
+
             msg = LanguageManager.get_text("SIZE_SELECTED", text=checked_btn.text(), width=width, height=height)
             print(msg)
             self.sizeSelected.emit(width, height)
