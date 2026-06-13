@@ -6,4 +6,5 @@ __pycache__/
 *.db
 
 # json
-*.json
+.countries+states+cities.json
+modules/cities.json
