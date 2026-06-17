@@ -1,0 +1,701 @@
+{
+  "dnipro": {
+    "cached_at": 1781454756.404861,
+    "city_en": "Dnipro",
+    "city_names": {
+      "uk": "Dnipro",
+      "ru": "Dnipro",
+      "en": "Dnipro",
+      "no": "Dnipro"
+    },
+    "lat": 48.45,
+    "lon": 34.9833,
+    "time": "19:32",
+    "temp": "19",
+    "desc_raw": "scattered clouds",
+    "desc_i18n": {
+      "uk": "Мінлива хмарність",
+      "ru": "Переменная облачность",
+      "en": "Scattered clouds",
+      "no": "Spredte skyer"
+    },
+    "minmax_i18n": {
+      "uk": "Макс.:19°, мін.:19°",
+      "ru": "Макс.:19°, мин.:19°",
+      "en": "Max: 19°, min: 19°",
+      "no": "Maks: 19°, min: 19°"
+    },
+    "icon": "03n",
+    "is_current": false,
+    "sunset": "20:42",
+    "sunrise": "04:38",
+    "today_hours": [
+      {
+        "time": "21:00",
+        "icon": "03n",
+        "temp": 19,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "00:00",
+        "icon": "03n",
+        "temp": 18,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "03:00",
+        "icon": "10n",
+        "temp": 17,
+        "pop": 20,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "04:38",
+        "icon": "sunrise",
+        "temp": null,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": true,
+        "is_current": false
+      },
+      {
+        "time": "06:00",
+        "icon": "04d",
+        "temp": 16,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "09:00",
+        "icon": "04d",
+        "temp": 20,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "12:00",
+        "icon": "10d",
+        "temp": 20,
+        "pop": 100,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "15:00",
+        "icon": "04d",
+        "temp": 22,
+        "pop": 80,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "18:00",
+        "icon": "04d",
+        "temp": 21,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "20:42",
+        "icon": "sunset",
+        "temp": null,
+        "pop": 0,
+        "is_sunset": true,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "21:00",
+        "icon": "04n",
+        "temp": 18,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "00:00",
+        "icon": "04n",
+        "temp": 15,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "03:00",
+        "icon": "04n",
+        "temp": 14,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "06:00",
+        "icon": "04d",
+        "temp": 14,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      }
+    ],
+    "next_12h": [
+      {
+        "time": "21:00",
+        "icon": "03n",
+        "temp": 19,
+        "pop": 0
+      },
+      {
+        "time": "00:00",
+        "icon": "03n",
+        "temp": 18,
+        "pop": 0
+      },
+      {
+        "time": "03:00",
+        "icon": "10n",
+        "temp": 17,
+        "pop": 20
+      },
+      {
+        "time": "06:00",
+        "icon": "04d",
+        "temp": 16,
+        "pop": 0
+      },
+      {
+        "time": "09:00",
+        "icon": "04d",
+        "temp": 20,
+        "pop": 0
+      },
+      {
+        "time": "12:00",
+        "icon": "10d",
+        "temp": 20,
+        "pop": 100
+      },
+      {
+        "time": "15:00",
+        "icon": "04d",
+        "temp": 22,
+        "pop": 80
+      },
+      {
+        "time": "18:00",
+        "icon": "04d",
+        "temp": 21,
+        "pop": 0
+      },
+      {
+        "time": "21:00",
+        "icon": "04n",
+        "temp": 18,
+        "pop": 0
+      },
+      {
+        "time": "00:00",
+        "icon": "04n",
+        "temp": 15,
+        "pop": 0
+      },
+      {
+        "time": "03:00",
+        "icon": "04n",
+        "temp": 14,
+        "pop": 0
+      },
+      {
+        "time": "06:00",
+        "icon": "04d",
+        "temp": 14,
+        "pop": 0
+      }
+    ]
+  },
+  "tarinkot": {
+    "cached_at": 1781454757.833942,
+    "city_en": "Tarinkot",
+    "city_names": {
+      "uk": "Tarinkot",
+      "ru": "Tarinkot",
+      "en": "Tarinkot",
+      "no": "Tarinkot"
+    },
+    "lat": 32.6268,
+    "lon": 65.8733,
+    "time": "21:02",
+    "temp": "26",
+    "desc_raw": "broken clouds",
+    "desc_i18n": {
+      "uk": "Хмарно",
+      "ru": "Облачно",
+      "en": "Broken clouds",
+      "no": "Delvis skyet"
+    },
+    "minmax_i18n": {
+      "uk": "Макс.:26°, мін.:26°",
+      "ru": "Макс.:26°, мин.:26°",
+      "en": "Max: 26°, min: 26°",
+      "no": "Maks: 26°, min: 26°"
+    },
+    "icon": "04n",
+    "is_current": false,
+    "sunset": "19:15",
+    "sunrise": "04:58",
+    "today_hours": [
+      {
+        "time": "22:30",
+        "icon": "04n",
+        "temp": 26,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "01:30",
+        "icon": "03n",
+        "temp": 25,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "04:30",
+        "icon": "02n",
+        "temp": 24,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "04:58",
+        "icon": "sunrise",
+        "temp": null,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": true,
+        "is_current": false
+      },
+      {
+        "time": "07:30",
+        "icon": "01d",
+        "temp": 29,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "10:30",
+        "icon": "01d",
+        "temp": 35,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "13:30",
+        "icon": "01d",
+        "temp": 38,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "16:30",
+        "icon": "02d",
+        "temp": 38,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "19:30",
+        "icon": "04n",
+        "temp": 32,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "19:15",
+        "icon": "sunset",
+        "temp": null,
+        "pop": 0,
+        "is_sunset": true,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "22:30",
+        "icon": "04n",
+        "temp": 29,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "01:30",
+        "icon": "01n",
+        "temp": 26,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "04:30",
+        "icon": "01n",
+        "temp": 24,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "07:30",
+        "icon": "01d",
+        "temp": 30,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      }
+    ],
+    "next_12h": [
+      {
+        "time": "22:30",
+        "icon": "04n",
+        "temp": 26,
+        "pop": 0
+      },
+      {
+        "time": "01:30",
+        "icon": "03n",
+        "temp": 25,
+        "pop": 0
+      },
+      {
+        "time": "04:30",
+        "icon": "02n",
+        "temp": 24,
+        "pop": 0
+      },
+      {
+        "time": "07:30",
+        "icon": "01d",
+        "temp": 29,
+        "pop": 0
+      },
+      {
+        "time": "10:30",
+        "icon": "01d",
+        "temp": 35,
+        "pop": 0
+      },
+      {
+        "time": "13:30",
+        "icon": "01d",
+        "temp": 38,
+        "pop": 0
+      },
+      {
+        "time": "16:30",
+        "icon": "02d",
+        "temp": 38,
+        "pop": 0
+      },
+      {
+        "time": "19:30",
+        "icon": "04n",
+        "temp": 32,
+        "pop": 0
+      },
+      {
+        "time": "22:30",
+        "icon": "04n",
+        "temp": 29,
+        "pop": 0
+      },
+      {
+        "time": "01:30",
+        "icon": "01n",
+        "temp": 26,
+        "pop": 0
+      },
+      {
+        "time": "04:30",
+        "icon": "01n",
+        "temp": 24,
+        "pop": 0
+      },
+      {
+        "time": "07:30",
+        "icon": "01d",
+        "temp": 30,
+        "pop": 0
+      }
+    ]
+  },
+  "kyiv": {
+    "cached_at": 1781699453.420996,
+    "city_en": "Kyiv",
+    "city_names": {
+      "uk": "Kyiv",
+      "ru": "Kyiv",
+      "en": "Kyiv",
+      "no": "Kyiv"
+    },
+    "lat": 50.4333,
+    "lon": 30.5167,
+    "time": "15:30",
+    "temp": "23",
+    "desc_raw": "broken clouds",
+    "desc_i18n": {
+      "uk": "Хмарно",
+      "ru": "Облачно",
+      "en": "Broken clouds",
+      "no": "Delvis skyet"
+    },
+    "minmax_i18n": {
+      "uk": "Макс.:23°, мін.:19°",
+      "ru": "Макс.:23°, мин.:19°",
+      "en": "Max: 23°, min: 19°",
+      "no": "Maks: 23°, min: 19°"
+    },
+    "icon": "04d",
+    "is_current": false,
+    "sunset": "21:11",
+    "sunrise": "04:45",
+    "today_hours": [
+      {
+        "time": "18:00",
+        "icon": "04d",
+        "temp": 23,
+        "pop": 1,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "21:00",
+        "icon": "03d",
+        "temp": 19,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "00:00",
+        "icon": "10n",
+        "temp": 14,
+        "pop": 20,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "03:00",
+        "icon": "03n",
+        "temp": 12,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "04:45",
+        "icon": "sunrise",
+        "temp": null,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": true,
+        "is_current": false
+      },
+      {
+        "time": "06:00",
+        "icon": "04d",
+        "temp": 12,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "09:00",
+        "icon": "04d",
+        "temp": 20,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "12:00",
+        "icon": "04d",
+        "temp": 23,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "15:00",
+        "icon": "04d",
+        "temp": 26,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "18:00",
+        "icon": "04d",
+        "temp": 22,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "21:00",
+        "icon": "04d",
+        "temp": 18,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "00:00",
+        "icon": "04n",
+        "temp": 15,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "03:00",
+        "icon": "04n",
+        "temp": 15,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "21:11",
+        "icon": "sunset",
+        "temp": null,
+        "pop": 0,
+        "is_sunset": true,
+        "is_sunrise": false,
+        "is_current": false
+      }
+    ],
+    "next_12h": [
+      {
+        "time": "18:00",
+        "icon": "04d",
+        "temp": 23,
+        "pop": 1
+      },
+      {
+        "time": "21:00",
+        "icon": "03d",
+        "temp": 19,
+        "pop": 0
+      },
+      {
+        "time": "00:00",
+        "icon": "10n",
+        "temp": 14,
+        "pop": 20
+      },
+      {
+        "time": "03:00",
+        "icon": "03n",
+        "temp": 12,
+        "pop": 0
+      },
+      {
+        "time": "06:00",
+        "icon": "04d",
+        "temp": 12,
+        "pop": 0
+      },
+      {
+        "time": "09:00",
+        "icon": "04d",
+        "temp": 20,
+        "pop": 0
+      },
+      {
+        "time": "12:00",
+        "icon": "04d",
+        "temp": 23,
+        "pop": 0
+      },
+      {
+        "time": "15:00",
+        "icon": "04d",
+        "temp": 26,
+        "pop": 0
+      },
+      {
+        "time": "18:00",
+        "icon": "04d",
+        "temp": 22,
+        "pop": 0
+      },
+      {
+        "time": "21:00",
+        "icon": "04d",
+        "temp": 18,
+        "pop": 0
+      },
+      {
+        "time": "00:00",
+        "icon": "04n",
+        "temp": 15,
+        "pop": 0
+      },
+      {
+        "time": "03:00",
+        "icon": "04n",
+        "temp": 15,
+        "pop": 0
+      }
+    ]
+  }
+}

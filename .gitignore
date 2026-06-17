@@ -1,0 +1,10 @@
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+
+# json
+.countries+states+cities.json
+modules/cities.json
