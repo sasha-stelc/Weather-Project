@@ -72,10 +72,20 @@ class CityInfoFrame(widget.QFrame):
         self.ICON_LBL.setStyleSheet(styles.TRANSPARENT_BG)
         
         icon_name = data.get("icon", "") + ".png"
-        icon_path = create_media_path(os.path.join("weather icon", icon_name))
+
+        # берём выбранную пользователем тему — это имя папки внутри media/,
+        # а не готовый абсолютный путь
+        selected_theme = core.QSettings("WeatherProject", "WeatherApp").value(
+            "selected_theme",
+            "weather icon"
+        )
+
+        icon_folder = create_media_path(selected_theme)
+
+        icon_path = os.path.join(icon_folder, icon_name)
+
         if os.path.exists(icon_path):
             self.ICON_LBL.setPixmap(gui.QPixmap(icon_path))
-
         self.TEMP_LBL = widget.QLabel(f"{data['temp']}°")
         self.TEMP_LBL.setStyleSheet(styles.CITY_INFO_TEMP)
 

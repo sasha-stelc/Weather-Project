@@ -1,6 +1,6 @@
 {
   "dnipro": {
-    "cached_at": 1781454756.404861,
+    "cached_at": 1781790557.429027,
     "city_en": "Dnipro",
     "city_names": {
       "uk": "Dnipro",
@@ -10,109 +10,37 @@
     },
     "lat": 48.45,
     "lon": 34.9833,
-    "time": "19:32",
-    "temp": "19",
-    "desc_raw": "scattered clouds",
+    "time": "16:49",
+    "temp": "22",
+    "desc_raw": "light rain",
     "desc_i18n": {
-      "uk": "Мінлива хмарність",
-      "ru": "Переменная облачность",
-      "en": "Scattered clouds",
-      "no": "Spredte skyer"
+      "uk": "Легкий дощ",
+      "ru": "Лёгкий дождь",
+      "en": "Light rain",
+      "no": "Lett regn"
     },
     "minmax_i18n": {
-      "uk": "Макс.:19°, мін.:19°",
-      "ru": "Макс.:19°, мин.:19°",
-      "en": "Max: 19°, min: 19°",
-      "no": "Maks: 19°, min: 19°"
+      "uk": "Макс.:22°, мін.:21°",
+      "ru": "Макс.:22°, мин.:21°",
+      "en": "Max: 22°, min: 21°",
+      "no": "Maks: 22°, min: 21°"
     },
-    "icon": "03n",
+    "icon": "10d",
     "is_current": false,
-    "sunset": "20:42",
-    "sunrise": "04:38",
+    "sunset": "20:44",
+    "sunrise": "04:37",
     "today_hours": [
       {
-        "time": "21:00",
-        "icon": "03n",
-        "temp": 19,
-        "pop": 0,
-        "is_sunset": false,
-        "is_sunrise": false,
-        "is_current": false
-      },
-      {
-        "time": "00:00",
-        "icon": "03n",
-        "temp": 18,
-        "pop": 0,
-        "is_sunset": false,
-        "is_sunrise": false,
-        "is_current": false
-      },
-      {
-        "time": "03:00",
-        "icon": "10n",
-        "temp": 17,
-        "pop": 20,
-        "is_sunset": false,
-        "is_sunrise": false,
-        "is_current": false
-      },
-      {
-        "time": "04:38",
-        "icon": "sunrise",
-        "temp": null,
-        "pop": 0,
-        "is_sunset": false,
-        "is_sunrise": true,
-        "is_current": false
-      },
-      {
-        "time": "06:00",
-        "icon": "04d",
-        "temp": 16,
-        "pop": 0,
-        "is_sunset": false,
-        "is_sunrise": false,
-        "is_current": false
-      },
-      {
-        "time": "09:00",
-        "icon": "04d",
-        "temp": 20,
-        "pop": 0,
-        "is_sunset": false,
-        "is_sunrise": false,
-        "is_current": false
-      },
-      {
-        "time": "12:00",
-        "icon": "10d",
-        "temp": 20,
-        "pop": 100,
-        "is_sunset": false,
-        "is_sunrise": false,
-        "is_current": false
-      },
-      {
-        "time": "15:00",
-        "icon": "04d",
-        "temp": 22,
-        "pop": 80,
-        "is_sunset": false,
-        "is_sunrise": false,
-        "is_current": false
-      },
-      {
         "time": "18:00",
-        "icon": "04d",
-        "temp": 21,
-        "pop": 0,
+        "icon": "10d",
+        "temp": 22,
+        "pop": 42,
         "is_sunset": false,
         "is_sunrise": false,
         "is_current": false
       },
       {
-        "time": "20:42",
+        "time": "20:44",
         "icon": "sunset",
         "temp": null,
         "pop": 0,
@@ -123,16 +51,16 @@
       {
         "time": "21:00",
         "icon": "04n",
-        "temp": 18,
-        "pop": 0,
+        "temp": 21,
+        "pop": 15,
         "is_sunset": false,
         "is_sunrise": false,
         "is_current": false
       },
       {
         "time": "00:00",
-        "icon": "04n",
-        "temp": 15,
+        "icon": "03n",
+        "temp": 17,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -140,7 +68,25 @@
       },
       {
         "time": "03:00",
-        "icon": "04n",
+        "icon": "02n",
+        "temp": 13,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "04:37",
+        "icon": "sunrise",
+        "temp": null,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": true,
+        "is_current": false
+      },
+      {
+        "time": "06:00",
+        "icon": "01d",
         "temp": 14,
         "pop": 0,
         "is_sunset": false,
@@ -148,9 +94,63 @@
         "is_current": false
       },
       {
-        "time": "06:00",
+        "time": "09:00",
+        "icon": "03d",
+        "temp": 19,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "12:00",
         "icon": "04d",
-        "temp": 14,
+        "temp": 22,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "15:00",
+        "icon": "03d",
+        "temp": 23,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "18:00",
+        "icon": "04d",
+        "temp": 23,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "21:00",
+        "icon": "04n",
+        "temp": 19,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "00:00",
+        "icon": "03n",
+        "temp": 17,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "03:00",
+        "icon": "02n",
+        "temp": 16,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -159,75 +159,75 @@
     ],
     "next_12h": [
       {
+        "time": "18:00",
+        "icon": "10d",
+        "temp": 22,
+        "pop": 42
+      },
+      {
         "time": "21:00",
+        "icon": "04n",
+        "temp": 21,
+        "pop": 15
+      },
+      {
+        "time": "00:00",
         "icon": "03n",
+        "temp": 17,
+        "pop": 0
+      },
+      {
+        "time": "03:00",
+        "icon": "02n",
+        "temp": 13,
+        "pop": 0
+      },
+      {
+        "time": "06:00",
+        "icon": "01d",
+        "temp": 14,
+        "pop": 0
+      },
+      {
+        "time": "09:00",
+        "icon": "03d",
+        "temp": 19,
+        "pop": 0
+      },
+      {
+        "time": "12:00",
+        "icon": "04d",
+        "temp": 22,
+        "pop": 0
+      },
+      {
+        "time": "15:00",
+        "icon": "03d",
+        "temp": 23,
+        "pop": 0
+      },
+      {
+        "time": "18:00",
+        "icon": "04d",
+        "temp": 23,
+        "pop": 0
+      },
+      {
+        "time": "21:00",
+        "icon": "04n",
         "temp": 19,
         "pop": 0
       },
       {
         "time": "00:00",
         "icon": "03n",
-        "temp": 18,
-        "pop": 0
-      },
-      {
-        "time": "03:00",
-        "icon": "10n",
         "temp": 17,
-        "pop": 20
-      },
-      {
-        "time": "06:00",
-        "icon": "04d",
-        "temp": 16,
-        "pop": 0
-      },
-      {
-        "time": "09:00",
-        "icon": "04d",
-        "temp": 20,
-        "pop": 0
-      },
-      {
-        "time": "12:00",
-        "icon": "10d",
-        "temp": 20,
-        "pop": 100
-      },
-      {
-        "time": "15:00",
-        "icon": "04d",
-        "temp": 22,
-        "pop": 80
-      },
-      {
-        "time": "18:00",
-        "icon": "04d",
-        "temp": 21,
-        "pop": 0
-      },
-      {
-        "time": "21:00",
-        "icon": "04n",
-        "temp": 18,
-        "pop": 0
-      },
-      {
-        "time": "00:00",
-        "icon": "04n",
-        "temp": 15,
         "pop": 0
       },
       {
         "time": "03:00",
-        "icon": "04n",
-        "temp": 14,
-        "pop": 0
-      },
-      {
-        "time": "06:00",
-        "icon": "04d",
-        "temp": 14,
+        "icon": "02n",
+        "temp": 16,
         "pop": 0
       }
     ]
