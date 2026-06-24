@@ -1,23 +1,7 @@
 [
   {
-<<<<<<< HEAD
-    "en": "Kyiv",
-    "display": "Kyiv",
-    "country": "Ukraine"
-=======
     "en": "Dnipro",
-    "display": "Dnipro",
+    "display": "Дніпро",
     "country": "Ukraine"
-  },
-  {
-    "en": "Wākhān",
-    "display": "Вахан",
-    "country": "Afghanistan"
-  },
-  {
-    "en": "Tarinkot",
-    "display": "Таринкот",
-    "country": "Afghanistan"
->>>>>>> ff3184c00e0429b3046fbdbf713687e8638adcd6
   }
 ]

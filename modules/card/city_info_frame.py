@@ -69,7 +69,7 @@ class CityInfoFrame(widget.QFrame):
         self.ICON_LBL = widget.QLabel()
         wil = SizeManager.get("city_info_icon_lbl")
         self.ICON_LBL.setFixedSize(wil["width"], wil["height"])
-        self.ICON_LBL.setStyleSheet(styles.TRANSPARENT_BG)
+        self.ICON_LBL.setStyleSheet("background: transparent; ")
         
         icon_name = data.get("icon", "") + ".png"
 

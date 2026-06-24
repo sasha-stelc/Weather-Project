@@ -1,6 +1,6 @@
 {
   "dnipro": {
-    "cached_at": 1781790557.429027,
+    "cached_at": 1782310302.834139,
     "city_en": "Dnipro",
     "city_names": {
       "uk": "Dnipro",
@@ -10,57 +10,47 @@
     },
     "lat": 48.45,
     "lon": 34.9833,
-    "time": "16:49",
-    "temp": "22",
-    "desc_raw": "light rain",
+    "time": "17:11",
+    "temp": "25",
+    "desc_raw": "broken clouds",
     "desc_i18n": {
-      "uk": "Легкий дощ",
-      "ru": "Лёгкий дождь",
-      "en": "Light rain",
-      "no": "Lett regn"
+      "uk": "Хмарно",
+      "ru": "Облачно",
+      "en": "Broken clouds",
+      "no": "Delvis skyet"
     },
     "minmax_i18n": {
-      "uk": "Макс.:22°, мін.:21°",
-      "ru": "Макс.:22°, мин.:21°",
-      "en": "Max: 22°, min: 21°",
-      "no": "Maks: 22°, min: 21°"
+      "uk": "Макс.:25°, мін.:24°",
+      "ru": "Макс.:25°, мин.:24°",
+      "en": "Max: 25°, min: 24°",
+      "no": "Maks: 25°, min: 24°"
     },
-    "icon": "10d",
-    "is_current": false,
-    "sunset": "20:44",
-    "sunrise": "04:37",
+    "icon": "04d",
+    "sunset": "20:45",
+    "sunrise": "04:39",
     "today_hours": [
       {
         "time": "18:00",
-        "icon": "10d",
-        "temp": 22,
-        "pop": 42,
-        "is_sunset": false,
-        "is_sunrise": false,
-        "is_current": false
-      },
-      {
-        "time": "20:44",
-        "icon": "sunset",
-        "temp": null,
+        "icon": "04d",
+        "temp": 25,
         "pop": 0,
-        "is_sunset": true,
+        "is_sunset": false,
         "is_sunrise": false,
         "is_current": false
       },
       {
         "time": "21:00",
         "icon": "04n",
-        "temp": 21,
-        "pop": 15,
+        "temp": 24,
+        "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
         "is_current": false
       },
       {
         "time": "00:00",
-        "icon": "03n",
-        "temp": 17,
+        "icon": "04n",
+        "temp": 22,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -68,26 +58,17 @@
       },
       {
         "time": "03:00",
-        "icon": "02n",
-        "temp": 13,
+        "icon": "04n",
+        "temp": 20,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
         "is_current": false
       },
       {
-        "time": "04:37",
-        "icon": "sunrise",
-        "temp": null,
-        "pop": 0,
-        "is_sunset": false,
-        "is_sunrise": true,
-        "is_current": false
-      },
-      {
         "time": "06:00",
-        "icon": "01d",
-        "temp": 14,
+        "icon": "04d",
+        "temp": 20,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -95,8 +76,8 @@
       },
       {
         "time": "09:00",
-        "icon": "03d",
-        "temp": 19,
+        "icon": "04d",
+        "temp": 22,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -105,7 +86,7 @@
       {
         "time": "12:00",
         "icon": "04d",
-        "temp": 22,
+        "temp": 26,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -113,8 +94,8 @@
       },
       {
         "time": "15:00",
-        "icon": "03d",
-        "temp": 23,
+        "icon": "04d",
+        "temp": 28,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -122,17 +103,17 @@
       },
       {
         "time": "18:00",
-        "icon": "04d",
+        "icon": "10d",
         "temp": 23,
-        "pop": 0,
+        "pop": 34,
         "is_sunset": false,
         "is_sunrise": false,
         "is_current": false
       },
       {
         "time": "21:00",
-        "icon": "04n",
-        "temp": 19,
+        "icon": "03n",
+        "temp": 21,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -140,18 +121,18 @@
       },
       {
         "time": "00:00",
-        "icon": "03n",
-        "temp": 17,
-        "pop": 0,
+        "icon": "10n",
+        "temp": 18,
+        "pop": 93,
         "is_sunset": false,
         "is_sunrise": false,
         "is_current": false
       },
       {
         "time": "03:00",
-        "icon": "02n",
+        "icon": "01n",
         "temp": 16,
-        "pop": 0,
+        "pop": 52,
         "is_sunset": false,
         "is_sunrise": false,
         "is_current": false
@@ -160,75 +141,75 @@
     "next_12h": [
       {
         "time": "18:00",
-        "icon": "10d",
-        "temp": 22,
-        "pop": 42
+        "icon": "04d",
+        "temp": 25,
+        "pop": 0
       },
       {
         "time": "21:00",
         "icon": "04n",
-        "temp": 21,
-        "pop": 15
+        "temp": 24,
+        "pop": 0
       },
       {
         "time": "00:00",
-        "icon": "03n",
-        "temp": 17,
+        "icon": "04n",
+        "temp": 22,
         "pop": 0
       },
       {
         "time": "03:00",
-        "icon": "02n",
-        "temp": 13,
+        "icon": "04n",
+        "temp": 20,
         "pop": 0
       },
       {
         "time": "06:00",
-        "icon": "01d",
-        "temp": 14,
+        "icon": "04d",
+        "temp": 20,
         "pop": 0
       },
       {
         "time": "09:00",
-        "icon": "03d",
-        "temp": 19,
+        "icon": "04d",
+        "temp": 22,
         "pop": 0
       },
       {
         "time": "12:00",
         "icon": "04d",
-        "temp": 22,
+        "temp": 26,
         "pop": 0
       },
       {
         "time": "15:00",
-        "icon": "03d",
-        "temp": 23,
+        "icon": "04d",
+        "temp": 28,
         "pop": 0
       },
       {
         "time": "18:00",
-        "icon": "04d",
+        "icon": "10d",
         "temp": 23,
-        "pop": 0
+        "pop": 34
       },
       {
         "time": "21:00",
-        "icon": "04n",
-        "temp": 19,
+        "icon": "03n",
+        "temp": 21,
         "pop": 0
       },
       {
         "time": "00:00",
-        "icon": "03n",
-        "temp": 17,
-        "pop": 0
+        "icon": "10n",
+        "temp": 18,
+        "pop": 93
       },
       {
         "time": "03:00",
-        "icon": "02n",
+        "icon": "01n",
         "temp": 16,
-        "pop": 0
+        "pop": 52
       }
     ]
   },
@@ -466,18 +447,18 @@
     ]
   },
   "kyiv": {
-    "cached_at": 1781699453.420996,
+    "cached_at": 1782306108.309813,
     "city_en": "Kyiv",
     "city_names": {
-      "uk": "Kyiv",
-      "ru": "Kyiv",
+      "uk": "Київ",
+      "ru": "Киев",
       "en": "Kyiv",
       "no": "Kyiv"
     },
     "lat": 50.4333,
     "lon": 30.5167,
-    "time": "15:30",
-    "temp": "23",
+    "time": "16:01",
+    "temp": "26",
     "desc_raw": "broken clouds",
     "desc_i18n": {
       "uk": "Хмарно",
@@ -486,29 +467,29 @@
       "no": "Delvis skyet"
     },
     "minmax_i18n": {
-      "uk": "Макс.:23°, мін.:19°",
-      "ru": "Макс.:23°, мин.:19°",
-      "en": "Max: 23°, min: 19°",
-      "no": "Maks: 23°, min: 19°"
+      "uk": "Макс.:26°, мін.:23°",
+      "ru": "Макс.:26°, мин.:23°",
+      "en": "Max: 26°, min: 23°",
+      "no": "Maks: 26°, min: 23°"
     },
     "icon": "04d",
     "is_current": false,
-    "sunset": "21:11",
-    "sunrise": "04:45",
+    "sunset": "21:13",
+    "sunrise": "04:47",
     "today_hours": [
       {
         "time": "18:00",
         "icon": "04d",
-        "temp": 23,
-        "pop": 1,
+        "temp": 26,
+        "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
         "is_current": false
       },
       {
         "time": "21:00",
-        "icon": "03d",
-        "temp": 19,
+        "icon": "04d",
+        "temp": 23,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -516,24 +497,24 @@
       },
       {
         "time": "00:00",
-        "icon": "10n",
-        "temp": 14,
-        "pop": 20,
-        "is_sunset": false,
-        "is_sunrise": false,
-        "is_current": false
-      },
-      {
-        "time": "03:00",
-        "icon": "03n",
-        "temp": 12,
+        "icon": "04n",
+        "temp": 19,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
         "is_current": false
       },
       {
-        "time": "04:45",
+        "time": "03:00",
+        "icon": "04n",
+        "temp": 21,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "04:47",
         "icon": "sunrise",
         "temp": null,
         "pop": 0,
@@ -544,7 +525,7 @@
       {
         "time": "06:00",
         "icon": "04d",
-        "temp": 12,
+        "temp": 20,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -553,15 +534,6 @@
       {
         "time": "09:00",
         "icon": "04d",
-        "temp": 20,
-        "pop": 0,
-        "is_sunset": false,
-        "is_sunrise": false,
-        "is_current": false
-      },
-      {
-        "time": "12:00",
-        "icon": "04d",
         "temp": 23,
         "pop": 0,
         "is_sunset": false,
@@ -569,9 +541,18 @@
         "is_current": false
       },
       {
+        "time": "12:00",
+        "icon": "01d",
+        "temp": 22,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
         "time": "15:00",
-        "icon": "04d",
-        "temp": 26,
+        "icon": "03d",
+        "temp": 23,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -580,7 +561,7 @@
       {
         "time": "18:00",
         "icon": "04d",
-        "temp": 22,
+        "temp": 23,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -589,7 +570,7 @@
       {
         "time": "21:00",
         "icon": "04d",
-        "temp": 18,
+        "temp": 21,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -597,8 +578,8 @@
       },
       {
         "time": "00:00",
-        "icon": "04n",
-        "temp": 15,
+        "icon": "01n",
+        "temp": 18,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
@@ -606,15 +587,15 @@
       },
       {
         "time": "03:00",
-        "icon": "04n",
-        "temp": 15,
+        "icon": "01n",
+        "temp": 18,
         "pop": 0,
         "is_sunset": false,
         "is_sunrise": false,
         "is_current": false
       },
       {
-        "time": "21:11",
+        "time": "21:13",
         "icon": "sunset",
         "temp": null,
         "pop": 0,
@@ -627,73 +608,306 @@
       {
         "time": "18:00",
         "icon": "04d",
-        "temp": 23,
-        "pop": 1
+        "temp": 26,
+        "pop": 0
       },
       {
         "time": "21:00",
-        "icon": "03d",
+        "icon": "04d",
+        "temp": 23,
+        "pop": 0
+      },
+      {
+        "time": "00:00",
+        "icon": "04n",
         "temp": 19,
+        "pop": 0
+      },
+      {
+        "time": "03:00",
+        "icon": "04n",
+        "temp": 21,
+        "pop": 0
+      },
+      {
+        "time": "06:00",
+        "icon": "04d",
+        "temp": 20,
+        "pop": 0
+      },
+      {
+        "time": "09:00",
+        "icon": "04d",
+        "temp": 23,
+        "pop": 0
+      },
+      {
+        "time": "12:00",
+        "icon": "01d",
+        "temp": 22,
+        "pop": 0
+      },
+      {
+        "time": "15:00",
+        "icon": "03d",
+        "temp": 23,
+        "pop": 0
+      },
+      {
+        "time": "18:00",
+        "icon": "04d",
+        "temp": 23,
+        "pop": 0
+      },
+      {
+        "time": "21:00",
+        "icon": "04d",
+        "temp": 21,
+        "pop": 0
+      },
+      {
+        "time": "00:00",
+        "icon": "01n",
+        "temp": 18,
+        "pop": 0
+      },
+      {
+        "time": "03:00",
+        "icon": "01n",
+        "temp": 18,
+        "pop": 0
+      }
+    ]
+  },
+  "moscow": {
+    "cached_at": 1782306119.56583,
+    "city_en": "Moscow",
+    "city_names": {
+      "uk": "Москва",
+      "ru": "Москва",
+      "en": "Moscow",
+      "no": "Moscow"
+    },
+    "lat": 55.7522,
+    "lon": 37.6156,
+    "time": "16:01",
+    "temp": "24",
+    "desc_raw": "scattered clouds",
+    "desc_i18n": {
+      "uk": "Мінлива хмарність",
+      "ru": "Переменная облачность",
+      "en": "Scattered clouds",
+      "no": "Spredte skyer"
+    },
+    "minmax_i18n": {
+      "uk": "Макс.:24°, мін.:23°",
+      "ru": "Макс.:24°, мин.:23°",
+      "en": "Max: 24°, min: 23°",
+      "no": "Maks: 24°, min: 23°"
+    },
+    "icon": "03d",
+    "is_current": false,
+    "sunset": "21:18",
+    "sunrise": "03:45",
+    "today_hours": [
+      {
+        "time": "18:00",
+        "icon": "03d",
+        "temp": 24,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "21:00",
+        "icon": "04d",
+        "temp": 23,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "00:00",
+        "icon": "10n",
+        "temp": 14,
+        "pop": 100,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "03:00",
+        "icon": "10n",
+        "temp": 13,
+        "pop": 100,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "03:45",
+        "icon": "sunrise",
+        "temp": null,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": true,
+        "is_current": false
+      },
+      {
+        "time": "06:00",
+        "icon": "10d",
+        "temp": 13,
+        "pop": 100,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "09:00",
+        "icon": "04d",
+        "temp": 15,
+        "pop": 71,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "12:00",
+        "icon": "04d",
+        "temp": 17,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "15:00",
+        "icon": "10d",
+        "temp": 19,
+        "pop": 100,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "18:00",
+        "icon": "10d",
+        "temp": 20,
+        "pop": 100,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "21:00",
+        "icon": "10d",
+        "temp": 18,
+        "pop": 100,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "00:00",
+        "icon": "01n",
+        "temp": 14,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "03:00",
+        "icon": "01n",
+        "temp": 11,
+        "pop": 0,
+        "is_sunset": false,
+        "is_sunrise": false,
+        "is_current": false
+      },
+      {
+        "time": "21:18",
+        "icon": "sunset",
+        "temp": null,
+        "pop": 0,
+        "is_sunset": true,
+        "is_sunrise": false,
+        "is_current": false
+      }
+    ],
+    "next_12h": [
+      {
+        "time": "18:00",
+        "icon": "03d",
+        "temp": 24,
+        "pop": 0
+      },
+      {
+        "time": "21:00",
+        "icon": "04d",
+        "temp": 23,
         "pop": 0
       },
       {
         "time": "00:00",
         "icon": "10n",
         "temp": 14,
-        "pop": 20
+        "pop": 100
       },
       {
         "time": "03:00",
-        "icon": "03n",
-        "temp": 12,
-        "pop": 0
+        "icon": "10n",
+        "temp": 13,
+        "pop": 100
       },
       {
         "time": "06:00",
-        "icon": "04d",
-        "temp": 12,
-        "pop": 0
+        "icon": "10d",
+        "temp": 13,
+        "pop": 100
       },
       {
         "time": "09:00",
         "icon": "04d",
-        "temp": 20,
-        "pop": 0
+        "temp": 15,
+        "pop": 71
       },
       {
         "time": "12:00",
         "icon": "04d",
-        "temp": 23,
+        "temp": 17,
         "pop": 0
       },
       {
         "time": "15:00",
-        "icon": "04d",
-        "temp": 26,
-        "pop": 0
+        "icon": "10d",
+        "temp": 19,
+        "pop": 100
       },
       {
         "time": "18:00",
-        "icon": "04d",
-        "temp": 22,
-        "pop": 0
+        "icon": "10d",
+        "temp": 20,
+        "pop": 100
       },
       {
         "time": "21:00",
-        "icon": "04d",
+        "icon": "10d",
         "temp": 18,
-        "pop": 0
+        "pop": 100
       },
       {
         "time": "00:00",
-        "icon": "04n",
-        "temp": 15,
+        "icon": "01n",
+        "temp": 14,
         "pop": 0
       },
       {
         "time": "03:00",
-        "icon": "04n",
-        "temp": 15,
+        "icon": "01n",
+        "temp": 11,
         "pop": 0
       }
     ]

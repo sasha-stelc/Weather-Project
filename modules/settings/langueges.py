@@ -126,6 +126,20 @@ class LanguageManager:
             "WEATHER_ASH": "Попіл",
             "WEATHER_SQUALL": "Шквал",
             "WEATHER_TORNADO": "Торнадо",
+            "ADD_PRESET_TITLE": "Новий пресет",
+            "PRESET_NAME_LABEL": "Назва папки пресету",
+            "PRESET_NAME_PLACEHOLDER": "наприклад my_theme",
+            "PRESET_NAME_EMPTY": "Введіть назву папки.",
+            "PRESET_NAME_INVALID": "Некоректна назва.",
+            "PRESET_NAME_TAKEN": "Такий пресет вже існує.",
+            "PRESET_CREATE_FAILED": "Не вдалося створити папку.",
+
+            "ICON_EDITOR_HINT": "Натисніть на іконку, щоб замінити її зображенням.",
+            "NO_ICONS_FOUND": "У цьому пресеті ще немає іконок.",
+            "CHOOSE_IMAGE_TITLE": "Виберіть зображення",
+            "ERROR_TITLE": "Помилка",
+            "ICON_INVALID_IMAGE": "Файл не вдалося прочитати як зображення.",
+            "ICON_COPY_FAILED": "Не вдалося зберегти зображення.",
         },
         
         "ru": {  # Русский
@@ -203,6 +217,21 @@ class LanguageManager:
             
             # card/twelve_hour_graph_frame.py
             "TITLE_12H_FORECAST": "Прогноз на 12 часов",
+
+            "ADD_PRESET_TITLE": "Новый пресет",
+            "PRESET_NAME_LABEL": "Название папки пресета",
+            "PRESET_NAME_PLACEHOLDER": "например my_theme",
+            "PRESET_NAME_EMPTY": "Введите название папки.",
+            "PRESET_NAME_INVALID": "Некорректное название.",
+            "PRESET_NAME_TAKEN": "Такой пресет уже существует.",
+            "PRESET_CREATE_FAILED": "Не удалось создать папку.",
+
+            "ICON_EDITOR_HINT": "Нажмите на иконку, чтобы заменить её изображением.",
+            "NO_ICONS_FOUND": "В этом пресете ещё нет иконок.",
+            "CHOOSE_IMAGE_TITLE": "Выберите изображение",
+            "ERROR_TITLE": "Ошибка",
+            "ICON_INVALID_IMAGE": "Файл не удалось прочитать как изображение.",
+            "ICON_COPY_FAILED": "Не удалось сохранить изображение.",
             # weather api
             "WEATHER_CLEAR_SKY": "Ясно",
             "WEATHER_FEW_CLOUDS": "Малооблачно",
@@ -314,7 +343,22 @@ class LanguageManager:
             
             # card/twelve_hour_graph_frame.py
             "TITLE_12H_FORECAST": "12 Hour Forecast",
+            "ADD_PRESET_TITLE": "New preset",
+            "PRESET_NAME_LABEL": "Preset folder name",
+            "PRESET_NAME_PLACEHOLDER": "e.g. my_theme",
+            "PRESET_NAME_EMPTY": "Enter a folder name.",
+            "PRESET_NAME_INVALID": "Invalid folder name.",
+            "PRESET_NAME_TAKEN": "A preset with that name already exists.",
+            "PRESET_CREATE_FAILED": "Failed to create folder.",
+
+            "ICON_EDITOR_HINT": "Click an icon to replace it with your own image.",
+            "NO_ICONS_FOUND": "No icons found in this preset yet.",
+            "CHOOSE_IMAGE_TITLE": "Choose an image",
+            "ERROR_TITLE": "Error",
+            "ICON_INVALID_IMAGE": "That file couldn't be read as an image.",
+            "ICON_COPY_FAILED": "Couldn't save that image.",
             # weather api
+
             "WEATHER_CLEAR_SKY": "Clear sky",
             "WEATHER_FEW_CLOUDS": "Few clouds",
             "WEATHER_SCATTERED_CLOUDS": "Scattered clouds",
@@ -423,6 +467,23 @@ class LanguageManager:
             
             # card/twelve_hour_graph_frame.py
             "TITLE_12H_FORECAST": "12-timers varsel",
+            # image lists
+          
+            "ADD_PRESET_TITLE": "Ny forhåndsinnstilling",
+            "PRESET_NAME_LABEL": "Mappenavn for forhåndsinnstilling",
+            "PRESET_NAME_PLACEHOLDER": "f.eks. my_theme",
+            "PRESET_NAME_EMPTY": "Skriv inn et mappenavn.",
+            "PRESET_NAME_INVALID": "Ugyldig mappenavn.",
+            "PRESET_NAME_TAKEN": "En slik forhåndsinnstilling finnes allerede.",
+            "PRESET_CREATE_FAILED": "Kunne ikke opprette mappe.",
+
+            "ICON_EDITOR_HINT": "Klikk på et ikon for å erstatte det med et eget bilde.",
+            "NO_ICONS_FOUND": "Ingen ikoner funnet i denne forhåndsinnstillingen.",
+            "CHOOSE_IMAGE_TITLE": "Velg bilde",
+            "ERROR_TITLE": "Feil",
+            "ICON_INVALID_IMAGE": "Filen kunne ikke leses som et bilde.",
+            "ICON_COPY_FAILED": "Kunne ikke lagre bildet.",
+
             # weather api
             "WEATHER_CLEAR_SKY": "Klart vær",
             "WEATHER_FEW_CLOUDS": "Lettskyet",

@@ -126,7 +126,6 @@ class HourlyForecastFrame(widget.QFrame):
                 )
                 i_lbl.setPixmap(pix)
             i_lbl.setAlignment(core.Qt.AlignmentFlag.AlignCenter)
-            i_lbl.setStyleSheet(styles.TRANSPARENT_BG)
 
             # Определение нижнего текстового поля ячейки: температура или текстовый флаг события солнца
             if item.get("is_sunset"):

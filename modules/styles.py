@@ -101,6 +101,7 @@ RIGHT_PANEL = """
 # Общие вспомогательные стили
 TRANSPARENT_BG = "background-color: transparent;"
 TRANSPARENT_NO_BORDER = "background: transparent; border: none;"
+WEATHER_ICON_BG = "background-color: white; border-radius: 8px; padding: 4px;"
 LIGHT_THEME_CENTRAL = "background: rgba(255, 255, 200, 1);"
 LIGHT_THEME_RIGHT_PANEL = "QFrame { background: rgba(255, 223, 86, 0.3); border: none; }"
 
